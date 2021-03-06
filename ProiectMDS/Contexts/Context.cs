@@ -33,7 +33,7 @@ namespace ProiectMDS.Contexts
 
         public Context()
         {
-
+            //construiesc
         }
 
         public Context(DbContextOptions<Context> options) : base(options)
