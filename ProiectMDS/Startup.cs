@@ -9,6 +9,23 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using ProiectMDS.Contexts;
+using ProiectMDS.Repositories.VacantaRepository;
+using ProiectMDS.Repositories.CazareRepository;
+using ProiectMDS.Repositories.FotografieRepository;
+using ProiectMDS.Repositories.PachetRepository;
+using ProiectMDS.Repositories.RezervareCazareRepository;
+using ProiectMDS.Repositories.RezervareRepository;
+using ProiectMDS.Repositories.UtilizatorRepository;
+using ProiectMDS.Repositories.FacilitateRepository;
+using ProiectMDS.Repositories.TichetMasaRepository;
+using ProiectMDS.Repositories.RestaurantRepository;
+using ProiectMDS.Repositories.MeniuRepository;
+using ProiectMDS.Repositories.MancareRepository;
+using ProiectMDS.Repositories.BiletRepository;
+using ProiectMDS.Repositories.AtractieRepository;
+
 
 namespace ProiectMDS
 {
@@ -24,15 +41,25 @@ namespace ProiectMDS
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
-
-
+            services.AddCors();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddTransient<ICazareRepository, CazareRepository>();
+            services.AddTransient<IFotografieRepository, FotografieRepository>();
+            services.AddTransient<IPachetRepository, PachetRepository>();
+            services.AddTransient<IRezervareCazareRepository, RezervareCazareRepository>();
+            services.AddTransient<IRezervareRepository, RezervareRepository>();
+            services.AddTransient<IUtilizatorRepository, UtilizatorRepository>();
+            services.AddTransient<IVacantaRepository, VacantaRepository>();
+            services.AddTransient<IFacilitateRepository, FacilitateRepository>();
+            services.AddTransient<ITichetMasaRepository, TichetMasaRepository>();
+            services.AddTransient<IRestaurantRepository, RestaurantRepository>();
+            services.AddTransient<IMeniuRepository, MeniuRepository>();
+            services.AddTransient<IMancareRepository, MancareRepository>();
+            services.AddTransient<IBiletRepository, BiletRepository>();
+            services.AddTransient<IAtractieRepository, AtractieRepository>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,15 +71,17 @@ namespace ProiectMDS
             }
             else
             {
-                app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
-            app.UseCookiePolicy();
-
+            app.UseCors(builder => builder
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+.    AllowCredentials());
             app.UseMvc();
+
         }
     }
 }
