@@ -7,7 +7,7 @@ namespace ProiectMDS.DTOs
 {
     public class PachetDetailsDTO
     {
-        public string CazareNume { get; set; }
+        public List<string> CazareNume { get; set; }
         public List<string> FacilitateDenumire { get; set; }
     }
 }

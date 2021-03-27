@@ -3,6 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ProiectMDS.Models;
+using ProiectMDS.DTOs;
+using ProiectMDS.Repositories.CazareRepository;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,36 +15,94 @@ namespace ProiectMDS.Controllers
     [ApiController]
     public class CazareController : ControllerBase
     {
+        public ICazareRepository ICazareRepository { get; set; }
+        public CazareController(ICazareRepository repository)
+        {
+            ICazareRepository = repository;
+        }
+
         // GET: api/<CazareController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public ActionResult<IEnumerable<Cazare>> Get()
         {
-            return new string[] { "value1", "value2" };
+            return ICazareRepository.GetAll();
         }
 
         // GET api/<CazareController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public ActionResult<Cazare> Get(int id)
         {
-            return "value";
+            return ICazareRepository.Get(id);
         }
 
         // POST api/<CazareController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public Cazare Post(CazareDTO value)
         {
+            Cazare model = new Cazare()
+            {
+                Nume = value.Nume,
+                TipCazare = value.TipCazare,
+                DataSosire = value.DataSosire,
+                DataPlecare = value.DataPlecare,
+                Pret = value.Pret,
+                Oras = value.Oras,
+                Adresa = value.Adresa
+            };
+            return ICazareRepository.Create(model);
         }
 
         // PUT api/<CazareController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public Cazare Put(int id, CazareDTO value)
         {
+            Cazare model = ICazareRepository.Get(id);
+            DateTime? dt = null;
+
+            if (value.Nume != null)
+            {
+                model.Nume = value.Nume;
+            }
+
+            if (value.TipCazare != null)
+            {
+                model.TipCazare = value.TipCazare;
+            }
+
+            if (value.DataSosire != dt)
+            {
+                model.DataSosire = value.DataSosire;
+            }
+
+            if (value.DataPlecare != dt)
+            {
+                model.DataPlecare = value.DataPlecare;
+            }
+
+            if (value.Pret != 0)
+            {
+                model.Pret = value.Pret;
+            }
+
+            if (value.Oras != null)
+            {
+                model.Oras = value.Oras;
+            }
+
+            if (value.Adresa != null)
+            {
+                model.Adresa = value.Adresa;
+            }
+
+            return ICazareRepository.Update(model);
         }
 
         // DELETE api/<CazareController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public Cazare Delete(int id)
         {
+            Cazare cazare = ICazareRepository.Get(id);
+            return ICazareRepository.Delete(cazare);
         }
     }
 }

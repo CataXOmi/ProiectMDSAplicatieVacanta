@@ -9,6 +9,6 @@ namespace ProiectMDS.DTOs
     {
         public string Titlu { get; set; }
         public DateTime Data { get; set; }
-        public int UtilizatorID { get; set; }
+        public List<int> UtilizatorID { get; set; }
     }
 }

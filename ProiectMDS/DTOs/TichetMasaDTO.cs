@@ -7,8 +7,8 @@ namespace ProiectMDS.DTOs
 {
     public class TichetMasaDTO
     {
-        public int VacantaID { get; set; }
+        public List<int> VacantaID { get; set; }
         public List<int> RestaurantID { get; set; }
-        public List<string> CodTichet { get; set; }
+        public string CodTichet { get; set; }
     }
 }
