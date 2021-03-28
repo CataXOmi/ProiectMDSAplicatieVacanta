@@ -9,7 +9,7 @@ using ProiectMDS.Repositories.BiletRepository;
 using ProiectMDS.Repositories.VacantaRepository;
 using ProiectMDS.Repositories.AtractieRepository;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+
 
 namespace ProiectMDS.Controllers
 {

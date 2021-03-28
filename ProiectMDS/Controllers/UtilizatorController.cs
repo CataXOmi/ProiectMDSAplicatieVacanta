@@ -3,8 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ProiectMDS.Models;
+using ProiectMDS.DTOs;
+using ProiectMDS.Repositories.UtilizatorRepository;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace ProiectMDS.Controllers
 {
@@ -12,36 +14,82 @@ namespace ProiectMDS.Controllers
     [ApiController]
     public class UtilizatorController : ControllerBase
     {
+        public IUtilizatorRepository IUtilizatorRepository { get; set; }
+
+        public UtilizatorController(IUtilizatorRepository repository)
+        {
+            IUtilizatorRepository = repository;
+        }
+        
         // GET: api/<UtilizatorController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public ActionResult<IEnumerable<Utilizator>> Get()
         {
-            return new string[] { "value1", "value2" };
+            return IUtilizatorRepository.GetAll();
         }
 
         // GET api/<UtilizatorController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public ActionResult<Utilizator> Get(int id)
         {
-            return "value";
+            return IUtilizatorRepository.Get(id);
         }
 
         // POST api/<UtilizatorController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public Utilizator Post(UtilizatorDTO value)
         {
+            Utilizator model = new Utilizator()
+            {
+                Username = value.Username,
+                Nume = value.Nume,
+                Prenume = value.Prenume,
+                Email = value.Email,
+                Telefon = value.Telefon
+            };
+            return IUtilizatorRepository.Create(model);
         }
 
         // PUT api/<UtilizatorController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public Utilizator Put(int id, UtilizatorDTO value)
         {
+            Utilizator model = IUtilizatorRepository.Get(id);
+
+            if (value.Username != null)
+            {
+                model.Username = value.Username;
+            }
+
+            if (value.Nume != null)
+            {
+                model.Nume = value.Nume;
+            }
+
+            if (value.Prenume != null)
+            {
+                model.Prenume = value.Prenume;
+            }
+
+            if (value.Email != null)
+            {
+                model.Email = value.Email;
+            }
+
+            if (value.Telefon != null)
+            {
+                model.Telefon = value.Telefon;
+            }
+
+            return IUtilizatorRepository.Update(model);
         }
 
         // DELETE api/<UtilizatorController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public Utilizator Delete(int id)
         {
+            Utilizator utilizator = IUtilizatorRepository.Get(id);
+            return IUtilizatorRepository.Delete(utilizator);
         }
     }
 }
