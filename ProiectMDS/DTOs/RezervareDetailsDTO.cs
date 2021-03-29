@@ -8,8 +8,8 @@ namespace ProiectMDS.DTOs
 {
     public class RezervareDetailsDTO
     {
-        public string UtilizatorUsername { get; set; }
-        public string VacantaDenumire { get; set; }
+        public List<string> UtilizatorUsername { get; set; }
+        public List<string> VacantaDenumire { get; set; }
         [Column(TypeName = "Date")]
         public DateTime DataRezervare { get; set; }
         public string Review { get; set; }

@@ -22,6 +22,6 @@ namespace ProiectMDS.Models
         [Column(TypeName="Date")]
         public DateTime DataNasterii { get; set; }
         public List<Rezervare> Rezervare { get; set; }
-        
+        public List<Fotografie> Fotografie { get; set; }
     }
 }

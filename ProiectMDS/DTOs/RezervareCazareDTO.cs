@@ -7,8 +7,8 @@ namespace ProiectMDS.DTOs
 {
     public class RezervareCazareDTO
     {
-        public int VacantaID { get; set; }
-        public int CazareID { get; set; }
+        public List<int> VacantaID { get; set; }
+        public List<int> CazareID { get; set; }
         public string CodRezervare { get; set; }
     }
 }
