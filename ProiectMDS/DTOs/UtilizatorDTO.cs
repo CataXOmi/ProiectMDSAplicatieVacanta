@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
+
 
 namespace ProiectMDS.DTOs
 {
@@ -12,6 +14,8 @@ namespace ProiectMDS.DTOs
         public string Prenume { get; set; }
         public string Email { get; set; }
         public string Telefon { get; set; }
+        [Column(TypeName = "Date")]
+        public DateTime DataNasterii { get; set; }
 
     }
 }

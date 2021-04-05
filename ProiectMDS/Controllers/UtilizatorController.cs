@@ -45,7 +45,8 @@ namespace ProiectMDS.Controllers
                 Nume = value.Nume,
                 Prenume = value.Prenume,
                 Email = value.Email,
-                Telefon = value.Telefon
+                Telefon = value.Telefon,
+                DataNasterii = value.DataNasterii
             };
             return IUtilizatorRepository.Create(model);
         }
@@ -55,6 +56,7 @@ namespace ProiectMDS.Controllers
         public Utilizator Put(int id, UtilizatorDTO value)
         {
             Utilizator model = IUtilizatorRepository.Get(id);
+            DateTime? dt = null;
 
             if (value.Username != null)
             {
@@ -79,6 +81,11 @@ namespace ProiectMDS.Controllers
             if (value.Telefon != null)
             {
                 model.Telefon = value.Telefon;
+            }
+
+            if (value.DataNasterii != dt)
+            {
+                model.DataNasterii = value.DataNasterii;
             }
 
             return IUtilizatorRepository.Update(model);
