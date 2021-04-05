@@ -79,42 +79,23 @@ namespace ProiectMDS.Controllers
 
         // POST api/<RezervareController>
         [HttpPost]
-        public void Post(RezervareDTO value)
+        public Rezervare Post(RezervareDTO value)
         {
             Rezervare model = new Rezervare()
             {
                 DataRezervare = value.DataRezervare,
                 Rating = value.Rating,
-                Review = value.Review
+                Review = value.Review,
+                UtilizatorID = value.UtilizatorID,
+                VacantaID = value.VacantaID
             };
-            IRezervareRepository.Create(model);
+            return IRezervareRepository.Create(model);
 
-            for (int i = 0; i < value.VacantaID.Count; i++)
-            {
-                Rezervare RezervareVacanta = new Rezervare()
-                {
-                    ID = model.ID,
-                    VacantaID = value.VacantaID[i]
-                };
-
-                IRezervareRepository.Create(RezervareVacanta);
-            }
-
-            for (int i = 0; i < value.UtilizatorID.Count; i++)
-            {
-                Rezervare RezervareUtilizator = new Rezervare()
-                {
-                    ID = model.ID,
-                    UtilizatorID = value.UtilizatorID[i]
-                };
-
-                IRezervareRepository.Create(RezervareUtilizator);
-            }
         }
 
         // PUT api/<RezervareController>/5
         [HttpPut("{id}")]
-        public void Put(int id, RezervareDTO value)
+        public Rezervare Put(int id, RezervareDTO value)
         {
             Rezervare model = IRezervareRepository.Get(id);
             if (value.DataRezervare != null)
@@ -132,39 +113,16 @@ namespace ProiectMDS.Controllers
                 model.Review = value.Review;
             }
 
-            IRezervareRepository.Update(model);
-
             if (value.VacantaID != null)
             {
-                IEnumerable<Rezervare> myRezervariVacanta = IRezervareRepository.GetAll().Where(x => x.VacantaID == id);
-                foreach (Rezervare myRezervareVacanta in myRezervariVacanta)
-                    IRezervareRepository.Delete(myRezervareVacanta);
-                for (int i = 0; i < value.VacantaID.Count; i++)
-                {
-                    Rezervare RezervareVacanta = new Rezervare()
-                    {
-                        ID = model.ID,
-                        VacantaID = value.VacantaID[i]
-                    };
-                    IRezervareRepository.Create(RezervareVacanta);
-                }
+                model.VacantaID = value.VacantaID;
             }
 
             if (value.UtilizatorID != null)
             {
-                IEnumerable<Rezervare> myRezervariUtilizator = IRezervareRepository.GetAll().Where(x => x.UtilizatorID == id);
-                foreach (Rezervare myRezervareUtilizator in myRezervariUtilizator)
-                    IRezervareRepository.Delete(myRezervareUtilizator);
-                for (int i = 0; i < value.UtilizatorID.Count; i++)
-                {
-                    Rezervare RezervareUtilizator = new Rezervare()
-                    {
-                        ID = model.ID,
-                        UtilizatorID = value.UtilizatorID[i]
-                    };
-                    IRezervareRepository.Create(RezervareUtilizator);
-                }
+                model.UtilizatorID = value.UtilizatorID;
             }
+            return IRezervareRepository.Update(model);
         }
 
         // DELETE api/<RezervareController>/5

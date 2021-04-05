@@ -9,8 +9,8 @@ namespace ProiectMDS.DTOs
 {
     public class RezervareDTO
     {
-        public List<int> UtilizatorID { get; set; }
-        public List<int> VacantaID { get; set; }
+        public int UtilizatorID { get; set; }
+        public int VacantaID { get; set; }
         [Column(TypeName = "Date")]
         public DateTime DataRezervare { get; set; }
         public string Review { get; set; }
