@@ -35,27 +35,17 @@ namespace ProiectMDS.Controllers
         public FotografieDetailsDTO Get(int id)
         {
             Fotografie Fotografie = IFotografieRepository.Get(id);
-            Utilizator Utilizator = IUtilizatorRepository.Get(id);
-
-            FotografieDetailsDTO MyFotografieDTO = new FotografieDetailsDTO()
+            Utilizator Utilizator = IUtilizatorRepository.Get(Fotografie.UtilizatorID);
+            FotografieDetailsDTO Foto = new FotografieDetailsDTO();
+            
+            if (Fotografie != null)
             {
-                Titlu = Fotografie.Titlu,
-                Data = Fotografie.Data
-            };
-
-            IEnumerable<Fotografie> MyFotografiiUtilizator = IFotografieRepository.GetAll().Where(x => x.UtilizatorID == Utilizator.ID);
-            if (MyFotografiiUtilizator != null)
-            {
-                List<string> UtilizatorUsernameList = new List<string>();
-                foreach (Fotografie MyFotografieUtilizator in MyFotografiiUtilizator)
-                {
-                    Utilizator MyUtilizator= IUtilizatorRepository.GetAll().SingleOrDefault(x => x.ID == MyFotografieUtilizator.UtilizatorID);
-                    UtilizatorUsernameList.Add(MyUtilizator.Username);
-                }
-                MyFotografieDTO.UtilizatorUsername = UtilizatorUsernameList;
+                Foto.Titlu = Fotografie.Titlu;
+                Foto.Data = Fotografie.Data;
+                Foto.UtilizatorUsername = Utilizator.Username;
             }
 
-            return MyFotografieDTO;
+            return Foto;
         }
 
         // POST api/<FotografieController>
