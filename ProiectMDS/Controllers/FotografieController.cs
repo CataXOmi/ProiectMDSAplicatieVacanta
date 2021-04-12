@@ -60,31 +60,22 @@ namespace ProiectMDS.Controllers
 
         // POST api/<FotografieController>
         [HttpPost]
-        public void Post(FotografieDTO value)
+        public Fotografie Post(FotografieDTO value)
         {
             Fotografie model = new Fotografie()
             {
                 Titlu = value.Titlu,
-                Data = value.Data
+                Data = value.Data,
+                UtilizatorID = value.UtilizatorID
             };
 
-            IFotografieRepository.Create(model);
-            for (int i = 0; i < value.UtilizatorID.Count; i++)
-            {
-                Fotografie FotografieUtilizator = new Fotografie()
-                {
-                    ID = model.ID,
-                    UtilizatorID = value.UtilizatorID[i]
-                };
-
-                IFotografieRepository.Create(FotografieUtilizator);
-            }
+            return IFotografieRepository.Create(model);
 
         }
 
         // PUT api/<FotografieController>/5
         [HttpPut("{id}")]
-        public void Put(int id, FotografieDTO value)
+        public Fotografie Put(int id, FotografieDTO value)
         {
             Fotografie model = IFotografieRepository.Get(id);
             DateTime? dt = null;
@@ -98,23 +89,12 @@ namespace ProiectMDS.Controllers
                 model.Data = value.Data;
             }
 
-            IFotografieRepository.Update(model);
-
-            if (value.UtilizatorID != null)
+            if (value.UtilizatorID != 0)
             {
-                IEnumerable<Fotografie> MyFotografiiUtilizator = IFotografieRepository.GetAll().Where(x => x.UtilizatorID == id);
-                foreach (Fotografie MyFotografieUtilizator in MyFotografiiUtilizator)
-                    IFotografieRepository.Delete(MyFotografieUtilizator);
-                for (int i = 0; i < value.UtilizatorID.Count; i++)
-                {
-                    Fotografie FotografieUtilizator = new Fotografie()
-                    {
-                        ID = model.ID,
-                        UtilizatorID = value.UtilizatorID[i]
-                    };
-                    IFotografieRepository.Create(FotografieUtilizator);
-                }
+                model.UtilizatorID = value.UtilizatorID;
             }
+
+            return IFotografieRepository.Update(model);
 
         }
 
