@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using ProiectMDS.Models;
 using ProiectMDS.DTOs;
 using ProiectMDS.Repositories.UtilizatorRepository;
+using ProiectMDS.Repositories.FotografieRepository;
+using ProiectMDS.Repositories.RezervareRepository;
 
 
 namespace ProiectMDS.Controllers
@@ -15,10 +17,14 @@ namespace ProiectMDS.Controllers
     public class UtilizatorController : ControllerBase
     {
         public IUtilizatorRepository IUtilizatorRepository { get; set; }
+        public IFotografieRepository IFotografieRepository { get; set; }
+        public IRezervareRepository IRezervareRepository { get; set; }
 
-        public UtilizatorController(IUtilizatorRepository repository)
+        public UtilizatorController(IUtilizatorRepository repository, IFotografieRepository fotografieRepository, IRezervareRepository rezervareRepository)
         {
             IUtilizatorRepository = repository;
+            IFotografieRepository = fotografieRepository;
+            IRezervareRepository = rezervareRepository;
         }
         
         // GET: api/<UtilizatorController>
@@ -30,9 +36,43 @@ namespace ProiectMDS.Controllers
 
         // GET api/<UtilizatorController>/5
         [HttpGet("{id}")]
-        public ActionResult<Utilizator> Get(int id)
+        public UtilizatorDTO Get(int id)
         {
-            return IUtilizatorRepository.Get(id);
+            Utilizator utilizator = IUtilizatorRepository.Get(id);
+            UtilizatorDTO myUtilizator = new UtilizatorDTO()
+            {
+                Username = utilizator.Username,
+                Nume = utilizator.Nume,
+                Prenume = utilizator.Prenume,
+                Email = utilizator.Email,
+                Telefon = utilizator.Telefon,
+                DataNasterii = utilizator.DataNasterii
+            };
+
+            IEnumerable<Fotografie> myFotografii = IFotografieRepository.GetAll().Where(x => x.UtilizatorID == utilizator.ID);
+            if (myFotografii != null)
+            {
+                List<int> ListaFotografii = new List<int>();
+                foreach (Fotografie myFotografie in myFotografii)
+                {
+                    ListaFotografii.Add(myFotografie.ID);
+                }
+                myUtilizator.FotografieID = ListaFotografii;
+            }
+
+            IEnumerable<Rezervare> myRezervari = IRezervareRepository.GetAll().Where(x => x.UtilizatorID == utilizator.ID);
+            if (myRezervari != null)
+            {
+                List<int> ListaRezervari = new List<int>();
+                foreach (Rezervare rez in myRezervari)
+                {
+                    ListaRezervari.Add(rez.ID);
+                }
+                myUtilizator.RezervareID = ListaRezervari;
+            }
+
+            return myUtilizator;
+
         }
 
         // POST api/<UtilizatorController>
