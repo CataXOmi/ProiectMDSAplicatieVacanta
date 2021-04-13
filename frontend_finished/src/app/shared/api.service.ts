@@ -3,6 +3,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Artist } from './artist.model';
 import { Song } from './song.model';
 import { Album } from './album.model';
+import { Fotografie } from './fotografie.model';
+import { Utilizator } from './utilizator.model';
+import { Vacanta } from './vacanta.model';
+import { Cazare } from './cazare.model';
+import { Facilitate } from './facilitate.model';
+import { Atractie } from './atractie.model';
+import { Restaurant } from './restaurant.model';
+import { Mancare } from './mancare.model';
+
 
 
 @Injectable({
@@ -37,6 +46,10 @@ export class ApiService {
     }, { headers: this.header });
 
 
+  }
+
+  addUtilizator(utilizator) {
+    
   }
 
   getAlbum(id: number) {

@@ -32,7 +32,7 @@ namespace ProiectMDS.Controllers
 
         // GET api/<VacantaController>/5
         [HttpGet("{id}")]
-        public VacantaDetailsDTO Get(int id)
+        public ActionResult<Vacanta> Get(int id)
         {
             
             return IVacantaRepository.Get(id);

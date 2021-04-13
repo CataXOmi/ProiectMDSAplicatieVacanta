@@ -11,6 +11,7 @@ namespace ProiectMDS.Models
         public int VacantaID { get; set; }
         public int AtractieID { get; set; }
         public string CodBilet { get; set; }
+        public DateTime DataVizita { get; set; }
         public virtual Vacanta Vacanta { get; set; }
         public virtual Atractie Atractie { get; set; }
     }

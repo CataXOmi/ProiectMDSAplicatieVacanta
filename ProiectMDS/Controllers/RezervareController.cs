@@ -8,6 +8,12 @@ using ProiectMDS.DTOs;
 using ProiectMDS.Repositories.UtilizatorRepository;
 using ProiectMDS.Repositories.VacantaRepository;
 using ProiectMDS.Repositories.RezervareRepository;
+using ProiectMDS.Repositories.RezervareCazareRepository;
+using ProiectMDS.Repositories.CazareRepository;
+using ProiectMDS.Repositories.TichetMasaRepository;
+using ProiectMDS.Repositories.RestaurantRepository;
+using ProiectMDS.Repositories.BiletRepository;
+using ProiectMDS.Repositories.AtractieRepository;
 
 
 
@@ -20,12 +26,27 @@ namespace ProiectMDS.Controllers
         public IRezervareRepository IRezervareRepository { get; set; }
         public IVacantaRepository IVacantaRepository { get; set; }
         public IUtilizatorRepository IUtilizatorRepository { get; set; }
+        public IRezervareCazareRepository IRezervareCazareRepository { get; set; }
+        public ICazareRepository ICazareRepository { get; set; }
+        public ITichetMasaRepository ITichetMasaRepository { get; set; }
+        public IRestaurantRepository IRestaurantRepository { get; set; }
+        public IBiletRepository IBiletRepository { get; set; }
+        public IAtractieRepository IAtractieRepository { get; set; }
 
-        public RezervareController(IRezervareRepository rezervareRepository, IVacantaRepository vacantaRepository, IUtilizatorRepository utilizatorRepository)
+
+        public RezervareController(IRezervareRepository rezervareRepository, IVacantaRepository vacantaRepository, IUtilizatorRepository utilizatorRepository,
+            IRezervareCazareRepository rezervareCazareRepository, ICazareRepository cazareRepository, ITichetMasaRepository tichetMasaRepository,
+            IRestaurantRepository restaurantRepository, IBiletRepository biletRepository, IAtractieRepository atractieRepository)
         {
             IRezervareRepository = rezervareRepository;
             IUtilizatorRepository = utilizatorRepository;
             IVacantaRepository = vacantaRepository;
+            IRezervareCazareRepository = rezervareCazareRepository;
+            ICazareRepository = cazareRepository;
+            ITichetMasaRepository = tichetMasaRepository;
+            IRestaurantRepository = restaurantRepository;
+            IBiletRepository = biletRepository;
+            IAtractieRepository = atractieRepository;
         }
         
         // GET: api/<RezervareController>
@@ -42,6 +63,13 @@ namespace ProiectMDS.Controllers
             Rezervare rezervare = IRezervareRepository.Get(id);
             Vacanta vacanta = IVacantaRepository.Get(rezervare.VacantaID);
             Utilizator utilizator = IUtilizatorRepository.Get(rezervare.UtilizatorID);
+            RezervareCazare rezervareCazare = IRezervareCazareRepository.Get(vacanta.ID);
+            Cazare cazare = ICazareRepository.Get(rezervareCazare.CazareID);
+            TichetMasa tichetMasa = ITichetMasaRepository.Get(vacanta.ID);
+            Restaurant restaurant = IRestaurantRepository.Get(tichetMasa.RestaurantID);
+            Bilet bilet = IBiletRepository.Get(vacanta.ID);
+            Atractie atractie = IAtractieRepository.Get(bilet.AtractieID);
+
 
             RezervareDetailsDTO myRezervare = new RezervareDetailsDTO();
             if (rezervare != null)
@@ -52,6 +80,18 @@ namespace ProiectMDS.Controllers
                 myRezervare.UtilizatorUsername = utilizator.Username;
                 myRezervare.VacantaDenumire = vacanta.Denumire;
             }
+
+            IEnumerable<RezervareCazare> myRezervariCazari = IRezervareCazareRepository.GetAll().Where(x => x.VacantaID == vacanta.ID);
+            if (myRezervariCazari != null)
+            {
+                List<int> ListaRezervariCazari = new List<int>();
+                foreach (RezervareCazare myRezCazare in myRezervariCazari)
+                {
+                    ListaRezervariCazari.Add(myRezCazare.CazareID);
+                }
+                //myUtilizator.FotografieID = ListaFotografii;
+            }
+
 
             return myRezervare;
         }
