@@ -21,6 +21,8 @@ namespace ProiectMDS.Controllers
         {
             IVacantaRepository = repository;
         }
+
+
         // GET: api/<VacantaController>
         [HttpGet]
         public ActionResult<IEnumerable<Vacanta>> Get()
@@ -30,8 +32,9 @@ namespace ProiectMDS.Controllers
 
         // GET api/<VacantaController>/5
         [HttpGet("{id}")]
-        public ActionResult<Vacanta> Get(int id)
+        public VacantaDetailsDTO Get(int id)
         {
+            
             return IVacantaRepository.Get(id);
         }
 

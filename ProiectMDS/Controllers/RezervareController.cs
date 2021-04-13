@@ -40,42 +40,23 @@ namespace ProiectMDS.Controllers
         public RezervareDetailsDTO Get(int id)
         {
             Rezervare rezervare = IRezervareRepository.Get(id);
-            Vacanta vacanta = IVacantaRepository.Get(id);
-            Utilizator utilizator = IUtilizatorRepository.Get(id);
+            Vacanta vacanta = IVacantaRepository.Get(rezervare.VacantaID);
+            Utilizator utilizator = IUtilizatorRepository.Get(rezervare.UtilizatorID);
 
-            RezervareDetailsDTO myRezervare = new RezervareDetailsDTO()
+            RezervareDetailsDTO myRezervare = new RezervareDetailsDTO();
+            if (rezervare != null)
             {
-                DataRezervare = rezervare.DataRezervare,
-                Review = rezervare.Review,
-                Rating = rezervare.Rating
-            };
-
-            IEnumerable<Rezervare> MyRezervariVacante = IRezervareRepository.GetAll().Where(x => x.VacantaID == vacanta.ID);
-            if (MyRezervariVacante != null)
-            {
-                List<string> VacantaDenumireList = new List<string>();
-                foreach (Rezervare myRezervareVacanta in MyRezervariVacante)
-                {
-                    Vacanta myVacanta = IVacantaRepository.GetAll().SingleOrDefault(x => x.ID == myRezervareVacanta.VacantaID);
-                    VacantaDenumireList.Add(myVacanta.Denumire);
-                }
-                myRezervare.VacantaDenumire = VacantaDenumireList;
-            }
-
-            IEnumerable<Rezervare> MyRezervariUtilizatori = IRezervareRepository.GetAll().Where(x => x.UtilizatorID == utilizator.ID);
-            if (MyRezervariUtilizatori != null)
-            {
-                List<string> UtilizatorUsernameList = new List<string>();
-                foreach (Rezervare myRezervareUtilizator in MyRezervariUtilizatori)
-                {
-                    Utilizator myUser = IUtilizatorRepository.GetAll().SingleOrDefault(x => x.ID == myRezervareUtilizator.UtilizatorID);
-                    UtilizatorUsernameList.Add(myUser.Username);
-                }
-                myRezervare.UtilizatorUsername = UtilizatorUsernameList;
+                myRezervare.DataRezervare = rezervare.DataRezervare;
+                myRezervare.Review = rezervare.Review;
+                myRezervare.Rating = rezervare.Rating;
+                myRezervare.UtilizatorUsername = utilizator.Username;
+                myRezervare.VacantaDenumire = vacanta.Denumire;
             }
 
             return myRezervare;
         }
+
+
 
         // POST api/<RezervareController>
         [HttpPost]
@@ -113,12 +94,12 @@ namespace ProiectMDS.Controllers
                 model.Review = value.Review;
             }
 
-            if (value.VacantaID != null)
+            if (value.VacantaID != 0)
             {
                 model.VacantaID = value.VacantaID;
             }
 
-            if (value.UtilizatorID != null)
+            if (value.UtilizatorID != 0)
             {
                 model.UtilizatorID = value.UtilizatorID;
             }
