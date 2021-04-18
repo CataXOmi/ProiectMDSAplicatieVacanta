@@ -7,8 +7,8 @@ namespace ProiectMDS.DTOs
 {
     public class MeniuDetailsDTO
     {
-        public List<string> RestaurantNume { get; set; }
-        public List<string> MancareDenumire { get; set; }
+        public string RestaurantNume { get; set; }
+        public string MancareDenumire { get; set; }
         public float Pret { get; set; }
     }
 }

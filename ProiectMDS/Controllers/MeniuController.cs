@@ -38,37 +38,16 @@ namespace ProiectMDS.Controllers
         [HttpGet("{id}")]
         public MeniuDetailsDTO Get(int id)
         {
-            Meniu Meniu = IMeniuRepository.Get(id);
-            Restaurant Restaurant = IRestaurantRepository.Get(id);
-            Mancare Mancare = IMancareRepository.Get(id);
+            Meniu meniu = IMeniuRepository.Get(id);
+            Restaurant restaurant = IRestaurantRepository.Get(id);
+            Mancare mancare = IMancareRepository.Get(id);
+            MeniuDetailsDTO MyMeniuDTO = new MeniuDetailsDTO();
 
-            MeniuDetailsDTO MyMeniuDTO = new MeniuDetailsDTO()
+            if (meniu != null)
             {
-                Pret = Meniu.Pret
-            };
-
-            IEnumerable<Meniu> MyMeniuriRestaurant = IMeniuRepository.GetAll().Where(x => x.RestaurantID == Restaurant.ID);
-            if (MyMeniuriRestaurant != null)
-            {
-                List<string> RestaurantNumeList = new List<string>();
-                foreach (Meniu MyMeniuRestaurant in MyMeniuriRestaurant)
-                {
-                    Restaurant MyRestaurant = IRestaurantRepository.GetAll().SingleOrDefault(x => x.ID == MyMeniuRestaurant.RestaurantID);
-                    RestaurantNumeList.Add(MyRestaurant.Nume);
-                }
-                MyMeniuDTO.RestaurantNume = RestaurantNumeList;
-            }
-
-            IEnumerable<Meniu> MyMeniuriMancare = IMeniuRepository.GetAll().Where(x => x.MancareID == Mancare.ID);
-            if (MyMeniuriMancare != null)
-            {
-                List<string> MancareDenumireList = new List<string>();
-                foreach (Meniu MyMeniuMancare in MyMeniuriMancare)
-                {
-                    Mancare MyMancare = IMancareRepository.GetAll().SingleOrDefault(x => x.ID == MyMeniuMancare.MancareID);
-                    MancareDenumireList.Add(MyMancare.Denumire);
-                }
-                MyMeniuDTO.MancareDenumire = MancareDenumireList;
+                MyMeniuDTO.MancareDenumire = mancare.Denumire;
+                MyMeniuDTO.Pret = meniu.Pret;
+                MyMeniuDTO.RestaurantNume = restaurant.Nume;
             }
 
             return MyMeniuDTO;
@@ -76,81 +55,39 @@ namespace ProiectMDS.Controllers
 
         // POST api/<MeniuController>
         [HttpPost]
-        public void Post(MeniuDTO value)
+        public Meniu Post(MeniuDTO value)
         {
             Meniu model = new Meniu()
             {
-                Pret = value.Pret
+                Pret = value.Pret,
+                RestaurantID = value.RestaurantID,
+                MancareID = value.MancareID
             };
 
-            IMeniuRepository.Create(model);
-            for (int i = 0; i < value.RestaurantID.Count; i++)
-            {
-                Meniu MeniuRestaurant = new Meniu()
-                {
-                    ID = model.ID,
-                    RestaurantID = value.RestaurantID[i]
-                };
-
-                IMeniuRepository.Create(MeniuRestaurant);
-            }
-
-            for (int i = 0; i < value.MancareID.Count; i++)
-            {
-                Meniu MeniuMancare = new Meniu()
-                {
-                    ID = model.ID,
-                    MancareID = value.MancareID[i]
-                };
-
-                IMeniuRepository.Create(MeniuMancare);
-            }
-
+            return IMeniuRepository.Create(model);
         }
 
         // PUT api/<MeniuController>/5
         [HttpPut("{id}")]
-        public void Put(int id, MeniuDTO value)
+        public Meniu Put(int id, MeniuDTO value)
         {
             Meniu model = IMeniuRepository.Get(id);
-            if (value.Pret != 0)
+            if (value.Pret != 0.0)
             {
                 model.Pret = value.Pret;
             }
 
-            IMeniuRepository.Update(model);
-
-            if (value.RestaurantID != null)
+            if (value.MancareID != 0)
             {
-                IEnumerable<Meniu> MyMeniuriRestaurant = IMeniuRepository.GetAll().Where(x => x.RestaurantID == id);
-                foreach (Meniu MyMeniuRestaurant in MyMeniuriRestaurant)
-                    IMeniuRepository.Delete(MyMeniuRestaurant);
-                for (int i = 0; i < value.RestaurantID.Count; i++)
-                {
-                    Meniu MeniuRestaurant = new Meniu()
-                    {
-                        ID = model.ID,
-                        RestaurantID = value.RestaurantID[i]
-                    };
-                    IMeniuRepository.Create(MeniuRestaurant);
-                }
+                model.MancareID = value.MancareID;
             }
 
-            if (value.MancareID != null)
+            if (value.RestaurantID != 0)
             {
-                IEnumerable<Meniu> MyMeniuriMancare = IMeniuRepository.GetAll().Where(x => x.MancareID == id);
-                foreach (Meniu MyMeniuMancare in MyMeniuriMancare)
-                    IMeniuRepository.Delete(MyMeniuMancare);
-                for (int i = 0; i < value.MancareID.Count; i++)
-                {
-                    Meniu MeniuMancare = new Meniu()
-                    {
-                        ID = model.ID,
-                        MancareID = value.MancareID[i]
-                    };
-                    IMeniuRepository.Create(MeniuMancare);
-                }
+                model.RestaurantID = value.RestaurantID;
             }
+
+            return IMeniuRepository.Update(model);
         }
 
         // DELETE api/<MeniuController>/5

@@ -16,5 +16,6 @@ namespace ProiectMDS.DTOs
         public float Pret { get; set; }
         public string Oras { get; set; }
         public string Adresa { get; set; }
+        public List<int> BiletID { get; set; }
     }
 }

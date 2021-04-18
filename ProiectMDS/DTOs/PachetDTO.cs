@@ -7,7 +7,7 @@ namespace ProiectMDS.DTOs
 {
     public class PachetDTO
     {
-        public List<int> CazareID { get; set; }
-        public List<int> FacilitateID { get; set; }
+        public int CazareID { get; set; }
+        public int FacilitateID { get; set; }
     }
 }

@@ -63,12 +63,12 @@ namespace ProiectMDS.Controllers
             Rezervare rezervare = IRezervareRepository.Get(id);
             Vacanta vacanta = IVacantaRepository.Get(rezervare.VacantaID);
             Utilizator utilizator = IUtilizatorRepository.Get(rezervare.UtilizatorID);
-            RezervareCazare rezervareCazare = IRezervareCazareRepository.Get(vacanta.ID);
-            Cazare cazare = ICazareRepository.Get(rezervareCazare.CazareID);
-            TichetMasa tichetMasa = ITichetMasaRepository.Get(vacanta.ID);
-            Restaurant restaurant = IRestaurantRepository.Get(tichetMasa.RestaurantID);
-            Bilet bilet = IBiletRepository.Get(vacanta.ID);
-            Atractie atractie = IAtractieRepository.Get(bilet.AtractieID);
+            //RezervareCazare rezervareCazare = IRezervareCazareRepository.Get(vacanta.ID);
+            //Cazare cazare = ICazareRepository.Get(rezervareCazare.CazareID);
+            //TichetMasa tichetMasa = ITichetMasaRepository.Get(vacanta.ID);
+            //Restaurant restaurant = IRestaurantRepository.Get(tichetMasa.RestaurantID);
+            //Bilet bilet = IBiletRepository.Get(vacanta.ID);
+            //Atractie atractie = IAtractieRepository.Get(bilet.AtractieID);
 
 
             RezervareDetailsDTO myRezervare = new RezervareDetailsDTO();
@@ -82,9 +82,9 @@ namespace ProiectMDS.Controllers
             }
 
             IEnumerable<RezervareCazare> myRezervariCazari = IRezervareCazareRepository.GetAll().Where(x => x.VacantaID == vacanta.ID);
+            List<int> ListaRezervariCazari = new List<int>();
             if (myRezervariCazari != null)
             {
-                List<int> ListaRezervariCazari = new List<int>();
                 foreach (RezervareCazare myRezCazare in myRezervariCazari)
                 {
                     ListaRezervariCazari.Add(myRezCazare.CazareID);
@@ -92,6 +92,65 @@ namespace ProiectMDS.Controllers
                 //myUtilizator.FotografieID = ListaFotografii;
             }
 
+
+            IEnumerable<Rezervare> myRezervari = IRezervareRepository.GetAll().Where(x => x.VacantaID == vacanta.ID);
+            List<string> ListaRezervari = new List<string>();
+            if (myRezervari != null)
+            {
+                foreach (int cazareID in ListaRezervariCazari)
+                {
+                    Cazare cazare = ICazareRepository.Get(cazareID);
+                    ListaRezervari.Add(cazare.Nume);
+                }
+            }
+            myRezervare.ListaCazari = ListaRezervari.ToList();
+
+
+            IEnumerable<TichetMasa> myTicheteMasa = ITichetMasaRepository.GetAll().Where(x => x.VacantaID == vacanta.ID);
+            List<int> ListaTicheteMasa = new List<int>();
+            if (myTicheteMasa != null)
+            {
+                foreach (TichetMasa myTicMasa in myTicheteMasa)
+                {
+                    ListaTicheteMasa.Add(myTicMasa.RestaurantID);
+                }
+                //myUtilizator.FotografieID = ListaFotografii;
+            }
+
+            IEnumerable<Rezervare> myRezervari2 = IRezervareRepository.GetAll().Where(x => x.VacantaID == vacanta.ID);
+            List<string> ListaRezervari2 = new List<string>();
+            if (myRezervari2 != null)
+            {
+                foreach (int restaurantID in ListaTicheteMasa)
+                {
+                    Restaurant restaurant = IRestaurantRepository.Get(restaurantID);
+                    ListaRezervari2.Add(restaurant.Nume);
+                }
+            }
+            myRezervare.ListaRestaurante = ListaRezervari2.ToList();
+
+            IEnumerable<Bilet> myBilete = IBiletRepository.GetAll().Where(x => x.VacantaID == vacanta.ID);
+            List<int> ListaBilete = new List<int>();
+            if (myBilete != null)
+            {
+                foreach (Bilet mybil in myBilete)
+                {
+                    ListaBilete.Add(mybil.AtractieID);
+                }
+                //myUtilizator.FotografieID = ListaFotografii;
+            }
+
+            IEnumerable<Rezervare> myRezervari3 = IRezervareRepository.GetAll().Where(x => x.VacantaID == vacanta.ID);
+            List<string> ListaRezervari3 = new List<string>();
+            if (myRezervari3 != null)
+            {
+                foreach (int atractieID in ListaBilete)
+                {
+                    Atractie atractie = IAtractieRepository.Get(atractieID);
+                    ListaRezervari3.Add(atractie.Denumire);
+                }
+            }
+            myRezervare.ListaAtractii = ListaRezervari3.ToList();
 
             return myRezervare;
         }

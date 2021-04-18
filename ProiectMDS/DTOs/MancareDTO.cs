@@ -8,5 +8,6 @@ namespace ProiectMDS.DTOs
     public class MancareDTO
     {
        public string Denumire { get; set; }
+       public List<int> MeniuID { get; set; }
     }
 }

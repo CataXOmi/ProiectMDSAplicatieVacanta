@@ -39,119 +39,66 @@ namespace ProiectMDS.Controllers
         [HttpGet("{id}")]
         public BiletDetailsDTO Get(int id)
         {
-            Bilet Bilet = IBiletRepository.Get(id);
-            Vacanta Vacanta = IVacantaRepository.Get(id);
-            Atractie Atractie = IAtractieRepository.Get(id);
+            Bilet bilet = IBiletRepository.Get(id);
+            Vacanta vacanta = IVacantaRepository.Get(bilet.VacantaID);
+            Atractie atractie = IAtractieRepository.Get(bilet.AtractieID);
+            BiletDetailsDTO bil = new BiletDetailsDTO();
 
-            BiletDetailsDTO MyBiletDTO = new BiletDetailsDTO()
+            if (bilet != null)
             {
-                CodBilet = Bilet.CodBilet
-            };
-
-            IEnumerable<Bilet> MyBileteVacanta = IBiletRepository.GetAll().Where(x => x.VacantaID == Vacanta.ID);
-            if (MyBileteVacanta != null)
-            {
-                List<string> VacantaDenumireList = new List<string>();
-                foreach (Bilet MyBiletVacanta in MyBileteVacanta)
-                {
-                    Vacanta MyVacanta = IVacantaRepository.GetAll().SingleOrDefault(x => x.ID == MyBiletVacanta.VacantaID);
-                    VacantaDenumireList.Add(MyVacanta.Denumire);
-                }
-                MyBiletDTO.VacantaDenumire = VacantaDenumireList;
+                bil.CodBilet = bilet.CodBilet;
+                bil.AtractieDenumire = atractie.Denumire;
+                bil.DataVizita = bilet.DataVizita;
+                bil.VacantaDenumire = vacanta.Denumire;
             }
 
-            IEnumerable<Bilet> MyBileteAtractie = IBiletRepository.GetAll().Where(x => x.AtractieID == Atractie.ID);
-            if (MyBileteAtractie != null)
-            {
-                List<string> AtractieDenumireList = new List<string>();
-                foreach (Bilet MyBiletAtractie in MyBileteAtractie)
-                {
-                    Atractie MyAtractie = IAtractieRepository.GetAll().SingleOrDefault(x => x.ID == MyBiletAtractie.AtractieID);
-                    AtractieDenumireList.Add(MyAtractie.Denumire);
-                }
-                MyBiletDTO.AtractieDenumire = AtractieDenumireList;
-            }
-
-            return MyBiletDTO;
+            return bil;
         }
 
         // POST api/<BiletController>
         [HttpPost]
-        public void Post(BiletDTO value)
+        public Bilet Post(BiletDTO value)
         {
             Bilet model = new Bilet()
             {
-                CodBilet = value.CodBilet
+                CodBilet = value.CodBilet,
+                DataVizita = value.DataVizita,
+                VacantaID = value.VacantaID,
+                AtractieID = value.AtractieID
+
             };
 
-            IBiletRepository.Create(model);
-            for (int i = 0; i < value.VacantaID.Count; i++)
-            {
-                Bilet BiletVacanta = new Bilet()
-                {
-                    ID = model.ID,
-                    VacantaID = value.VacantaID[i]
-                };
-
-                IBiletRepository.Create(BiletVacanta);
-            }
-
-            for (int i = 0; i < value.AtractieID.Count; i++)
-            {
-                Bilet BiletAtractie = new Bilet()
-                {
-                    ID = model.ID,
-                    AtractieID = value.AtractieID[i]
-                };
-
-                IBiletRepository.Create(BiletAtractie);
-            }
+            return IBiletRepository.Create(model);
 
         }
 
         // PUT api/<BiletController>/5
         [HttpPut("{id}")]
-        public void Put(int id, BiletDTO value)
+        public Bilet Put(int id, BiletDTO value)
         {
             Bilet model = IBiletRepository.Get(id);
+            DateTime? dt = null;
+            if (value.AtractieID != 0)
+            {
+                model.AtractieID = value.AtractieID;
+            }
+
             if (value.CodBilet != null)
             {
                 model.CodBilet = value.CodBilet;
             }
 
-            IBiletRepository.Update(model);
-
-            if (value.VacantaID != null)
+            if (value.DataVizita != dt)
             {
-                IEnumerable<Bilet> MyBileteVacanta = IBiletRepository.GetAll().Where(x => x.VacantaID == id);
-                foreach (Bilet MyBiletVacanta in MyBileteVacanta)
-                    IBiletRepository.Delete(MyBiletVacanta);
-                for (int i = 0; i < value.VacantaID.Count; i++)
-                {
-                    Bilet BiletVacanta = new Bilet()
-                    {
-                        ID = model.ID,
-                        VacantaID = value.VacantaID[i]
-                    };
-                    IBiletRepository.Create(BiletVacanta);
-                }
+                model.DataVizita = value.DataVizita;
             }
 
-            if (value.AtractieID != null)
+            if (value.VacantaID != 0)
             {
-                IEnumerable<Bilet> MyBileteAtractie = IBiletRepository.GetAll().Where(x => x.AtractieID == id);
-                foreach (Bilet MyBiletAtractie in MyBileteAtractie)
-                    IBiletRepository.Delete(MyBiletAtractie);
-                for (int i = 0; i < value.AtractieID.Count; i++)
-                {
-                    Bilet BiletAtractie = new Bilet()
-                    {
-                        ID = model.ID,
-                        AtractieID = value.AtractieID[i]
-                    };
-                    IBiletRepository.Create(BiletAtractie);
-                }
+                model.VacantaID = value.VacantaID;
             }
+
+            return IBiletRepository.Update(model);
         }
 
         // DELETE api/<BiletController>/5

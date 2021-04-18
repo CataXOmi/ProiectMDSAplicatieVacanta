@@ -28,7 +28,7 @@ namespace ProiectMDS.Controllers
             IRezervareCazareRepository = rezervareCazareRepository;
             IVacantaRepository = vacantaRepository;
         }
-        
+
         // GET: api/<RezervareCazareController>
         [HttpGet]
         public ActionResult<IEnumerable<RezervareCazare>> Get()
@@ -41,117 +41,71 @@ namespace ProiectMDS.Controllers
         public RezervareCazareDetailsDTO Get(int id)
         {
             RezervareCazare rezervareCazare = IRezervareCazareRepository.Get(id);
-            Vacanta vacanta = IVacantaRepository.Get(id);
-            Cazare cazare = ICazareRepository.Get(id);
+            Vacanta vacanta = IVacantaRepository.Get(rezervareCazare.VacantaID);
+            Cazare cazare = ICazareRepository.Get(rezervareCazare.CazareID);
+            RezervareCazareDetailsDTO myRezervareCazare = new RezervareCazareDetailsDTO();
 
-            RezervareCazareDetailsDTO myRezervareCazare = new RezervareCazareDetailsDTO()
+            if (rezervareCazare != null)
             {
-                CodRezervare = rezervareCazare.CodRezervare
+                myRezervareCazare.CodRezervare = rezervareCazare.CodRezervare;
+                myRezervareCazare.DataSosire = rezervareCazare.DataSosire;
+                myRezervareCazare.DataPlecare = rezervareCazare.DataPlecare;
+                myRezervareCazare.CazareNume = cazare.Nume;
+                myRezervareCazare.VacantaDenumire = vacanta.Denumire;
             };
-
-            IEnumerable<RezervareCazare> myRezervareCazariCazare = IRezervareCazareRepository.GetAll().Where(x => x.CazareID == cazare.ID);
-            if (myRezervareCazariCazare != null)
-            {
-                List<string> CazareNumeList = new List<string>();
-                foreach (RezervareCazare myRezervareCazareCazare in myRezervareCazariCazare)
-                {
-                    Cazare myCazare = ICazareRepository.GetAll().SingleOrDefault(x => x.ID == myRezervareCazareCazare.VacantaID);
-                    CazareNumeList.Add(myCazare.Nume);
-                }
-                myRezervareCazare.CazareNume = CazareNumeList;
-            }
-
-            IEnumerable<RezervareCazare> myRezervareCazariVacanta = IRezervareCazareRepository.GetAll().Where(x => x.VacantaID == vacanta.ID);
-            if (myRezervareCazariVacanta != null)
-            {
-                List<string> VacantaDenumireList = new List<string>();
-                foreach (RezervareCazare myRezervareCazareVacanta in myRezervareCazariCazare)
-                {
-                    Vacanta myVacanta = IVacantaRepository.GetAll().SingleOrDefault(x => x.ID == myRezervareCazareVacanta.VacantaID);
-                    VacantaDenumireList.Add(myVacanta.Denumire);
-                }
-                myRezervareCazare.VacantaDenumire = VacantaDenumireList;
-            }
 
             return myRezervareCazare;
         }
 
         // POST api/<RezervareCazareController>
         [HttpPost]
-        public void Post(RezervareCazareDTO value)
+        public RezervareCazare Post(RezervareCazareDTO value)
         {
             RezervareCazare model = new RezervareCazare()
             {
-                CodRezervare = value.CodRezervare
+                CodRezervare = value.CodRezervare,
+                DataPlecare = value.DataPlecare,
+                DataSosire = value.DataSosire,
+                CazareID = value.CazareID,
+                VacantaID = value.VacantaID
             };
 
-            IRezervareCazareRepository.Create(model);
-            for (int i = 0; i < value.VacantaID.Count; i++)
-            {
-                RezervareCazare rezervareCazareVacanta = new RezervareCazare()
-                {
-                    ID = model.ID,
-                    VacantaID = value.VacantaID[i]
-                };
-
-                IRezervareCazareRepository.Create(rezervareCazareVacanta);
-            }
-
-            for (int i = 0; i < value.CazareID.Count; i++)
-            {
-                RezervareCazare rezervareCazareCazare = new RezervareCazare()
-                {
-                    ID = model.ID,
-                    CazareID = value.CazareID[i]
-                };
-
-                IRezervareCazareRepository.Create(rezervareCazareCazare);
-            }
+            return IRezervareCazareRepository.Create(model);
         }
 
         // PUT api/<RezervareCazareController>/5
         [HttpPut("{id}")]
-        public void Put(int id, RezervareCazareDTO value)
+        public RezervareCazare Put(int id, RezervareCazareDTO value)
         {
             RezervareCazare model = IRezervareCazareRepository.Get(id);
+            DateTime? dt = null;
+
             if (value.CodRezervare != null)
             {
                 model.CodRezervare = value.CodRezervare;
             }
 
-            IRezervareCazareRepository.Update(model);
-
-            if (value.VacantaID != null)
+            if (value.CazareID != 0)
             {
-                IEnumerable<RezervareCazare> myRezervariCazariVacanta = IRezervareCazareRepository.GetAll().Where(x => x.VacantaID == id);
-                foreach (RezervareCazare myRezervareCazareVacanta in myRezervariCazariVacanta)
-                    IRezervareCazareRepository.Delete(myRezervareCazareVacanta);
-                for (int i = 0; i < value.VacantaID.Count; i++)
-                {
-                    RezervareCazare RezervareCazareVacanta = new RezervareCazare()
-                    {
-                        ID = model.ID,
-                        VacantaID = value.VacantaID[i]
-                    };
-                    IRezervareCazareRepository.Create(RezervareCazareVacanta);
-                }
+                model.CazareID = value.CazareID;
             }
 
-            if (value.CazareID != null)
+            if (value.DataPlecare != dt)
             {
-                IEnumerable<RezervareCazare> myRezervariCazariCazare = IRezervareCazareRepository.GetAll().Where(x => x.CazareID == id);
-                foreach (RezervareCazare myRezervareCazareCazare in myRezervariCazariCazare)
-                    IRezervareCazareRepository.Delete(myRezervareCazareCazare);
-                for (int i = 0; i < value.CazareID.Count; i++)
-                {
-                    RezervareCazare RezervareCazareCazare = new RezervareCazare()
-                    {
-                        ID = model.ID,
-                        CazareID = value.CazareID[i]
-                    };
-                    IRezervareCazareRepository.Create(RezervareCazareCazare);
-                }
+                model.DataPlecare = value.DataPlecare;
             }
+
+            if (value.DataSosire != dt)
+            {
+                model.DataSosire = value.DataSosire;
+            }
+
+            if (value.VacantaID != 0)
+            {
+                model.VacantaID = value.VacantaID;
+            }
+
+            return IRezervareCazareRepository.Update(model);
         }
 
         // DELETE api/<RezervareCazareController>/5

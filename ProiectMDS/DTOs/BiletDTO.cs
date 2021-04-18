@@ -10,5 +10,6 @@ namespace ProiectMDS.DTOs
         public int VacantaID { get; set; }
         public int AtractieID { get; set; }
         public string CodBilet { get; set; }
+        public DateTime DataVizita { get; set; }
     }
 }

@@ -43,8 +43,6 @@ namespace ProiectMDS.Controllers
             {
                 Nume = value.Nume,
                 TipCazare = value.TipCazare,
-                DataSosire = value.DataSosire,
-                DataPlecare = value.DataPlecare,
                 Pret = value.Pret,
                 Oras = value.Oras,
                 Adresa = value.Adresa
@@ -67,16 +65,6 @@ namespace ProiectMDS.Controllers
             if (value.TipCazare != null)
             {
                 model.TipCazare = value.TipCazare;
-            }
-
-            if (value.DataSosire != dt)
-            {
-                model.DataSosire = value.DataSosire;
-            }
-
-            if (value.DataPlecare != dt)
-            {
-                model.DataPlecare = value.DataPlecare;
             }
 
             if (value.Pret != 0)

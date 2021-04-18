@@ -10,12 +10,10 @@ namespace ProiectMDS.DTOs
     {
         public string Nume { get; set; }
         public string TipCazare { get; set; }
-        [Column(TypeName = "Date")]
-        public DateTime DataSosire { get; set; }
-        [Column(TypeName = "Date")]
-        public DateTime DataPlecare { get; set; }
         public float Pret { get; set; }
         public string Oras { get; set; }
         public string Adresa { get; set; }
+        public List<int> PachetID { get; set; }
+        public List<int> RezervareCazareID { get; set; }
     }
 }
