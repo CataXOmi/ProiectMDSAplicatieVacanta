@@ -79,6 +79,8 @@ namespace ProiectMDS.Controllers
                 myRezervare.Rating = rezervare.Rating;
                 myRezervare.UtilizatorUsername = utilizator.Username;
                 myRezervare.VacantaDenumire = vacanta.Denumire;
+                myRezervare.VacantaDataInceput = vacanta.DataInceput;
+                myRezervare.VacantaDataSfarsit = vacanta.DataSfarsit;
             }
 
             IEnumerable<RezervareCazare> myRezervariCazari = IRezervareCazareRepository.GetAll().Where(x => x.VacantaID == vacanta.ID);
