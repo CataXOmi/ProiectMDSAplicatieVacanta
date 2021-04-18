@@ -13,7 +13,7 @@ namespace ProiectMDS.DTOs
         public float Pret { get; set; }
         public string Oras { get; set; }
         public string Adresa { get; set; }
-        public List<int> PachetID { get; set; }
+        public List<string> ListaFacilitati { get; set; }
         public List<int> RezervareCazareID { get; set; }
     }
 }
