@@ -35,56 +35,37 @@ namespace ProiectMDS.Controllers
         public FotografieDetailsDTO Get(int id)
         {
             Fotografie Fotografie = IFotografieRepository.Get(id);
-            Utilizator Utilizator = IUtilizatorRepository.Get(id);
-
-            FotografieDetailsDTO MyFotografieDTO = new FotografieDetailsDTO()
+            Utilizator Utilizator = IUtilizatorRepository.Get(Fotografie.UtilizatorID);
+            FotografieDetailsDTO Foto = new FotografieDetailsDTO();
+            
+            if (Fotografie != null)
             {
-                Titlu = Fotografie.Titlu,
-                Data = Fotografie.Data
-            };
-
-            IEnumerable<Fotografie> MyFotografiiUtilizator = IFotografieRepository.GetAll().Where(x => x.UtilizatorID == Utilizator.ID);
-            if (MyFotografiiUtilizator != null)
-            {
-                List<string> UtilizatorUsernameList = new List<string>();
-                foreach (Fotografie MyFotografieUtilizator in MyFotografiiUtilizator)
-                {
-                    Utilizator MyUtilizator= IUtilizatorRepository.GetAll().SingleOrDefault(x => x.ID == MyFotografieUtilizator.UtilizatorID);
-                    UtilizatorUsernameList.Add(MyUtilizator.Username);
-                }
-                MyFotografieDTO.UtilizatorUsername = UtilizatorUsernameList;
+                Foto.Titlu = Fotografie.Titlu;
+                Foto.Data = Fotografie.Data;
+                Foto.UtilizatorUsername = Utilizator.Username;
             }
 
-            return MyFotografieDTO;
+            return Foto;
         }
 
         // POST api/<FotografieController>
         [HttpPost]
-        public void Post(FotografieDTO value)
+        public Fotografie Post(FotografieDTO value)
         {
             Fotografie model = new Fotografie()
             {
                 Titlu = value.Titlu,
-                Data = value.Data
+                Data = value.Data,
+                UtilizatorID = value.UtilizatorID
             };
 
-            IFotografieRepository.Create(model);
-            for (int i = 0; i < value.UtilizatorID.Count; i++)
-            {
-                Fotografie FotografieUtilizator = new Fotografie()
-                {
-                    ID = model.ID,
-                    UtilizatorID = value.UtilizatorID[i]
-                };
-
-                IFotografieRepository.Create(FotografieUtilizator);
-            }
+            return IFotografieRepository.Create(model);
 
         }
 
         // PUT api/<FotografieController>/5
         [HttpPut("{id}")]
-        public void Put(int id, FotografieDTO value)
+        public Fotografie Put(int id, FotografieDTO value)
         {
             Fotografie model = IFotografieRepository.Get(id);
             DateTime? dt = null;
@@ -98,23 +79,12 @@ namespace ProiectMDS.Controllers
                 model.Data = value.Data;
             }
 
-            IFotografieRepository.Update(model);
-
-            if (value.UtilizatorID != null)
+            if (value.UtilizatorID != 0)
             {
-                IEnumerable<Fotografie> MyFotografiiUtilizator = IFotografieRepository.GetAll().Where(x => x.UtilizatorID == id);
-                foreach (Fotografie MyFotografieUtilizator in MyFotografiiUtilizator)
-                    IFotografieRepository.Delete(MyFotografieUtilizator);
-                for (int i = 0; i < value.UtilizatorID.Count; i++)
-                {
-                    Fotografie FotografieUtilizator = new Fotografie()
-                    {
-                        ID = model.ID,
-                        UtilizatorID = value.UtilizatorID[i]
-                    };
-                    IFotografieRepository.Create(FotografieUtilizator);
-                }
+                model.UtilizatorID = value.UtilizatorID;
             }
+
+            return IFotografieRepository.Update(model);
 
         }
 

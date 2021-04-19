@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using ProiectMDS.Models;
 using ProiectMDS.DTOs;
 using ProiectMDS.Repositories.CazareRepository;
+using ProiectMDS.Repositories.PachetRepository;
+using ProiectMDS.Repositories.FacilitateRepository;
 
 
 
@@ -16,9 +18,13 @@ namespace ProiectMDS.Controllers
     public class CazareController : ControllerBase
     {
         public ICazareRepository ICazareRepository { get; set; }
-        public CazareController(ICazareRepository repository)
+        public IPachetRepository IPachetRepository { get; set; }
+        public IFacilitateRepository IFacilitateRepository { get; set; }
+        public CazareController(ICazareRepository repository, IPachetRepository pachetRepository, IFacilitateRepository facilitateRepository)
         {
             ICazareRepository = repository;
+            IPachetRepository = pachetRepository;
+            IFacilitateRepository = facilitateRepository;
         }
 
         // GET: api/<CazareController>
@@ -30,9 +36,46 @@ namespace ProiectMDS.Controllers
 
         // GET api/<CazareController>/5
         [HttpGet("{id}")]
-        public ActionResult<Cazare> Get(int id)
+        public CazareDTO Get(int id)
         {
-            return ICazareRepository.Get(id);
+            Cazare cazare = ICazareRepository.Get(id);
+            //Pachet pachet = IPachetRepository.Get(cazare.ID);
+            CazareDTO myCazare = new CazareDTO();
+
+            if (myCazare != null)
+            {
+                myCazare.Adresa = cazare.Adresa;
+                myCazare.Nume = cazare.Nume;
+                myCazare.Oras = cazare.Oras;
+                myCazare.Pret = cazare.Pret;
+                myCazare.TipCazare = cazare.TipCazare;
+            }
+
+            IEnumerable<Pachet> myPachete = IPachetRepository.GetAll().Where(x => x.CazareID == cazare.ID);
+            List<int> ListaFacilitati = new List<int>();
+            if (myPachete != null)
+            {
+                foreach (Pachet mypack in myPachete)
+                {
+                    ListaFacilitati.Add(mypack.FacilitateID);
+                }
+                //myUtilizator.FotografieID = ListaFotografii;
+            }
+
+
+            IEnumerable<Pachet> myPacks = IPachetRepository.GetAll().Where(x => x.CazareID == cazare.ID);
+            List<string> ListaUtilities = new List<string>();
+            if (myPacks != null)
+            {
+                foreach (int facilitateID in ListaFacilitati)
+                {
+                    Facilitate facilitate = IFacilitateRepository.Get(facilitateID);
+                    ListaUtilities.Add(facilitate.Denumire);
+                }
+            }
+            myCazare.ListaFacilitati = ListaUtilities.ToList();
+
+            return myCazare;
         }
 
         // POST api/<CazareController>
@@ -43,8 +86,6 @@ namespace ProiectMDS.Controllers
             {
                 Nume = value.Nume,
                 TipCazare = value.TipCazare,
-                DataSosire = value.DataSosire,
-                DataPlecare = value.DataPlecare,
                 Pret = value.Pret,
                 Oras = value.Oras,
                 Adresa = value.Adresa
@@ -67,16 +108,6 @@ namespace ProiectMDS.Controllers
             if (value.TipCazare != null)
             {
                 model.TipCazare = value.TipCazare;
-            }
-
-            if (value.DataSosire != dt)
-            {
-                model.DataSosire = value.DataSosire;
-            }
-
-            if (value.DataPlecare != dt)
-            {
-                model.DataPlecare = value.DataPlecare;
             }
 
             if (value.Pret != 0)

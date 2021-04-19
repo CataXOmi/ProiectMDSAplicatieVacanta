@@ -7,8 +7,9 @@ namespace ProiectMDS.DTOs
 {
     public class BiletDTO
     {
-        public List<int> VacantaID { get; set; }
-        public List<int> AtractieID { get; set; }
+        public int VacantaID { get; set; }
+        public int AtractieID { get; set; }
         public string CodBilet { get; set; }
+        public DateTime DataVizita { get; set; }
     }
 }

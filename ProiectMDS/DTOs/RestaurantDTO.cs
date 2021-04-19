@@ -15,5 +15,7 @@ namespace ProiectMDS.DTOs
         public TimeSpan OraInchidere { get; set; }
         public string Oras { get; set; }
         public string Adresa { get; set; }
+        public List<string> Meniu { get; set; }
+        //public List<int> TichetMasaID { get; set; }
     }
 }

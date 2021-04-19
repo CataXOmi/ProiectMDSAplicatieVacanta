@@ -8,6 +8,12 @@ using ProiectMDS.DTOs;
 using ProiectMDS.Repositories.UtilizatorRepository;
 using ProiectMDS.Repositories.VacantaRepository;
 using ProiectMDS.Repositories.RezervareRepository;
+using ProiectMDS.Repositories.RezervareCazareRepository;
+using ProiectMDS.Repositories.CazareRepository;
+using ProiectMDS.Repositories.TichetMasaRepository;
+using ProiectMDS.Repositories.RestaurantRepository;
+using ProiectMDS.Repositories.BiletRepository;
+using ProiectMDS.Repositories.AtractieRepository;
 
 
 
@@ -20,12 +26,27 @@ namespace ProiectMDS.Controllers
         public IRezervareRepository IRezervareRepository { get; set; }
         public IVacantaRepository IVacantaRepository { get; set; }
         public IUtilizatorRepository IUtilizatorRepository { get; set; }
+        public IRezervareCazareRepository IRezervareCazareRepository { get; set; }
+        public ICazareRepository ICazareRepository { get; set; }
+        public ITichetMasaRepository ITichetMasaRepository { get; set; }
+        public IRestaurantRepository IRestaurantRepository { get; set; }
+        public IBiletRepository IBiletRepository { get; set; }
+        public IAtractieRepository IAtractieRepository { get; set; }
 
-        public RezervareController(IRezervareRepository rezervareRepository, IVacantaRepository vacantaRepository, IUtilizatorRepository utilizatorRepository)
+
+        public RezervareController(IRezervareRepository rezervareRepository, IVacantaRepository vacantaRepository, IUtilizatorRepository utilizatorRepository,
+            IRezervareCazareRepository rezervareCazareRepository, ICazareRepository cazareRepository, ITichetMasaRepository tichetMasaRepository,
+            IRestaurantRepository restaurantRepository, IBiletRepository biletRepository, IAtractieRepository atractieRepository)
         {
             IRezervareRepository = rezervareRepository;
             IUtilizatorRepository = utilizatorRepository;
             IVacantaRepository = vacantaRepository;
+            IRezervareCazareRepository = rezervareCazareRepository;
+            ICazareRepository = cazareRepository;
+            ITichetMasaRepository = tichetMasaRepository;
+            IRestaurantRepository = restaurantRepository;
+            IBiletRepository = biletRepository;
+            IAtractieRepository = atractieRepository;
         }
         
         // GET: api/<RezervareController>
@@ -40,81 +61,123 @@ namespace ProiectMDS.Controllers
         public RezervareDetailsDTO Get(int id)
         {
             Rezervare rezervare = IRezervareRepository.Get(id);
-            Vacanta vacanta = IVacantaRepository.Get(id);
-            Utilizator utilizator = IUtilizatorRepository.Get(id);
+            Vacanta vacanta = IVacantaRepository.Get(rezervare.VacantaID);
+            Utilizator utilizator = IUtilizatorRepository.Get(rezervare.UtilizatorID);
+            //RezervareCazare rezervareCazare = IRezervareCazareRepository.Get(vacanta.ID);
+            //Cazare cazare = ICazareRepository.Get(rezervareCazare.CazareID);
+            //TichetMasa tichetMasa = ITichetMasaRepository.Get(vacanta.ID);
+            //Restaurant restaurant = IRestaurantRepository.Get(tichetMasa.RestaurantID);
+            //Bilet bilet = IBiletRepository.Get(vacanta.ID);
+            //Atractie atractie = IAtractieRepository.Get(bilet.AtractieID);
 
-            RezervareDetailsDTO myRezervare = new RezervareDetailsDTO()
-            {
-                DataRezervare = rezervare.DataRezervare,
-                Review = rezervare.Review,
-                Rating = rezervare.Rating
-            };
 
-            IEnumerable<Rezervare> MyRezervariVacante = IRezervareRepository.GetAll().Where(x => x.VacantaID == vacanta.ID);
-            if (MyRezervariVacante != null)
+            RezervareDetailsDTO myRezervare = new RezervareDetailsDTO();
+            if (rezervare != null)
             {
-                List<string> VacantaDenumireList = new List<string>();
-                foreach (Rezervare myRezervareVacanta in MyRezervariVacante)
-                {
-                    Vacanta myVacanta = IVacantaRepository.GetAll().SingleOrDefault(x => x.ID == myRezervareVacanta.VacantaID);
-                    VacantaDenumireList.Add(myVacanta.Denumire);
-                }
-                myRezervare.VacantaDenumire = VacantaDenumireList;
+                myRezervare.DataRezervare = rezervare.DataRezervare;
+                myRezervare.Review = rezervare.Review;
+                myRezervare.Rating = rezervare.Rating;
+                myRezervare.UtilizatorUsername = utilizator.Username;
+                myRezervare.VacantaDenumire = vacanta.Denumire;
+                myRezervare.VacantaDataInceput = vacanta.DataInceput;
+                myRezervare.VacantaDataSfarsit = vacanta.DataSfarsit;
             }
 
-            IEnumerable<Rezervare> MyRezervariUtilizatori = IRezervareRepository.GetAll().Where(x => x.UtilizatorID == utilizator.ID);
-            if (MyRezervariUtilizatori != null)
+            IEnumerable<RezervareCazare> myRezervariCazari = IRezervareCazareRepository.GetAll().Where(x => x.VacantaID == vacanta.ID);
+            List<int> ListaRezervariCazari = new List<int>();
+            if (myRezervariCazari != null)
             {
-                List<string> UtilizatorUsernameList = new List<string>();
-                foreach (Rezervare myRezervareUtilizator in MyRezervariUtilizatori)
+                foreach (RezervareCazare myRezCazare in myRezervariCazari)
                 {
-                    Utilizator myUser = IUtilizatorRepository.GetAll().SingleOrDefault(x => x.ID == myRezervareUtilizator.UtilizatorID);
-                    UtilizatorUsernameList.Add(myUser.Username);
+                    ListaRezervariCazari.Add(myRezCazare.CazareID);
                 }
-                myRezervare.UtilizatorUsername = UtilizatorUsernameList;
+                //myUtilizator.FotografieID = ListaFotografii;
             }
+
+
+            IEnumerable<Rezervare> myRezervari = IRezervareRepository.GetAll().Where(x => x.VacantaID == vacanta.ID);
+            List<string> ListaRezervari = new List<string>();
+            if (myRezervari != null)
+            {
+                foreach (int cazareID in ListaRezervariCazari)
+                {
+                    Cazare cazare = ICazareRepository.Get(cazareID);
+                    ListaRezervari.Add(cazare.Nume);
+                }
+            }
+            myRezervare.ListaCazari = ListaRezervari.ToList();
+
+
+            IEnumerable<TichetMasa> myTicheteMasa = ITichetMasaRepository.GetAll().Where(x => x.VacantaID == vacanta.ID);
+            List<int> ListaTicheteMasa = new List<int>();
+            if (myTicheteMasa != null)
+            {
+                foreach (TichetMasa myTicMasa in myTicheteMasa)
+                {
+                    ListaTicheteMasa.Add(myTicMasa.RestaurantID);
+                }
+                //myUtilizator.FotografieID = ListaFotografii;
+            }
+
+            IEnumerable<Rezervare> myRezervari2 = IRezervareRepository.GetAll().Where(x => x.VacantaID == vacanta.ID);
+            List<string> ListaRezervari2 = new List<string>();
+            if (myRezervari2 != null)
+            {
+                foreach (int restaurantID in ListaTicheteMasa)
+                {
+                    Restaurant restaurant = IRestaurantRepository.Get(restaurantID);
+                    ListaRezervari2.Add(restaurant.Nume);
+                }
+            }
+            myRezervare.ListaRestaurante = ListaRezervari2.ToList();
+
+            IEnumerable<Bilet> myBilete = IBiletRepository.GetAll().Where(x => x.VacantaID == vacanta.ID);
+            List<int> ListaBilete = new List<int>();
+            if (myBilete != null)
+            {
+                foreach (Bilet mybil in myBilete)
+                {
+                    ListaBilete.Add(mybil.AtractieID);
+                }
+                //myUtilizator.FotografieID = ListaFotografii;
+            }
+
+            IEnumerable<Rezervare> myRezervari3 = IRezervareRepository.GetAll().Where(x => x.VacantaID == vacanta.ID);
+            List<string> ListaRezervari3 = new List<string>();
+            if (myRezervari3 != null)
+            {
+                foreach (int atractieID in ListaBilete)
+                {
+                    Atractie atractie = IAtractieRepository.Get(atractieID);
+                    ListaRezervari3.Add(atractie.Denumire);
+                }
+            }
+            myRezervare.ListaAtractii = ListaRezervari3.ToList();
 
             return myRezervare;
         }
 
+
+
         // POST api/<RezervareController>
         [HttpPost]
-        public void Post(RezervareDTO value)
+        public Rezervare Post(RezervareDTO value)
         {
             Rezervare model = new Rezervare()
             {
                 DataRezervare = value.DataRezervare,
                 Rating = value.Rating,
-                Review = value.Review
+                Review = value.Review,
+                UtilizatorID = value.UtilizatorID,
+                VacantaID = value.VacantaID
             };
-            IRezervareRepository.Create(model);
+            return IRezervareRepository.Create(model);
 
-            for (int i = 0; i < value.VacantaID.Count; i++)
-            {
-                Rezervare RezervareVacanta = new Rezervare()
-                {
-                    ID = model.ID,
-                    VacantaID = value.VacantaID[i]
-                };
-
-                IRezervareRepository.Create(RezervareVacanta);
-            }
-
-            for (int i = 0; i < value.UtilizatorID.Count; i++)
-            {
-                Rezervare RezervareUtilizator = new Rezervare()
-                {
-                    ID = model.ID,
-                    UtilizatorID = value.UtilizatorID[i]
-                };
-
-                IRezervareRepository.Create(RezervareUtilizator);
-            }
         }
 
         // PUT api/<RezervareController>/5
         [HttpPut("{id}")]
-        public void Put(int id, RezervareDTO value)
+        public Rezervare Put(int id, RezervareDTO value)
         {
             Rezervare model = IRezervareRepository.Get(id);
             if (value.DataRezervare != null)
@@ -132,39 +195,16 @@ namespace ProiectMDS.Controllers
                 model.Review = value.Review;
             }
 
-            IRezervareRepository.Update(model);
-
-            if (value.VacantaID != null)
+            if (value.VacantaID != 0)
             {
-                IEnumerable<Rezervare> myRezervariVacanta = IRezervareRepository.GetAll().Where(x => x.VacantaID == id);
-                foreach (Rezervare myRezervareVacanta in myRezervariVacanta)
-                    IRezervareRepository.Delete(myRezervareVacanta);
-                for (int i = 0; i < value.VacantaID.Count; i++)
-                {
-                    Rezervare RezervareVacanta = new Rezervare()
-                    {
-                        ID = model.ID,
-                        VacantaID = value.VacantaID[i]
-                    };
-                    IRezervareRepository.Create(RezervareVacanta);
-                }
+                model.VacantaID = value.VacantaID;
             }
 
-            if (value.UtilizatorID != null)
+            if (value.UtilizatorID != 0)
             {
-                IEnumerable<Rezervare> myRezervariUtilizator = IRezervareRepository.GetAll().Where(x => x.UtilizatorID == id);
-                foreach (Rezervare myRezervareUtilizator in myRezervariUtilizator)
-                    IRezervareRepository.Delete(myRezervareUtilizator);
-                for (int i = 0; i < value.UtilizatorID.Count; i++)
-                {
-                    Rezervare RezervareUtilizator = new Rezervare()
-                    {
-                        ID = model.ID,
-                        UtilizatorID = value.UtilizatorID[i]
-                    };
-                    IRezervareRepository.Create(RezervareUtilizator);
-                }
+                model.UtilizatorID = value.UtilizatorID;
             }
+            return IRezervareRepository.Update(model);
         }
 
         // DELETE api/<RezervareController>/5

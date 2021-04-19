@@ -40,36 +40,17 @@ namespace ProiectMDS.Controllers
         public TichetMasaDetailsDTO Get(int id)
         {
             TichetMasa tichetMasa = ITichetMasaRepository.Get(id);
-            Restaurant restaurant = IRestaurantRepository.Get(id);
-            Vacanta vacanta = IVacantaRepository.Get(id);
+            Restaurant restaurant = IRestaurantRepository.Get(tichetMasa.RestaurantID);
+            Vacanta vacanta = IVacantaRepository.Get(tichetMasa.VacantaID);
 
-            TichetMasaDetailsDTO myTichetMasa = new TichetMasaDetailsDTO()
-            {
-                CodTichet = tichetMasa.CodTichet,
-            };
+            TichetMasaDetailsDTO myTichetMasa = new TichetMasaDetailsDTO();
 
-            IEnumerable<TichetMasa> myTicheteMasaRestaurant = ITichetMasaRepository.GetAll().Where(x => x.RestaurantID == restaurant.ID);
-            if (myTicheteMasaRestaurant != null)
+            if (tichetMasa != null)
             {
-                List<string> RestaurantNumeList = new List<string>();
-                foreach (TichetMasa myTichetMasaRestaurant in myTicheteMasaRestaurant)
-                {
-                    Restaurant myRestaurant = IRestaurantRepository.GetAll().SingleOrDefault(x => x.ID == myTichetMasaRestaurant.VacantaID);
-                    RestaurantNumeList.Add(myRestaurant.Nume);
-                }
-                myTichetMasa.RestaurantNume = RestaurantNumeList;
-            }
-
-            IEnumerable<TichetMasa> MyTicheteMasaVacanta = ITichetMasaRepository.GetAll().Where(x => x.VacantaID == vacanta.ID);
-            if (myTicheteMasaRestaurant != null)
-            {
-                List<string> VacantaDenumireList = new List<string>();
-                foreach (TichetMasa myTichetMasaVacanta in myTicheteMasaRestaurant)
-                {
-                    Vacanta myVacanta = IVacantaRepository.GetAll().SingleOrDefault(x => x.ID == myTichetMasaVacanta.VacantaID);
-                    VacantaDenumireList.Add(myVacanta.Denumire);
-                }
-                myTichetMasa.VacantaDenumire = VacantaDenumireList;
+                myTichetMasa.CodTichet = tichetMasa.CodTichet;
+                myTichetMasa.DataVizita = tichetMasa.DataVizita;
+                myTichetMasa.RestaurantNume = restaurant.Nume;
+                myTichetMasa.VacantaDenumire = vacanta.Denumire;
             }
 
             return myTichetMasa;
@@ -77,80 +58,48 @@ namespace ProiectMDS.Controllers
 
         // POST api/<TichetMasaController>
         [HttpPost]
-        public void Post(TichetMasaDTO value)
+        public TichetMasa Post(TichetMasaDTO value)
         {
             TichetMasa model = new TichetMasa()
             {
-                CodTichet = value.CodTichet
+                DataVizita = value.DataVizita,
+                CodTichet = value.CodTichet,
+                VacantaID = value.VacantaID,
+                RestaurantID = value.RestaurantID
             };
 
-            ITichetMasaRepository.Create(model);
-            for (int i = 0; i < value.VacantaID.Count; i++)
-            {
-                TichetMasa TichetMasaVacanta = new TichetMasa()
-                {
-                    ID = model.ID,
-                    VacantaID = value.VacantaID[i]
-                };
-
-                ITichetMasaRepository.Create(TichetMasaVacanta);
-            }
-
-            for (int i = 0; i < value.RestaurantID.Count; i++)
-            {
-                TichetMasa TichetMasaRestaurant = new TichetMasa()
-                {
-                    ID = model.ID,
-                    RestaurantID = value.RestaurantID[i]
-                };
-
-                ITichetMasaRepository.Create(TichetMasaRestaurant);
-            }
-        }
+            return ITichetMasaRepository.Create(model);
+         }
 
         // PUT api/<TichetMasaController>/5
         [HttpPut("{id}")]
-        public void Put(int id, TichetMasaDTO value)
+        public TichetMasa Put(int id, TichetMasaDTO value)
         {
             TichetMasa model = ITichetMasaRepository.Get(id);
+            DateTime? dt = null;
+
             if (value.CodTichet != null)
             {
                 model.CodTichet = value.CodTichet;
             }
 
-            ITichetMasaRepository.Update(model);
-
-            if (value.VacantaID != null)
+            if (value.DataVizita != dt)
             {
-                IEnumerable<TichetMasa> myTicheteMasaVacanta = ITichetMasaRepository.GetAll().Where(x => x.VacantaID == id);
-                foreach (TichetMasa myTichetMasaVacanta in myTicheteMasaVacanta)
-                    ITichetMasaRepository.Delete(myTichetMasaVacanta);
-                for (int i = 0; i < value.VacantaID.Count; i++)
-                {
-                    TichetMasa TichetMasaVacanta = new TichetMasa()
-                    {
-                        ID = model.ID,
-                        VacantaID = value.VacantaID[i]
-                    };
-                    ITichetMasaRepository.Create(TichetMasaVacanta);
-                }
+                model.DataVizita = value.DataVizita;
             }
 
-            if (value.RestaurantID != null)
+            if (value.RestaurantID != 0)
             {
-                IEnumerable<TichetMasa> myTicheteMasaRestaurant = ITichetMasaRepository.GetAll().Where(x => x.RestaurantID == id);
-                foreach (TichetMasa myTichetMasaRestaurant in myTicheteMasaRestaurant)
-                    ITichetMasaRepository.Delete(myTichetMasaRestaurant);
-                for (int i = 0; i < value.RestaurantID.Count; i++)
-                {
-                    TichetMasa TichetMasaRestaurant = new TichetMasa()
-                    {
-                        ID = model.ID,
-                        RestaurantID = value.RestaurantID[i]
-                    };
-                    ITichetMasaRepository.Create(TichetMasaRestaurant);
-                }
+                model.RestaurantID = value.RestaurantID;
             }
+
+            if (value.VacantaID != 0)
+            {
+                model.VacantaID = value.VacantaID;
+            }
+
+            return ITichetMasaRepository.Update(model);
+
         }
 
         // DELETE api/<TichetMasaController>/5

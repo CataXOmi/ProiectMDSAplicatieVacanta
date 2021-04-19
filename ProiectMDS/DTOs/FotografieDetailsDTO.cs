@@ -10,6 +10,6 @@ namespace ProiectMDS.DTOs
         public string Titlu { get; set; }
         public DateTime Data { get; set; }
         //relatie Many to Many
-        public List<string> UtilizatorUsername { get; set; }
+        public string UtilizatorUsername { get; set; }
     }
 }

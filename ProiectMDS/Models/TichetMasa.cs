@@ -10,6 +10,7 @@ namespace ProiectMDS.Models
         public int ID { get; set; }
         public int VacantaID { get; set; }
         public int RestaurantID { get; set; }
+        public DateTime DataVizita { get; set; }
         public string CodTichet { get; set; }
         public virtual Vacanta Vacanta { get; set; }
         public virtual Restaurant Restaurant { get; set; }

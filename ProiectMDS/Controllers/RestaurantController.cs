@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using ProiectMDS.Models;
 using ProiectMDS.DTOs;
 using ProiectMDS.Repositories.RestaurantRepository;
+using ProiectMDS.Repositories.MeniuRepository;
+using ProiectMDS.Repositories.MancareRepository;
 
 
 
@@ -16,10 +18,14 @@ namespace ProiectMDS.Controllers
     public class RestaurantController : ControllerBase
     {
         public IRestaurantRepository IRestaurantRepository { get; set; }
+        public IMancareRepository IMancareRepository { get; set; }
+        public IMeniuRepository IMeniuRepository { get; set; }
 
-        public RestaurantController(IRestaurantRepository repository)
+        public RestaurantController(IRestaurantRepository repository, IMancareRepository mancareRepository, IMeniuRepository meniuRepository)
         {
             IRestaurantRepository = repository;
+            IMeniuRepository = meniuRepository;
+            IMancareRepository = mancareRepository;
         }
 
         // GET: api/<RestaurantController>
@@ -31,9 +37,45 @@ namespace ProiectMDS.Controllers
 
         // GET api/<RestaurantController>/5
         [HttpGet("{id}")]
-        public ActionResult<Restaurant> Get(int id)
+        public RestaurantDTO Get(int id)
         {
-            return IRestaurantRepository.Get(id);
+            Restaurant restaurant = IRestaurantRepository.Get(id);
+            RestaurantDTO myRestaurant = new RestaurantDTO();
+
+            if (myRestaurant != null)
+            {
+                myRestaurant.Adresa = restaurant.Adresa;
+                myRestaurant.Nume = restaurant.Nume;
+                myRestaurant.OraDeschidere = restaurant.OraDeschidere;
+                myRestaurant.OraInchidere = restaurant.OraInchidere;
+                myRestaurant.Oras = restaurant.Oras;
+            }
+
+            IEnumerable<Meniu> myMeniu = IMeniuRepository.GetAll().Where(x => x.RestaurantID == restaurant.ID);
+            List<int> ListaMancare = new List<int>();
+            if (myMeniu != null)
+            {
+                foreach (Meniu mymenu in myMeniu)
+                {
+                    ListaMancare.Add(mymenu.MancareID);
+                }
+                //myUtilizator.FotografieID = ListaFotografii;
+            }
+
+            IEnumerable<Meniu> myMenus = IMeniuRepository.GetAll().Where(x => x.RestaurantID == restaurant.ID);
+            List<string> ListaMancaruri = new List<string>();
+            if (myMenus != null)
+            {
+                foreach (int mancareID in ListaMancare)
+                {
+                    Mancare mancare = IMancareRepository.Get(mancareID);
+                    ListaMancaruri.Add(mancare.Denumire);
+                }
+            }
+            myRestaurant.Meniu = ListaMancaruri.ToList();
+
+            return myRestaurant;
+
         }
 
         // POST api/<RestaurantController>

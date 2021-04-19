@@ -8,5 +8,6 @@ namespace ProiectMDS.DTOs
     public class FacilitateDTO
     {
         public string Denumire { get; set; }
+        public List<int> PachetID { get; set; }
     }
 }
