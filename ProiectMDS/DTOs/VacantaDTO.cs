@@ -16,10 +16,10 @@ namespace ProiectMDS.DTOs
         public string Oras { get; set; }
         public string Tara { get; set; }
         
-        public List<int> RezervareID { get; set; }
-        public List<int> RezervareCazareID { get; set; }
-        public List<int> BiletID { get; set; }
-        public List<int> TichetMasaID { get; set; }        
+        //public List<int> RezervareID { get; set; }
+        //public List<int> RezervareCazareID { get; set; }
+        //public List<int> BiletID { get; set; }
+        //public List<int> TichetMasaID { get; set; }        
         
     }
 }

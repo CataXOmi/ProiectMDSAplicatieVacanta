@@ -15,9 +15,9 @@ namespace ProiectMDS.DTOs
         public DateTime DataSfarsit { get; set; }
         public string Oras { get; set; }
         public string Tara { get; set; }
-        public List<string> CazareDenumire { get; set; }
-        public List<string> RestaurantDenumire { get; set; }
-        public List<string> AtractieDenumire { get; set; }
+        //public List<string> CazareDenumire { get; set; }
+        //public List<string> RestaurantDenumire { get; set; }
+        //public List<string> AtractieDenumire { get; set; }
 
     }
 }
