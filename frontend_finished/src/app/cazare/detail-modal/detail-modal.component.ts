@@ -20,7 +20,7 @@ export class DetailModalComponent implements OnInit {
   ngOnInit() {}
 
   show(id: number): void {
-    this.api.getCazare(id);
+    this.getCazare(id);
     this.modal.show();
   }
 

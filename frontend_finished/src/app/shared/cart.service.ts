@@ -1,25 +1,25 @@
 
 import {Injectable} from '@angular/core';
-import {Album} from './album.model';
+import {Cazare} from './cazare.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  albums: Album[] =[];
+  cazari: Cazare[] =[];
 
 
   constructor() {
 
   }
 
-  add(album: Album){
-    this.albums.push(album);
+  add(cazare: Cazare){
+    this.cazari.push(cazare);
 
   }
 
   get() {
-    return this.albums;
+    return this.cazari;
   }
 
 
