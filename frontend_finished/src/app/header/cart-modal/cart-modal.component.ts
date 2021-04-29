@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Album } from 'src/app/shared/album.model';
+import { Cazare } from 'src/app/shared/cazare.model';
 import { CartService } from 'src/app/shared/cart.service';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 
@@ -8,9 +8,10 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
   templateUrl: './cart-modal.component.html',
   styleUrls: ['./cart-modal.component.css']
 })
+
 export class CartModalComponent implements OnInit {
   @ViewChild('cartModal') modal: ModalDirective;
-  products: Album[] = [];
+  products: Cazare[] = [];
   sum = 0;
 
   constructor(private cartService: CartService) { }
@@ -22,12 +23,12 @@ export class CartModalComponent implements OnInit {
     this.modal.show();
     this.products = this.cartService.get();
     for (let i = 0; i < this.products.length; i++) {
-      this.sum += this.products[i].price;
+      this.sum += this.products[i].pret;
     }
   }
 
-  delete(id: number, price: number) {
+  delete(id: number, pret: number) {
     this.products.splice(id, 1);
-    this.sum = this.sum - price;
+    this.sum = this.sum - pret;
   }
 }

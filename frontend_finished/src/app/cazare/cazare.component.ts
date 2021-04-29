@@ -1,14 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Cazare } from '../shared/cazare.model';
-import { DetailModalComponent } from '../cazare/detail-modal/detail-modal.component';
+import { DetailModalComponent } from './detail-modal/detail-modal.component';
 import { ApiService } from '../shared/api.service';
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  templateUrl: './cazare.component.html',
+  styleUrls: ['./cazare.component.css']
 })
-export class HomeComponent implements OnInit {
+export class CazareComponent implements OnInit {
   cazari: Cazare[] = [];
   searchText: string;
   title: string;

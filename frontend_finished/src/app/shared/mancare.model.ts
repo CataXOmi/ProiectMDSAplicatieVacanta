@@ -1,11 +1,6 @@
-export class Vacanta {
+export class Mancare {
     id: number;
     denumire: string;
-    dataInceput: string;
-    dataSfarsit: number;
-    oras: string;
-    tara: string;
-
   
     constructor(input?: any) {
       Object.assign(this, input);

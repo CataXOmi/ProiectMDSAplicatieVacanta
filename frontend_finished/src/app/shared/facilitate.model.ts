@@ -1,11 +1,8 @@
-export class Vacanta {
+export class Facilitate {
     id: number;
     denumire: string;
-    dataInceput: string;
-    dataSfarsit: number;
-    oras: string;
-    tara: string;
-
+    favicon: string;
+    
   
     constructor(input?: any) {
       Object.assign(this, input);

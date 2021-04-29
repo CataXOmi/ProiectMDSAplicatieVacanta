@@ -10,13 +10,14 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AddComponent } from './add/add.component';
 import { EditComponent } from './edit/edit.component';
+import { CazareComponent } from './cazare/cazare.component';
 import { EditAlbumModalComponent } from './edit/edit-album-modal/edit-album-modal.component';
 import { EditArtistModalComponent } from './edit/edit-artist-modal/edit-artist-modal.component';
 import { EditSongModalComponent } from './edit/edit-song-modal/edit-song-modal.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { HomeComponent } from './home/home.component';
 import { SearchPipe } from './shared/search.pipe';
-import { DetailModalComponent } from './home/detail-modal/detail-modal.component';
+import { DetailModalComponent } from './cazare/detail-modal/detail-modal.component';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { CartModalComponent } from './header/cart-modal/cart-modal.component';
@@ -25,6 +26,7 @@ import { CartModalComponent } from './header/cart-modal/cart-modal.component';
   declarations: [
     AppComponent,
     AddComponent,
+    CazareComponent,
     EditComponent,
     EditAlbumModalComponent,
     EditArtistModalComponent,

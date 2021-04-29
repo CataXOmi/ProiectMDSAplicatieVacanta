@@ -76,3 +76,8 @@ form ol {
 .modal-header {
   border-bottom: none;
 }
+
+img {
+  width: 20%;
+  height: 25%;
+}

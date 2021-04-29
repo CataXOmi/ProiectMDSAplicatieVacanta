@@ -26,18 +26,18 @@
             <thead>
               <tr>
                 <th>#</th>
-                <th>Album name</th>
-                <th>Price</th>
-                <th>Remove</th>
+                <th>Denumire Cazare</th>
+                <th>Pret</th>
+                <th>Sterge</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let product of products; let i = index">
                 <th scope="row">{{ i }}</th>
-                <td>{{ product.name }}</td>
-                <td>{{ product.price }}</td>
+                <td>{{ product.nume }}</td>
+                <td>{{ product.pret }}</td>
                 <td>
-                  <a (click)="delete(i, product.price)"
+                  <a (click)="delete(i, product.pret)"
                     ><i class="fas fa-times"></i
                   ></a>
                 </td>

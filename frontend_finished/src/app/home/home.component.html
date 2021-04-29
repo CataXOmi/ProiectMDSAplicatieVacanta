@@ -1,3 +1,17 @@
+<table width="200" class="table">
+  <tr>
+    <th>Servicii</th>
+  </tr>
+  <tr>
+      <td><a routerLink="#">Atractii</a></td>
+  </tr>
+  <tr>
+    <td><a routerLink="#">Cazari</a></td>
+  </tr>
+  <tr>
+    <td><a routerLink="#">Restaurante</a></td>
+  </tr>
+</table>
 <div class="container">
   <div>
     <div id="container-content">
@@ -14,17 +28,19 @@
         <i class="fa fa-search" aria-hidden="true"></i>
       </form>
 
-      <div class="container">
+
       
+      <div class="container">
+        <h2>Bun venit acolo unde vacanta ta va fi mai frumoasa!</h2> <br><br><br>
         <div class="row pl-5">
-          <ng-container *ngFor=" let album of albums | searchFilter: { artistName: searchText, name: searchText, songName: searchText }; let ind = index">
-            <div class="view col mb-3 mr-3 p-0 hoverable"  (click)="showDM(album.id)">
-              <img [src]="album.img" class="img-fluid z-depth-1 rounded" alt="hoverable"/>
+          <ng-container *ngFor=" let cazare of cazari | searchFilter: { nume: searchText, tipCazare: searchText, oras: searchText }; let ind = index">
+            <div class="view col mb-3 mr-3 p-0 hoverable"  (click)="showDM(cazare.id)">
+              <img [src]="cazare.setImagini" class="img-fluid z-depth-1 rounded" alt="hoverable"/>
 
               <div class="detail">
-                <p id="p1">{{ album.artistName.toString() }} - {{ album.name }}</p>
+                <p id="p1">{{ cazare.nume.toString() }} - {{ cazare.oras }}</p>
                
-                <p id="p2">{{ album.price }} lei</p>
+                <p id="p2">{{ cazare.pret }} lei/noapte</p>
               </div>
             </div>
             <div class="w-100" *ngIf="ind != 0 && (ind + 1) % 4 == 0"></div>

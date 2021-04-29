@@ -6,26 +6,26 @@
       <div class="row">
 
         <div class="col-lg-4" style="padding-right:0">
-          <img [src]="album.img" class="img-fluid z-depth-1 rounded">
+          <img [src]="cazare.setImagini" class="img-fluid z-depth-1 rounded">
         </div>
    
       <div class="col-lg-8" style="padding-left:10px">
         <div class="row">
           <div class="details">
-          <p *ngFor = "let artist of album.artistName" > {{artist}} </p>
-          <p> - {{album.name}}</p>
-          <p id="studio">{{studio}}</p>
+          <p *ngFor = "let facilitate of cazare.listaFacilitati" > {{facilitate}} </p>
+          <p> - {{cazare.nume}}</p>
+          <p id="oras">{{cazare.oras}}</p>
 
-          <ol>
+          <!-- ol>
             <li *ngFor = "let song of album.songName"> {{song}}</li>
-          </ol>
+          </ol -->
 
         </div>
         </div>
         <div class="row">
           <div class="button">
-        <span >{{album.price}} lei</span>
-          <button  type="button" class="btn btn-dark" (click)="addCart(album)">Add to cart</button>
+        <span >{{cazare.pret}} lei/noapte</span>
+          <button  type="button" class="btn btn-dark" (click)="addCart(cazare)">Adauga in cos</button>
          
         </div>
         </div>
