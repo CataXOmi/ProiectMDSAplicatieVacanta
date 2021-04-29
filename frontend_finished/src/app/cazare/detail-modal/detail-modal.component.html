@@ -12,13 +12,13 @@
       <div class="col-lg-8" style="padding-left:10px">
         <div class="row">
           <div class="details">
-          <p *ngFor = "let facilitate of cazare.listaFacilitati" > {{facilitate}} </p>
-          <p> - {{cazare.nume}}</p>
-          <p id="oras">{{cazare.oras}}</p>
+          <p> {{cazare.nume}} </p>
+          <p> - {{cazare.oras}}</p>
+          <!--p id="oras">{{cazare.oras}}</p-->
 
-          <!-- ol>
-            <li *ngFor = "let song of album.songName"> {{song}}</li>
-          </ol -->
+          <ol>
+            <li *ngFor = "let facilitate of cazare.listaFacilitati"> {{facilitate}}</li>
+          </ol>
 
         </div>
         </div>
