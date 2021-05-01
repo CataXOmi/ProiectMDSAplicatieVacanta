@@ -3,6 +3,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Cazare } from '../../shared/cazare.model';
 import { ApiService } from '../../shared/api.service';
 import { CartService } from '../../shared/cart.service';
+import { DateRangePickerOverviewExample } from './datepicker/date-range-picker-overview-example';
 
 @Component({
   selector: 'app-detail-modal',

@@ -65,3 +65,7 @@ span {
   color: blue;
   font-style: italic;
 }
+
+.date-range-picker-overview-example {
+  z-index: 1500 !important;
+}
