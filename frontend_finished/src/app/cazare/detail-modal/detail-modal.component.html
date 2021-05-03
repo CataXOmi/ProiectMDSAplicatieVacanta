@@ -24,11 +24,11 @@
         </div>
         <form class="text-center">
           <h5>Data start</h5>
-          <input type="text"  class="form-control mb-4" placeholder="aaaa.ll.zz" formControlName="dataStart"
-               autocomplete="off" >
+          <input type="text"  class="form-control mb-4" placeholder="aaaa.ll.zz" name="datast"
+               autocomplete="off" id="dst" [(ngModel)] = "dataStart">
                <h5>Data sfarsit</h5>
-          <input type="text"  class="form-control mb-4" placeholder="aaaa.ll.zz" formControlName="dataSfarsit"
-                autocomplete="off" >
+          <input type="text"  class="form-control mb-4" placeholder="aaaa.ll.zz" name="datasf"
+                autocomplete="off" id="dsf" [(ngModel)] = "dataSfarsit">
         </form>
         <div class="row">
           <div class="button">

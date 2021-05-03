@@ -15,7 +15,7 @@
             type="button"
             class="close"
             data-dismiss="modal"
-            (click)="modal.hide()"
+            (click)="modal.hide(); sum=0"
           >
             <span aria-hidden="true">×</span>
           </button>
@@ -30,16 +30,20 @@
                 <th>Pret</th>
                 <th>Data Start</th>
                 <th>Data Sfarsit</th>
+                <th>Pret total</th>
                 <th>Sterge</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let product of products; let i = index">
-                <th scope="row">{{ i }}</th>
+                <th scope="row">{{ i+1 }}</th>
                 <td>{{ product.nume }}</td>
                 <td>{{ product.pret }}</td>
+                <td>{{ dateStart[i] }}</td>
+                <td>{{ dateSfarsit[i] }}</td>
+                <td>{{ total[i] }}</td>
                 <td>
-                  <a (click)="delete(i, product.pret)"
+                  <a (click)="delete(i, total[i])"
                     ><i class="fas fa-times"></i
                   ></a>
                 </td>
@@ -60,7 +64,7 @@
             type="button"
             class="btn btn-outline-primary"
             data-dismiss="modal"
-            (click)="modal.hide()"
+            (click)="modal.hide(); sum = 0"
           >
             Iesire
           </button>
@@ -69,7 +73,7 @@
             data-toggle="modal"
             data-target="#checkoutModal"
             data-dismiss="modal"
-            (click)="modal.hide()"
+            (click)="modal.hide(); sum=0"
           >
             Rezerva
           </button>

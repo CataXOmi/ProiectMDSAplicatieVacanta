@@ -10,10 +10,14 @@ import { CartService } from '../../shared/cart.service';
   styleUrls: ['./detail-modal.component.css']
 })
 export class DetailModalComponent implements OnInit {
+
   @ViewChild('detailModal') modal: ModalDirective;
   cazare = new Cazare();
   //studio: string;
+  dataStart: string = "";
+  dataSfarsit: string = "";
   isLoggedIn: string;
+
 
   constructor(private api: ApiService, private cart: CartService) { }
 
@@ -52,7 +56,9 @@ export class DetailModalComponent implements OnInit {
   }
 
   addCart(cazare: Cazare) {
-    this.cart.add(cazare);
+    this.cart.add(cazare, this.dataStart, this.dataSfarsit);
+    //console.log(this.dataStart, "+", this.dataSfarsit);
     this.modal.hide();
   }
+
 }
