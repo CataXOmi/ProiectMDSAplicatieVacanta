@@ -23,11 +23,6 @@ import { HeaderComponent } from './header/header.component';
 import { CartModalComponent } from './header/cart-modal/cart-modal.component';
 
 import {MatNativeDateModule} from '@angular/material/core';
-import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
-import {DemoMaterialModule} from './cazare/detail-modal/datepicker/material-module';
-import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
-
-import {DateRangePickerOverviewExample} from './cazare/detail-modal/datepicker/date-range-picker-overview-example';
 
 @NgModule({
   declarations: [
@@ -43,7 +38,6 @@ import {DateRangePickerOverviewExample} from './cazare/detail-modal/datepicker/d
     DetailModalComponent,
     HeaderComponent,
     CartModalComponent,
-    DateRangePickerOverviewExample,
   ],
   imports: [
     CommonModule,
@@ -55,12 +49,11 @@ import {DateRangePickerOverviewExample} from './cazare/detail-modal/datepicker/d
     ModalModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
-    DemoMaterialModule,
     MatNativeDateModule,
     ReactiveFormsModule,
   ],
   exports: [],
-  entryComponents: [DateRangePickerOverviewExample],
-  bootstrap: [AppComponent, DateRangePickerOverviewExample]
+  entryComponents: [],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

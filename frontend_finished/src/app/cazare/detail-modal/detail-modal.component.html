@@ -22,13 +22,19 @@
 
           </div>
         </div>
-        <body class="mat-app-background">
-          <date-range-picker-overview-example>Loading</date-range-picker-overview-example>
-        </body>
+        <form class="text-center">
+          <h5>Data start</h5>
+          <input type="text"  class="form-control mb-4" placeholder="aaaa.ll.zz" formControlName="dataStart"
+               autocomplete="off" >
+               <h5>Data sfarsit</h5>
+          <input type="text"  class="form-control mb-4" placeholder="aaaa.ll.zz" formControlName="dataSfarsit"
+                autocomplete="off" >
+        </form>
         <div class="row">
           <div class="button">
         <span >{{cazare.pret}} lei/noapte</span>
-          <button  type="button" class="btn btn-dark" (click)="addCart(cazare)">Adauga in cos</button>
+        <button type = "button" class="btn btn-dark">Adauga la favorite</button>
+          <button type="button" class="btn btn-dark" (click)="addCart(cazare)">Adauga in cos</button>
          
         </div>
         </div>
