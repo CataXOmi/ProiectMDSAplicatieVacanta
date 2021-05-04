@@ -21,13 +21,16 @@ import { DetailModalComponent } from './cazare/detail-modal/detail-modal.compone
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { CartModalComponent } from './header/cart-modal/cart-modal.component';
+import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 
-import {MatNativeDateModule} from '@angular/material/core';
+import { MatNativeDateModule } from '@angular/material/core';
 import { ChooseVacationModalComponent } from './header/cart-modal/choose-vacation-modal/choose-vacation-modal.component';
 import { AtractieComponent } from './atractie/atractie.component';
 import { DetailAtractieModalComponent } from './atractie/detail-atractie-modal/detail-atractie-modal.component';
 import { RestaurantComponent } from './restaurant/restaurant.component';
 import { DetailRestaurantModalComponent } from './restaurant/detail-restaurant-modal/detail-restaurant-modal.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -61,9 +64,14 @@ import { DetailRestaurantModalComponent } from './restaurant/detail-restaurant-m
     ReactiveFormsModule,
     MatNativeDateModule,
     ReactiveFormsModule,
+    MatFormFieldModule,
+    MatSelectModule,
   ],
   exports: [],
   entryComponents: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  providers: [
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill'}},
+  ]
 })
 export class AppModule { }

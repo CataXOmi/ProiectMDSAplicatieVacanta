@@ -93,7 +93,7 @@ export class ApiService {
   }
 
 
-  addRezervareCazare(rezervCazare: RezervareCazare) {
+  addRezervareCazare(rezervCazare) {
     return this.http.post(this.baseUrl + '/rezervareCazare', {
       'vacantaID': rezervCazare.vacantaID,
       'cazareID': rezervCazare.cazareID,
@@ -147,7 +147,7 @@ export class ApiService {
     }, {headers: this.header})
   }
 
-  addBilet(bil: Bilet) {
+  addBilet(bil) {
     return this.http.post(this.baseUrl + 'bilet', {
       'vacantaID': bil.vacantaID,
       'atractieID': bil.atractieID,
@@ -165,6 +165,15 @@ export class ApiService {
       'oras': atr.oras,
       'adresa': atr.adresa,
       'imagini': JSON.parse('[' + atr.listaImagini + ']')
+    }, {headers: this.header})
+  }
+
+  addTichetMasa(tm) {
+    return this.http.post(this.baseUrl + '/tichetMasa', {
+      'vacantaID': tm.vacantaID,
+      'restaurantID': tm.restaurantID,
+      'codTichet': tm.codTichet,
+      'dataVizita': tm.dataVizita
     }, {headers: this.header})
   }
 

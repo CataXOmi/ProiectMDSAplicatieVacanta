@@ -3,7 +3,7 @@ import { Cazare } from 'src/app/shared/cazare.model';
 import { CartService } from 'src/app/shared/cart.service';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ApiService } from '../../shared/api.service';
-import { Vacanta } from 'src/app/shared/vacanta.model';
+import { ChooseVacationModalComponent } from './choose-vacation-modal/choose-vacation-modal.component';
 import { Atractie } from 'src/app/shared/atractie.model';
 import { Restaurant } from 'src/app/shared/restaurant.model';
 
@@ -15,6 +15,7 @@ import { Restaurant } from 'src/app/shared/restaurant.model';
 
 export class CartModalComponent implements OnInit {
   @ViewChild('cartModal') modal: ModalDirective;
+  @ViewChild('chooseVacationModal') vacationModal: ChooseVacationModalComponent;
   rezervariCazari: Cazare[] = [];
   dateStart: string[] = [];
   dateSfarsit: string[] = [];
@@ -28,14 +29,13 @@ export class CartModalComponent implements OnInit {
   differenceBetweenDates: number[] = [];
   totalCazare: number[] = [];
   totalAtractie: number[] = [];
-  vacanteDisponibile: Vacanta[] = [];
-  vacationsName: string[] = [];
+  idVacanta: number = 0;
+  success: boolean;
+  
 
   constructor(private cartService: CartService, private api : ApiService) { }
 
-  ngOnInit() {
-    this.displayVacations();
-  }
+  ngOnInit() {}
 
   show() {
     this.modal.show();
@@ -93,30 +93,53 @@ export class CartModalComponent implements OnInit {
     this.totalFinal = this.totalFinal - pret;
   }
 
-  displayVacations (){
-    this.api.getVacante()
-      .subscribe((data: Vacanta[]) => {
-        this.vacanteDisponibile = [];
-
-        for (let i = 0; i < data.length; i++) {
-          this.api.getVacanta(data[i].id)
-            .subscribe((info: Vacanta) => {
-              info.id = data[i].id;
-              this.vacanteDisponibile.push(info);
-            },
-              (e: Error) => {
-                console.log('err', e);
-              });
-        }
-
-      },
-        (error: Error) => {
-          console.log('err', error);
-
-        });
-    for (let i = 0; i < this.vacanteDisponibile.length; i++)
-    {
-      this.vacationsName.push(this.vacanteDisponibile[i].denumire);
-    }
+  makeid(length: number) {
+    var result           = [];
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+-*/@#$&\`~';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+      result.push(characters.charAt(Math.floor(Math.random() * 
+ charactersLength)));
+   }
+   return result.join('');
 }
+
+  addRezervareC() {
+    let date: any = {};
+    for (let i = 0; i < this.rezervariCazari.length; i++)
+    {
+      date.vacantaID = this.vacationModal.get();
+      date.cazareID = this.rezervariCazari[i].id;
+      date.codRezervare = JSON.stringify(this.makeid(8));
+      date.dataSosire = this.dateSfarsit[i];
+      date.dataPlecare = this.dateStart[i];
+
+      this.api.addRezervareCazare(date).subscribe(() => {
+
+      this.success = true;
+      setTimeout(() => {
+        this.success = null;
+      }, 3000);
+    },
+    (error: Error) => {
+      console.log(error);
+      this.success = false;
+      setTimeout(() => {
+        this.success = null;
+      }, 3000);
+    });
+    }
+    console.log(date.vacantaID);
+    console.log(date.cazareID);
+    console.log(date.codRezervare);
+    console.log(date.dataSosire);
+    console.log(date.dataPlecare);
+  }
+
+  doLater() {
+    setTimeout(() => {
+      this.addRezervareC();
+  }, 5000);
+  }
+    
 }
