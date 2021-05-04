@@ -5,7 +5,7 @@ export class Restaurant {
     oraInchidere: string;
     oras: string;
     adresa: string;
-    listaImagini: string[];
+    listaImagini: string;
   
     constructor(input?: any) {
       Object.assign(this, input);

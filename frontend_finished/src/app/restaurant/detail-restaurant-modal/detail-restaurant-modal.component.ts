@@ -1,30 +1,29 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-import { Cazare } from '../../shared/cazare.model';
+import { Restaurant } from '../../shared/restaurant.model';
 import { ApiService } from '../../shared/api.service';
 import { CartService } from '../../shared/cart.service';
 
 @Component({
-  selector: 'app-detail-modal',
-  templateUrl: './detail-modal.component.html',
-  styleUrls: ['./detail-modal.component.css']
+  selector: 'app-detail-restaurant-modal',
+  templateUrl: './detail-restaurant-modal.component.html',
+  styleUrls: ['./detail-restaurant-modal.component.css']
 })
-export class DetailModalComponent implements OnInit {
+export class DetailRestaurantModalComponent implements OnInit {
 
-  @ViewChild('detailModal') modal: ModalDirective;
-  cazare = new Cazare();
+  @ViewChild('detailRestaurantModal') modal: ModalDirective;
+  restaurant = new Restaurant();
   //studio: string;
-  dataStart: string = "";
-  dataSfarsit: string = "";
+  dataRezervare: string = "";
+  numarPersoane: number;
   isLoggedIn: string;
-
 
   constructor(private api: ApiService, private cart: CartService) { }
 
   ngOnInit() {}
 
   show(id: number): void {
-    this.getCazare(id);
+    this.getRestaurant(id);
     this.modal.show();
   }
 
@@ -39,13 +38,13 @@ export class DetailModalComponent implements OnInit {
         });
   }*/
 
-  getCazare(id: number) {
-    this.api.getCazare(id)
-      .subscribe((data: Cazare) => {
-        this.cazare = data;
-        this.cazare.id = id;
-        if (!data.setImagini) {
-          this.cazare.setImagini = 'https://image.freepik.com/free-vector/booking-hotel-online-cartoon-icon-illustration-business-technology-icon-concept_138676-2126.jpg';
+  getRestaurant(id: number) {
+    this.api.getRestaurant(id)
+      .subscribe((data: Restaurant) => {
+        this.restaurant = data;
+        this.restaurant.id = id;
+        if (!data.listaImagini) {
+          this.restaurant.listaImagini = 'assets/24769916.jpg';
         }
         //this.getStudio(this.album.studioId);
       },
@@ -55,8 +54,8 @@ export class DetailModalComponent implements OnInit {
         });
   }
 
-  addCart(cazare: Cazare) {
-    this.cart.add_cazare(cazare, this.dataStart, this.dataSfarsit);
+  addCart(restaurant: Restaurant) {
+    this.cart.add_restaurant(restaurant, this.dataRezervare, this.numarPersoane);
     //console.log(this.dataStart, "+", this.dataSfarsit);
     this.modal.hide();
   }

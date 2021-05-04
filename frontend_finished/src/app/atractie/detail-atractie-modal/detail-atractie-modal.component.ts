@@ -1,30 +1,29 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-import { Cazare } from '../../shared/cazare.model';
+import { Atractie } from '../../shared/atractie.model';
 import { ApiService } from '../../shared/api.service';
 import { CartService } from '../../shared/cart.service';
 
 @Component({
-  selector: 'app-detail-modal',
-  templateUrl: './detail-modal.component.html',
-  styleUrls: ['./detail-modal.component.css']
+  selector: 'app-detail-atractie-modal',
+  templateUrl: './detail-atractie-modal.component.html',
+  styleUrls: ['./detail-atractie-modal.component.css']
 })
-export class DetailModalComponent implements OnInit {
+export class DetailAtractieModalComponent implements OnInit {
 
-  @ViewChild('detailModal') modal: ModalDirective;
-  cazare = new Cazare();
+  @ViewChild('detailAtractieModal') modal: ModalDirective;
+  atractie = new Atractie();
   //studio: string;
-  dataStart: string = "";
-  dataSfarsit: string = "";
+  dataVizita: string = "";
+  numarBilete: number;
   isLoggedIn: string;
-
 
   constructor(private api: ApiService, private cart: CartService) { }
 
   ngOnInit() {}
 
   show(id: number): void {
-    this.getCazare(id);
+    this.getAtractie(id);
     this.modal.show();
   }
 
@@ -39,13 +38,13 @@ export class DetailModalComponent implements OnInit {
         });
   }*/
 
-  getCazare(id: number) {
-    this.api.getCazare(id)
-      .subscribe((data: Cazare) => {
-        this.cazare = data;
-        this.cazare.id = id;
-        if (!data.setImagini) {
-          this.cazare.setImagini = 'https://image.freepik.com/free-vector/booking-hotel-online-cartoon-icon-illustration-business-technology-icon-concept_138676-2126.jpg';
+  getAtractie(id: number) {
+    this.api.getAtractie(id)
+      .subscribe((data: Atractie) => {
+        this.atractie = data;
+        this.atractie.id = id;
+        if (!data.listaImagini) {
+          this.atractie.listaImagini = 'assets/14219410.jpg';
         }
         //this.getStudio(this.album.studioId);
       },
@@ -55,10 +54,11 @@ export class DetailModalComponent implements OnInit {
         });
   }
 
-  addCart(cazare: Cazare) {
-    this.cart.add_cazare(cazare, this.dataStart, this.dataSfarsit);
+  addCart(atractie: Atractie) {
+    this.cart.add_atractie(atractie, this.dataVizita, this.numarBilete);
     //console.log(this.dataStart, "+", this.dataSfarsit);
     this.modal.hide();
   }
+
 
 }

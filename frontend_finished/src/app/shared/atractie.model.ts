@@ -6,7 +6,7 @@ export class Atractie {
     pret: number;
     oras: string;
     adresa: string;
-    listaImagini: string[];
+    listaImagini: string;
   
     constructor(input?: any) {
       Object.assign(this, input);

@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {}
   
   openCart() {
-   this.detailModal.sum = 0;
+   this.detailModal.totalFinal = 0;
    this.detailModal.show();
   }
 

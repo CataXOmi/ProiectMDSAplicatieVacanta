@@ -4,12 +4,16 @@ import { HomeComponent } from './home/home.component';
 import { AddComponent } from './add/add.component';
 import { EditComponent } from './edit/edit.component';
 import { CazareComponent } from './cazare/cazare.component';
+import { AtractieComponent } from './atractie/atractie.component';
+import { RestaurantComponent } from './restaurant/restaurant.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'add', component: AddComponent },
   { path: 'edit', component: EditComponent },
   { path: 'cazari', component: CazareComponent },
+  { path: 'atractii', component: AtractieComponent},
+  { path: 'restaurante', component: RestaurantComponent},
   { path: '**', component: HomeComponent },
 
 ];

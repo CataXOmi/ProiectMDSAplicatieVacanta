@@ -23,6 +23,11 @@ import { HeaderComponent } from './header/header.component';
 import { CartModalComponent } from './header/cart-modal/cart-modal.component';
 
 import {MatNativeDateModule} from '@angular/material/core';
+import { ChooseVacationModalComponent } from './header/cart-modal/choose-vacation-modal/choose-vacation-modal.component';
+import { AtractieComponent } from './atractie/atractie.component';
+import { DetailAtractieModalComponent } from './atractie/detail-atractie-modal/detail-atractie-modal.component';
+import { RestaurantComponent } from './restaurant/restaurant.component';
+import { DetailRestaurantModalComponent } from './restaurant/detail-restaurant-modal/detail-restaurant-modal.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +43,11 @@ import {MatNativeDateModule} from '@angular/material/core';
     DetailModalComponent,
     HeaderComponent,
     CartModalComponent,
+    ChooseVacationModalComponent,
+    AtractieComponent,
+    DetailAtractieModalComponent,
+    RestaurantComponent,
+    DetailRestaurantModalComponent,
   ],
   imports: [
     CommonModule,

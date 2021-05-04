@@ -33,14 +33,14 @@
         <div class="container">
 
           <div class="row pl-5">
-            <ng-container *ngFor=" let cazare of cazari | searchFilter: { nume: searchText, tipCazare: searchText, oras: searchText }; let ind = index">
-              <div class="view col mb-3 mr-3 p-0 hoverable"  (click)="showDM(cazare.id)">
-                <img [src]="cazare.setImagini" class="img-fluid z-depth-1 rounded" alt="hoverable"/>
+            <ng-container *ngFor=" let atractie of atractii | searchFilter: { denumire: searchText, oras: searchText }; let ind = index">
+              <div class="view col mb-3 mr-3 p-0 hoverable"  (click)="showDM(atractie.id)">
+                <img [src]="atractie.listaImagini" class="img-fluid z-depth-1 rounded" alt="hoverable"/>
   
                 <div class="detail">
-                  <p id="p1">{{ cazare.nume.toString() }} - {{ cazare.oras }}</p>
+                  <p id="p1">{{ atractie.denumire.toString() }} - {{ atractie.oras }}</p>
                  
-                  <p id="p2">{{ cazare.pret }} lei/noapte</p>
+                  <p id="p2">{{atractie.pret == 0 ? "Gratuit" : atractie.pret + " lei/bilet"}}</p>
                 </div>
               </div>
               <div class="w-100" *ngIf="ind != 0 && (ind + 1) % 4 == 0"></div>
@@ -50,5 +50,5 @@
       </div>
     </div>
   </div>
-  <app-detail-modal #detailModal></app-detail-modal>
+  <app-detail-atractie-modal #detailAtractieModal></app-detail-atractie-modal>
   
