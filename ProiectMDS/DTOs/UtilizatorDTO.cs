@@ -14,6 +14,7 @@ namespace ProiectMDS.DTOs
         public string Prenume { get; set; }
         public string Email { get; set; }
         public string Telefon { get; set; }
+        public string Parola { get; set; }
         [Column(TypeName = "Date")]
         public DateTime DataNasterii { get; set; }
         public List<int> FotografieID { get; set; }
