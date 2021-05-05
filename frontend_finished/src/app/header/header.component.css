@@ -1,7 +1,7 @@
 .navbar {
   border-bottom: 4px solid #606060;
   border-radius: 10px;
-  background-color: white !important;
+  /*background-color: white !important;*/
 }
 
 .navbar {
@@ -78,6 +78,8 @@ form ol {
 }
 
 img {
-  width: 20%;
-  height: 25%;
+  width: 18%;
+  height: 10%;
+  padding-top: 0%;
+  padding-bottom: 0%;
 }

@@ -31,6 +31,7 @@ import { RestaurantComponent } from './restaurant/restaurant.component';
 import { DetailRestaurantModalComponent } from './restaurant/detail-restaurant-modal/detail-restaurant-modal.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { MatSelectModule } from '@angular/material/select';
     DetailAtractieModalComponent,
     RestaurantComponent,
     DetailRestaurantModalComponent,
+    LoginComponent,
   ],
   imports: [
     CommonModule,

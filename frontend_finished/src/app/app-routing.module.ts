@@ -6,6 +6,7 @@ import { EditComponent } from './edit/edit.component';
 import { CazareComponent } from './cazare/cazare.component';
 import { AtractieComponent } from './atractie/atractie.component';
 import { RestaurantComponent } from './restaurant/restaurant.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'edit', component: EditComponent },
   { path: 'cazari', component: CazareComponent },
   { path: 'atractii', component: AtractieComponent},
+  { path: 'login', component: LoginComponent },
   { path: 'restaurante', component: RestaurantComponent},
   { path: '**', component: HomeComponent },
 

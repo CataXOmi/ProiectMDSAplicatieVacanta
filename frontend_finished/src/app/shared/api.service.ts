@@ -32,6 +32,7 @@ export class ApiService {
   });
   baseUrl = 'https://localhost:44344/api';
 
+
   addSong(song: Song) {
     return this.http.post(this.baseUrl + '/song', song, { headers: this.header });
   }
@@ -61,9 +62,10 @@ export class ApiService {
       'email': utilizator.email,
       'telefon': utilizator.telefon,
       'parola': utilizator.parola,
-      'fotografie': JSON.parse('[' + utilizator.fotografie + ']')
+      //'fotografie': JSON.parse('[' + utilizator.fotografie + ']')
     }, {headers: this.header });
   }
+
 
   addFotografie(foto: Fotografie) {
     return this.http.post(this.baseUrl + '/fotografie', {
@@ -148,7 +150,7 @@ export class ApiService {
   }
 
   addBilet(bil) {
-    return this.http.post(this.baseUrl + 'bilet', {
+    return this.http.post(this.baseUrl + '/bilet', {
       'vacantaID': bil.vacantaID,
       'atractieID': bil.atractieID,
       'codBilet': bil.codBilet,
