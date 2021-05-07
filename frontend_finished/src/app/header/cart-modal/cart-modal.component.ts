@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy} from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Cazare } from 'src/app/shared/cazare.model';
 import { CartService } from 'src/app/shared/cart.service';
 import { ModalDirective } from 'ngx-bootstrap/modal';
@@ -9,6 +9,7 @@ import { Restaurant } from 'src/app/shared/restaurant.model';
 import { LoginComponent } from 'src/app/login/login.component';
 import { LoginService } from '../../login.service';
 import { Subscription } from 'rxjs';
+import { Vacanta } from '../../shared/vacanta.model';
 
 @Component({
   selector: 'app-cart-modal',
@@ -38,9 +39,11 @@ export class CartModalComponent implements OnInit, OnDestroy {
   success: boolean;
   logged: boolean;
   subscription: Subscription;
+  vacanta = new Vacanta();
+  cannotAdd = false;
 
 
-  constructor(private cartService: CartService, private api : ApiService, private data: LoginService) { }
+  constructor(private cartService: CartService, private api: ApiService, private data: LoginService) { }
 
   ngOnInit() {
     this.subscription = this.data.currentValue.subscribe(loginVal => this.logged = loginVal);
@@ -63,153 +66,230 @@ export class CartModalComponent implements OnInit, OnDestroy {
     this.dateRezervariRestaurante = result[7] as string[];
     this.numarPersoane = result[8] as number[];
     var oneDay = 24 * 60 * 60 * 1000;
-    for (let i = 0; i < this.dateStart.length; i++)
-    {
+    for (let i = 0; i < this.dateStart.length; i++) {
       var firstDate = Date.parse(this.dateStart[i]);
       var secondDate = Date.parse(this.dateSfarsit[i]);
-      this.differenceBetweenDates[i] = Math.round(Math.abs((firstDate-secondDate)/oneDay));
+      this.differenceBetweenDates[i] = Math.round(Math.abs((firstDate - secondDate) / oneDay));
       this.totalCazare[i] = this.rezervariCazari[i].pret * this.differenceBetweenDates[i];
     }
     for (let i = 0; i < this.totalCazare.length; i++) {
       this.totalFinal += this.totalCazare[i];
     }
 
-    for (let i = 0; i < this.rezervariAtractii.length; i++)
-    {
+    for (let i = 0; i < this.rezervariAtractii.length; i++) {
       this.totalAtractie[i] = this.rezervariAtractii[i].pret * this.numarBilete[i];
     }
-    for (let i = 0; i < this.totalAtractie.length; i++)
-    {
+    for (let i = 0; i < this.totalAtractie.length; i++) {
       this.totalFinal += this.totalAtractie[i];
     }
 
   }
 
   delete(id: number, pret: number) {
-    if ( id <= this.rezervariCazari.length)
-    {
+    if (id <= this.rezervariCazari.length) {
       this.rezervariCazari.splice(id, 1);
       this.dateStart.splice(id, 1);
       this.dateSfarsit.splice(id, 1);
     }
-    else if (id >= this.rezervariCazari.length && id <= (this.rezervariCazari.length + this.rezervariAtractii.length))
-    {
-      this.rezervariAtractii.splice(id-this.rezervariCazari.length-1, 1);
-      this.dateViziteAtractii.splice(id-this.rezervariCazari.length-1, 1);
-      this.numarBilete.splice(id-this.rezervariCazari.length-1, 1);
+    else if (id >= this.rezervariCazari.length && id <= (this.rezervariCazari.length + this.rezervariAtractii.length)) {
+      this.rezervariAtractii.splice(id - this.rezervariCazari.length - 1, 1);
+      this.dateViziteAtractii.splice(id - this.rezervariCazari.length - 1, 1);
+      this.numarBilete.splice(id - this.rezervariCazari.length - 1, 1);
     }
     else {
-      this.rezervariRestaurante.splice(id-this.rezervariCazari.length-this.rezervariAtractii.length-1, 1);
-      this.dateRezervariRestaurante.splice(id-this.rezervariCazari.length-this.rezervariAtractii.length-1, 1);
-      this.numarPersoane.splice(id-this.rezervariCazari.length-this.rezervariAtractii.length-1, 1);
+      this.rezervariRestaurante.splice(id - this.rezervariCazari.length - this.rezervariAtractii.length - 1, 1);
+      this.dateRezervariRestaurante.splice(id - this.rezervariCazari.length - this.rezervariAtractii.length - 1, 1);
+      this.numarPersoane.splice(id - this.rezervariCazari.length - this.rezervariAtractii.length - 1, 1);
     }
     this.totalFinal = this.totalFinal - pret;
   }
 
   makeid(length: number) {
-    var result           = [];
-    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+-*/@#$&\`~';
+    var result = [];
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+-*/@#$&\`~';
     var charactersLength = characters.length;
-    for ( var i = 0; i < length; i++ ) {
-      result.push(characters.charAt(Math.floor(Math.random() * 
- charactersLength)));
-   }
-   return result.join('');
-}
+    for (var i = 0; i < length; i++) {
+      result.push(characters.charAt(Math.floor(Math.random() * charactersLength)));
+    }
+    return result.join('');
+  }
+
+  resetCannotAdd() {
+    setTimeout(() => {
+      this.cannotAdd = false;
+    }, 3000);
+  }
+
 
   addRezervareC() {
     let date: any = {};
-    for (let i = 0; i < this.rezervariCazari.length; i++)
-    {
-      date.vacantaID = this.vacationModal.get();
+    date.vacantaID = this.vacationModal.get();
+    this.api.getVacanta(date.vacantaID)
+      .subscribe((info: Vacanta) => {
+        info.id = date.vacantaID;
+        this.vacanta = info;
+
+        console.log("vacanta obtinuta", this.vacanta);
+    console.log("printeaza data de inceput a vacantei", this.vacanta.dataInceput);
+    var dataVacantaI = new Date(this.vacanta.dataInceput);
+    var dataVacantaS = new Date(this.vacanta.dataSfarsit);
+    for (let i = 0; i < this.rezervariCazari.length; i++) {
+      var dataVizitaSt = new Date(this.dateStart[i]);
+      var dataVizitaSf = new Date(this.dateSfarsit[i]);
+      console.log("printez datele");
+      console.log(dataVacantaI);
+      console.log(dataVacantaS);
+      if (dataVizitaSt < dataVacantaI || dataVizitaSf > dataVacantaS) {
+        this.cannotAdd = true;
+        this.resetCannotAdd();
+        break;
+        
+      }
       date.cazareID = this.rezervariCazari[i].id;
-      date.codRezervare = this.makeid(8);
-      date.dataSosire = this.dateSfarsit[i];
-      date.dataPlecare = this.dateStart[i];
+      date.codRezervare = this.makeid(6);
+      date.dataPlecare = this.dateSfarsit[i];
+      date.dataSosire = this.dateStart[i];
 
       this.api.addRezervareCazare(date).subscribe(() => {
 
-      this.success = true;
-      this.delete(i, this.totalCazare[i]);
-      setTimeout(() => {
-        this.success = null;
-      }, 3000);
-    },
-    (error: Error) => {
-      console.log(error);
-      this.success = false;
-      setTimeout(() => {
-        this.success = null;
-      }, 3000);
-    });
+        this.success = true;
+        this.delete(i, this.totalCazare[i]);
+        setTimeout(() => {
+          this.success = null;
+        }, 3000);
+      },
+        (error: Error) => {
+          console.log(error);
+          this.success = false;
+          setTimeout(() => {
+            this.success = null;
+          }, 3000);
+        });
     }
+    console.log("verificare intre date");
+    console.log(this.cannotAdd);
     console.log(date.vacantaID);
     console.log(date.cazareID);
     console.log(date.codRezervare);
     console.log(date.dataSosire);
     console.log(date.dataPlecare);
+      },
+        (e: Error) => {
+          console.log('err', e);
+        });
   }
+
 
   addTichetM() {
     let date: any = {};
-    for (let i = 0; i < this.rezervariRestaurante.length; i++)
-    {
-      date.vacantaID = this.vacationModal.get();
+    date.vacantaID = this.vacationModal.get();
+    this.api.getVacanta(date.vacantaID)
+      .subscribe((info: Vacanta) => {
+        info.id = date.vacantaID;
+        this.vacanta = info;
+
+        console.log("vacanta obtinuta", this.vacanta);
+    console.log("printeaza data de inceput a vacantei", this.vacanta.dataInceput);
+    var dataVacantaI = new Date(this.vacanta.dataInceput);
+    var dataVacantaS = new Date(this.vacanta.dataSfarsit);
+    for (let i = 0; i < this.rezervariRestaurante.length; i++) {
+      var dataVizita = new Date(this.dateRezervariRestaurante[i]);
+      console.log("printez datele");
+      console.log(dataVacantaI);
+      console.log(dataVacantaS);
+      console.log(dataVizita);
+      if (dataVizita < dataVacantaI || dataVizita > dataVacantaS) {
+        this.cannotAdd = true;
+        this.resetCannotAdd();
+        break;
+      }
       date.restaurantID = this.rezervariRestaurante[i].id;
-      date.codTichet = this.makeid(5);
+      date.codTichet = this.makeid(8);
       date.dataVizita = this.dateRezervariRestaurante[i];
 
       this.api.addTichetMasa(date).subscribe(() => {
 
-      this.success = true;
-      this.delete(i + this.rezervariCazari.length + this.rezervariRestaurante.length + 1, 0);
-      setTimeout(() => {
-        this.success = null;
-      }, 3000);
-    },
-    (error: Error) => {
-      console.log(error);
-      this.success = false;
-      setTimeout(() => {
-        this.success = null;
-      }, 3000);
-    });
+        this.success = true;
+        this.delete(i + this.rezervariCazari.length + this.rezervariAtractii.length + 1, 0);
+        setTimeout(() => {
+          this.success = null;
+        }, 3000);
+      },
+        (error: Error) => {
+          console.log(error);
+          this.success = false;
+          setTimeout(() => {
+            this.success = null;
+          }, 3000);
+        });
     }
+    console.log("verificare intre date");
+    console.log(this.cannotAdd);
     console.log(date.vacantaID);
-    console.log(date.restaurantID);
+    console.log(date.restauranyID);
     console.log(date.codTichet);
     console.log(date.dataVizita);
+      },
+        (e: Error) => {
+          console.log('err', e);
+        });
   }
+
 
   addBiletA() {
     let date: any = {};
-    for (let i = 0; i < this.rezervariAtractii.length; i++)
-    {
-      date.vacantaID = this.vacationModal.get();
+    date.vacantaID = this.vacationModal.get();
+    this.api.getVacanta(date.vacantaID)
+      .subscribe((info: Vacanta) => {
+        info.id = date.vacantaID;
+        this.vacanta = info;
+
+        console.log("vacanta obtinuta", this.vacanta);
+    console.log("printeaza data de inceput a vacantei", this.vacanta.dataInceput);
+    var dataVacantaI = new Date(this.vacanta.dataInceput);
+    var dataVacantaS = new Date(this.vacanta.dataSfarsit);
+    for (let i = 0; i < this.rezervariAtractii.length; i++) {
+      var dataVizita = new Date(this.dateViziteAtractii[i]);
+      console.log("printez datele");
+      console.log(dataVacantaI);
+      console.log(dataVacantaS);
+      console.log(dataVizita);
+      if (dataVizita < dataVacantaI || dataVizita > dataVacantaS) {
+        this.cannotAdd = true;
+        this.resetCannotAdd();
+        break;
+      }
       date.atractieID = this.rezervariAtractii[i].id;
       date.codBilet = this.makeid(10);
       date.dataVizita = this.dateViziteAtractii[i];
 
       this.api.addBilet(date).subscribe(() => {
 
-      this.success = true;
-      this.delete(i + this.rezervariCazari.length + 1, this.totalAtractie[i]);
-      setTimeout(() => {
-        this.success = null;
-      }, 3000);
-    },
-    (error: Error) => {
-      console.log(error);
-      this.success = false;
-      setTimeout(() => {
-        this.success = null;
-      }, 3000);
-    });
+        this.success = true;
+        this.delete(i + this.rezervariCazari.length + 1, this.totalAtractie[i]);
+        setTimeout(() => {
+          this.success = null;
+        }, 3000);
+      },
+        (error: Error) => {
+          console.log(error);
+          this.success = false;
+          setTimeout(() => {
+            this.success = null;
+          }, 3000);
+        });
     }
+    console.log("verificare intre date");
+    console.log(this.cannotAdd);
     console.log(date.vacantaID);
     console.log(date.atractieID);
     console.log(date.codBilet);
     console.log(date.dataVizita);
+      },
+        (e: Error) => {
+          console.log('err', e);
+        });
+    
   }
 
   doLater() {
@@ -217,7 +297,7 @@ export class CartModalComponent implements OnInit, OnDestroy {
       this.addRezervareC();
       this.addTichetM();
       this.addBiletA();
-  }, 5000);
+    }, 5000);
   }
-    
+
 }

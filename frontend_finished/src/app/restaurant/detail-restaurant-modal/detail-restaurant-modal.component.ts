@@ -3,6 +3,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Restaurant } from '../../shared/restaurant.model';
 import { ApiService } from '../../shared/api.service';
 import { CartService } from '../../shared/cart.service';
+import { FavouritesService } from '../../shared/favourites.service';
 
 @Component({
   selector: 'app-detail-restaurant-modal',
@@ -18,7 +19,7 @@ export class DetailRestaurantModalComponent implements OnInit {
   numarPersoane: number;
   isLoggedIn: string;
 
-  constructor(private api: ApiService, private cart: CartService) { }
+  constructor(private api: ApiService, private cart: CartService, private favourites: FavouritesService) { }
 
   ngOnInit() {}
 
@@ -57,6 +58,11 @@ export class DetailRestaurantModalComponent implements OnInit {
   addCart(restaurant: Restaurant) {
     this.cart.add_restaurant(restaurant, this.dataRezervare, this.numarPersoane);
     //console.log(this.dataStart, "+", this.dataSfarsit);
+    this.modal.hide();
+  }
+
+  addFavourites(restaurant: Restaurant) {
+    this.favourites.add_restaurant(restaurant);
     this.modal.hide();
   }
 

@@ -84,7 +84,7 @@ export class ApiService {
     }, {headers: this.header });
   }
 
-  addVacanta(vacanta: Vacanta) {
+  addVacanta(vacanta) {
     return this.http.post(this.baseUrl + '/vacanta', {
       'denumire': vacanta.denumire,
       'dataInceput': vacanta.dataInceput,

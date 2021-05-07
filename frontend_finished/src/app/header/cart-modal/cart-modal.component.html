@@ -70,7 +70,7 @@
       </div>
       <div *ngIf="logged === false" class="modal-body">
         <div class="alert alert-warning" role="alert">
-          Trebuie sa fi logat ca sa poti adauga servicii si sa poti accesa continutul cosului tau!
+          Trebuie sa fi logat ca sa poti accesa continutul cosului tau!
         </div>
         
       </div>
@@ -84,8 +84,11 @@
           (click)="vacationModal.show(); doLater();">
           Rezerva
         </button>
+        <div *ngIf="cannotAdd === true" class="alert alert-warning" role="alert">
+          Datele rezervarii introduse de tine nu se incadreaza in datele vacantei dorite.
+        </div>
         <div *ngIf="success" class="alert alert-success" role="alert">
-          Rezervarile a fost efectuata cu succes!
+          Rezervarile au fost efectuate cu succes!
         </div>
         <div *ngIf="success === false" class="alert alert-danger" role="alert">
           S-a produs o eroare! Te rugam sa incerci din nou!

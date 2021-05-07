@@ -3,6 +3,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Cazare } from '../../shared/cazare.model';
 import { ApiService } from '../../shared/api.service';
 import { CartService } from '../../shared/cart.service';
+import { FavouritesService } from '../../shared/favourites.service';
 
 @Component({
   selector: 'app-detail-modal',
@@ -19,7 +20,7 @@ export class DetailModalComponent implements OnInit {
   isLoggedIn: string;
 
 
-  constructor(private api: ApiService, private cart: CartService) { }
+  constructor(private api: ApiService, private cart: CartService, private favourites: FavouritesService) { }
 
   ngOnInit() {}
 
@@ -58,6 +59,11 @@ export class DetailModalComponent implements OnInit {
   addCart(cazare: Cazare) {
     this.cart.add_cazare(cazare, this.dataStart, this.dataSfarsit);
     //console.log(this.dataStart, "+", this.dataSfarsit);
+    this.modal.hide();
+  }
+
+  addFavourites(cazare: Cazare) {
+    this.favourites.add_cazare(cazare);
     this.modal.hide();
   }
 

@@ -2,7 +2,7 @@ export class Vacanta {
     id: number;
     denumire: string;
     dataInceput: string;
-    dataSfarsit: number;
+    dataSfarsit: string;
     oras: string;
     tara: string;
 

@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CartModalComponent } from './cart-modal/cart-modal.component';
+import { FavouritesModalComponent } from './favourites-modal/favourites-modal.component';
 
 
 @Component({
@@ -10,6 +11,7 @@ import { CartModalComponent } from './cart-modal/cart-modal.component';
 export class HeaderComponent implements OnInit {
 
   @ViewChild('cartModal') detailModal: CartModalComponent;
+  @ViewChild('favouritesModal') favdetailModal: FavouritesModalComponent;
 
   constructor() {}
 
@@ -18,6 +20,10 @@ export class HeaderComponent implements OnInit {
   openCart() {
    this.detailModal.totalFinal = 0;
    this.detailModal.show();
+  }
+
+  openFavourites() {
+    this.favdetailModal.show();
   }
 
 }

@@ -3,6 +3,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Atractie } from '../../shared/atractie.model';
 import { ApiService } from '../../shared/api.service';
 import { CartService } from '../../shared/cart.service';
+import { FavouritesService } from '../../shared/favourites.service';
 
 @Component({
   selector: 'app-detail-atractie-modal',
@@ -18,7 +19,7 @@ export class DetailAtractieModalComponent implements OnInit {
   numarBilete: number;
   isLoggedIn: string;
 
-  constructor(private api: ApiService, private cart: CartService) { }
+  constructor(private api: ApiService, private cart: CartService, private favourites: FavouritesService) { }
 
   ngOnInit() {}
 
@@ -57,6 +58,11 @@ export class DetailAtractieModalComponent implements OnInit {
   addCart(atractie: Atractie) {
     this.cart.add_atractie(atractie, this.dataVizita, this.numarBilete);
     //console.log(this.dataStart, "+", this.dataSfarsit);
+    this.modal.hide();
+  }
+
+  addFavourites(atractie: Atractie) {
+    this.favourites.add_atractie(atractie);
     this.modal.hide();
   }
 

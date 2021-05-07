@@ -32,7 +32,7 @@
         <div class="row">
           <div class="button">
         <span>{{atractie.pret == 0 ? "Gratuit" : atractie.pret + " lei/bilet"}}</span>
-        <button type = "button" class="btn btn-dark">Adauga la favorite</button>
+        <button type = "button" class="btn btn-dark" (click)="addFavourites(atractie);">Adauga la favorite</button>
           <button type="button" class="btn btn-dark" (click)="addCart(atractie)">Adauga in cos</button>
          
         </div>

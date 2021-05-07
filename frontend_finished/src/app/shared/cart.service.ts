@@ -1,7 +1,7 @@
 
 import {Injectable} from '@angular/core';
 import { Atractie } from './atractie.model';
-import {Cazare} from './cazare.model';
+import { Cazare } from './cazare.model';
 import { Restaurant } from './restaurant.model';
 
 @Injectable({
@@ -19,9 +19,7 @@ export class CartService {
   numarPersoane: number[] = [];
 
 
-  constructor() {
-
-  }
+  constructor() { }
 
   
   add_cazare(cazare: Cazare, datastartcazare: string, datasfarsitcazare: string) {

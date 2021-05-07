@@ -32,6 +32,8 @@ import { DetailRestaurantModalComponent } from './restaurant/detail-restaurant-m
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { LoginComponent } from './login/login.component';
+import { AddVacantaModalComponent } from './home/add-vacanta-modal/add-vacanta-modal.component';
+import { FavouritesModalComponent } from './header/favourites-modal/favourites-modal.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +55,8 @@ import { LoginComponent } from './login/login.component';
     RestaurantComponent,
     DetailRestaurantModalComponent,
     LoginComponent,
+    AddVacantaModalComponent,
+    FavouritesModalComponent,
   ],
   imports: [
     CommonModule,
