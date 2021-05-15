@@ -85,5 +85,9 @@
     margin-top: 2%;
     margin-left: 3%;
   }
+
+  ul {
+    display: inline-block;
+  }
   
   

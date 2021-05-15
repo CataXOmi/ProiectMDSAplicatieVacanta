@@ -16,8 +16,28 @@
           <p> - {{restaurant.oras}}</p>
           <!--p id="oras">{{cazare.oras}}</p-->
 
+          <h6>--Meniu--</h6>
+          <!--table>
+            <tbody>
+              <tr *ngFor = "let mancare of restaurant.meniu; let i=index">
+                <th scope="row">{{mancare}}</th>
+              </tr>
+              <tr *ngFor = "let pret of restaurant.preturiMeniu; let i=index">
+                <th scope="row">{{pret}}</th>
+              </tr>
+            </tbody>
+          </table-->
+          <ul>
+            <li *ngFor = "let mancare of restaurant.meniu"> {{mancare}}</li>
+          </ul>
+
+          <ul style="padding-left: 40px; list-style: none;">
+            <li *ngFor = "let pret of restaurant.preturiMeniu">{{pret}}</li>
+          </ul>
+
           <h6>Program:</h6>
           <h6>Luni - Duminica : {{ restaurant.oraDeschidere}} - {{ restaurant.oraInchidere }}</h6>
+
 
           </div>
         </div>

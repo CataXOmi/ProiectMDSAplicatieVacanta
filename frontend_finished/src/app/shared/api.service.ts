@@ -112,6 +112,7 @@ export class ApiService {
       'pret': cazare.pret,
       'oras': cazare.oras,
       'adresa': cazare.adresa,
+      'listaFacilitatiID': JSON.parse('[' + cazare.listaFacilitatiID + ']'),
       'imagini': JSON.parse('[' + cazare.setImagini + ']'),
       //'listaFacilitati': JSON.parse('[' + cazare.listaFacilitati + ']')
     }, {headers: this.header });
@@ -131,6 +132,7 @@ export class ApiService {
       'oraInchidere': res.oraInchidere,
       'oras': res.oras,
       'adresa': res.adresa,
+      'meniuID': JSON.parse('[' + res.meniuID + ']'),
       'imagini': JSON.parse('[' + res.listaImagini + ']')
     }, {headers: this.header})
   }
@@ -215,12 +217,20 @@ export class ApiService {
     return this.http.get(this.baseUrl + '/cazare/' + id.toString(), { headers: this.header });
   }
 
+  getMancare(id: number) {
+    return this.http.get(this.baseUrl + '/mancare/' + id.toString(), {headers: this.header});
+  }
+
   getRestaurant(id: number) {
     return this.http.get(this.baseUrl + '/restaurant/' + id.toString(), { headers: this.header });
   }
 
   getAtractie(id: number) {
     return this.http.get(this.baseUrl + '/atractie/' + id.toString(), { headers: this.header });
+  }
+
+  getFacilitate(id: number) {
+    return this.http.get(this.baseUrl + '/facilitate/' + id.toString(), {headers: this.header});
   }
 
   getAlbums() {
@@ -243,6 +253,10 @@ export class ApiService {
     return this.http.get(this.baseUrl + '/rezervare', { headers: this.header });
   }
 
+  getMancaruri() {
+    return this.http.get(this.baseUrl + '/mancare', {headers: this.header});
+  }
+
   getFotografii() {
     return this.http.get(this.baseUrl + '/fotografie', { headers: this.header });
   }
@@ -263,32 +277,36 @@ export class ApiService {
     return this.http.get(this.baseUrl + '/atractie', { headers: this.header });
   }
 
+  getFacilitati() {
+    return this.http.get(this.baseUrl + '/facilitate', { headers: this.header });
+  }
+
   editUtilizator(user: Utilizator) {
-    return this.http.put(this.baseUrl + '/utilizator/' + user.id.toString(), { headers: this.header });
+    return this.http.put(this.baseUrl + '/utilizator/' + user.id.toString(), user, { headers: this.header });
   }
 
   editRezervare(rez: Rezervare) {
-    return this.http.put(this.baseUrl + '/rezervare/' + rez.id.toString(), { headers: this.header });
+    return this.http.put(this.baseUrl + '/rezervare/' + rez.id.toString(), rez, { headers: this.header });
   }
   
   editFotografie(foto: Fotografie) {
-    return this.http.put(this.baseUrl + '/fotografie/' + foto.id.toString(), { headers: this.header });
+    return this.http.put(this.baseUrl + '/fotografie/' + foto.id.toString(), foto, { headers: this.header });
   }
 
   editVacanta(vacanta: Vacanta) {
-    return this.http.put(this.baseUrl + '/vacanta/' + vacanta.id.toString(), { headers: this.header });
+    return this.http.put(this.baseUrl + '/vacanta/' + vacanta.id.toString(), vacanta, { headers: this.header });
   }
 
   editCazare(cazare: Cazare) {
-    return this.http.put(this.baseUrl + '/cazare/' + cazare.id.toString(), { headers: this.header });
+    return this.http.put(this.baseUrl + '/cazare/' + cazare.id.toString(), cazare, { headers: this.header });
   }
 
   editRestaurant(rest: Restaurant) {
-    return this.http.put(this.baseUrl + '/restaurant/' + rest.id.toString(), { headers: this.header });
+    return this.http.put(this.baseUrl + '/restaurant/' + rest.id.toString(), rest, { headers: this.header });
   }
 
   editAtractie(atractie: Atractie) {
-    return this.http.put(this.baseUrl + '/atractie/' + atractie.id.toString(), { headers: this.header });
+    return this.http.put(this.baseUrl + '/atractie/' + atractie.id.toString(), atractie, { headers: this.header });
   }
 
   deleteAlbum(id: number) {

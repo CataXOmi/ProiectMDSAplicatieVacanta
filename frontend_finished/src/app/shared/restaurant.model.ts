@@ -5,6 +5,9 @@ export class Restaurant {
     oraInchidere: string;
     oras: string;
     adresa: string;
+    meniuID: number[];
+    meniu: string[];
+    preturiMeniu: number[];
     listaImagini: string;
   
     constructor(input?: any) {

@@ -34,6 +34,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { LoginComponent } from './login/login.component';
 import { AddVacantaModalComponent } from './home/add-vacanta-modal/add-vacanta-modal.component';
 import { FavouritesModalComponent } from './header/favourites-modal/favourites-modal.component';
+import { EditCazareModalComponent } from './edit/edit-cazare-modal/edit-cazare-modal.component';
+import { EditAtractieModalComponent } from './edit/edit-atractie-modal/edit-atractie-modal.component';
+import { EditRestaurantModalComponent } from './edit/edit-restaurant-modal/edit-restaurant-modal.component';
+
 
 @NgModule({
   declarations: [
@@ -57,6 +61,9 @@ import { FavouritesModalComponent } from './header/favourites-modal/favourites-m
     LoginComponent,
     AddVacantaModalComponent,
     FavouritesModalComponent,
+    EditCazareModalComponent,
+    EditAtractieModalComponent,
+    EditRestaurantModalComponent,
   ],
   imports: [
     CommonModule,

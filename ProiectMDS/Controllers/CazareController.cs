@@ -36,11 +36,11 @@ namespace ProiectMDS.Controllers
 
         // GET api/<CazareController>/5
         [HttpGet("{id}")]
-        public CazareDTO Get(int id)
+        public CazareDetailsDTO Get(int id)
         {
             Cazare cazare = ICazareRepository.Get(id);
             //Pachet pachet = IPachetRepository.Get(cazare.ID);
-            CazareDTO myCazare = new CazareDTO();
+            CazareDetailsDTO myCazare = new CazareDetailsDTO();
 
             if (myCazare != null)
             {
@@ -51,7 +51,7 @@ namespace ProiectMDS.Controllers
                 myCazare.TipCazare = cazare.TipCazare;
             }
 
-            IEnumerable<Pachet> myPachete = IPachetRepository.GetAll().Where(x => x.CazareID == cazare.ID);
+            /*IEnumerable<Pachet> myPachete = IPachetRepository.GetAll().Where(x => x.CazareID == cazare.ID);
             List<int> ListaFacilitati = new List<int>();
             if (myPachete != null)
             {
@@ -60,27 +60,27 @@ namespace ProiectMDS.Controllers
                     ListaFacilitati.Add(mypack.FacilitateID);
                 }
                 //myUtilizator.FotografieID = ListaFotografii;
-            }
+            }*/
 
 
             IEnumerable<Pachet> myPacks = IPachetRepository.GetAll().Where(x => x.CazareID == cazare.ID);
             List<string> ListaUtilities = new List<string>();
             if (myPacks != null)
             {
-                foreach (int facilitateID in ListaFacilitati)
+                foreach (Pachet mypachet in myPacks)
                 {
-                    Facilitate facilitate = IFacilitateRepository.Get(facilitateID);
+                    Facilitate facilitate = IFacilitateRepository.GetAll().SingleOrDefault(x => x.ID == mypachet.FacilitateID);
                     ListaUtilities.Add(facilitate.Denumire);
                 }
             }
-            myCazare.ListaFacilitati = ListaUtilities.ToList();
+            myCazare.ListaFacilitati = ListaUtilities;
 
             return myCazare;
         }
 
         // POST api/<CazareController>
         [HttpPost]
-        public Cazare Post(CazareDTO value)
+        public void Post(CazareDTO value)
         {
             Cazare model = new Cazare()
             {
@@ -90,15 +90,24 @@ namespace ProiectMDS.Controllers
                 Oras = value.Oras,
                 Adresa = value.Adresa
             };
-            return ICazareRepository.Create(model);
+            ICazareRepository.Create(model);
+
+            for(int i = 0; i < value.ListaFacilitatiID.Count; i++)
+            {
+                Pachet pachet = new Pachet()
+                {
+                    CazareID = model.ID,
+                    FacilitateID = value.ListaFacilitatiID[i]
+                };
+                IPachetRepository.Create(pachet);
+            }
         }
 
         // PUT api/<CazareController>/5
         [HttpPut("{id}")]
-        public Cazare Put(int id, CazareDTO value)
+        public void Put(int id, CazareDTO value)
         {
             Cazare model = ICazareRepository.Get(id);
-            DateTime? dt = null;
 
             if (value.Nume != null)
             {
@@ -125,7 +134,23 @@ namespace ProiectMDS.Controllers
                 model.Adresa = value.Adresa;
             }
 
-            return ICazareRepository.Update(model);
+            ICazareRepository.Update(model);
+
+            if (value.ListaFacilitatiID != null)
+            {
+                IEnumerable<Pachet> myPachete = IPachetRepository.GetAll().Where(x => x.CazareID == id);
+                foreach (Pachet myPachet in myPachete)
+                    IPachetRepository.Delete(myPachet);
+                for (int i = 0; i < value.ListaFacilitatiID.Count; i++)
+                {
+                    Pachet pachet = new Pachet()
+                    {
+                        CazareID = model.ID,
+                        FacilitateID = value.ListaFacilitatiID[i]
+                    };
+                    IPachetRepository.Create(pachet);
+                }
+            }
         }
 
         // DELETE api/<CazareController>/5
