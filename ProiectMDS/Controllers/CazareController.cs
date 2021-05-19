@@ -92,14 +92,17 @@ namespace ProiectMDS.Controllers
             };
             ICazareRepository.Create(model);
 
-            for(int i = 0; i < value.ListaFacilitatiID.Count; i++)
+            if (value.ListaFacilitatiID != null)
             {
-                Pachet pachet = new Pachet()
+                for (int i = 0; i < value.ListaFacilitatiID.Count; i++)
                 {
-                    CazareID = model.ID,
-                    FacilitateID = value.ListaFacilitatiID[i]
-                };
-                IPachetRepository.Create(pachet);
+                    Pachet pachet = new Pachet()
+                    {
+                        CazareID = model.ID,
+                        FacilitateID = value.ListaFacilitatiID[i]
+                    };
+                    IPachetRepository.Create(pachet);
+                }
             }
         }
 

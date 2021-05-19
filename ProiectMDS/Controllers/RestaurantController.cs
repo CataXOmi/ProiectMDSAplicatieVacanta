@@ -84,14 +84,17 @@ namespace ProiectMDS.Controllers
             };
             IRestaurantRepository.Create(model);
 
-            for (int i = 0; i < value.MeniuID.Count; i++)
+            if (value.MeniuID != null)
             {
-                Meniu meniu = new Meniu()
+                for (int i = 0; i < value.MeniuID.Count; i++)
                 {
-                    RestaurantID = model.ID,
-                    MancareID = value.MeniuID[i]
-                };
-                IMeniuRepository.Create(meniu);
+                    Meniu meniu = new Meniu()
+                    {
+                        RestaurantID = model.ID,
+                        MancareID = value.MeniuID[i]
+                    };
+                    IMeniuRepository.Create(meniu);
+                }
             }
 
         }
