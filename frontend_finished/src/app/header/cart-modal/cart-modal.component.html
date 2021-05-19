@@ -77,7 +77,7 @@
       <!--Footer-->
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-primary" data-dismiss="modal"
-          (click)="modal.hide(); totalFinal = 0">
+          (click)="totalFinal = 0; modal.hide()">
           Iesire
         </button>
         <button type="button" [disabled]="logged === false" class="btn btn-primary" data-toggle="modal" data-target="#checkoutModal" data-dismiss="modal"

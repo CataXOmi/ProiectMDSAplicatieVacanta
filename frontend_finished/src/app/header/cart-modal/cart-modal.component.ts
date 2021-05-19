@@ -66,13 +66,17 @@ export class CartModalComponent implements OnInit, OnDestroy {
     this.dateRezervariRestaurante = result[7] as string[];
     this.numarPersoane = result[8] as number[];
     var oneDay = 24 * 60 * 60 * 1000;
-    for (let i = 0; i < this.dateStart.length; i++) {
+    for (let i = 0; i < this.rezervariCazari.length; i++) {
       var firstDate = Date.parse(this.dateStart[i]);
       var secondDate = Date.parse(this.dateSfarsit[i]);
       this.differenceBetweenDates[i] = Math.round(Math.abs((firstDate - secondDate) / oneDay));
       this.totalCazare[i] = this.rezervariCazari[i].pret * this.differenceBetweenDates[i];
     }
+    console.log(this.rezervariCazari);
+    console.log("total inainte de iterare: " + this.totalFinal);
     for (let i = 0; i < this.totalCazare.length; i++) {
+      console.log("am intrat in for cazare pt total final");
+      console.log(this.totalCazare);
       this.totalFinal += this.totalCazare[i];
     }
 
@@ -82,26 +86,34 @@ export class CartModalComponent implements OnInit, OnDestroy {
     for (let i = 0; i < this.totalAtractie.length; i++) {
       this.totalFinal += this.totalAtractie[i];
     }
+    console.log("total dupa iterare: " + this.totalFinal);
 
   }
 
   delete(id: number, pret: number) {
     if (id <= this.rezervariCazari.length) {
+      console.log("id-ul recordului de sters: " + id);
       this.rezervariCazari.splice(id, 1);
       this.dateStart.splice(id, 1);
       this.dateSfarsit.splice(id, 1);
+      this.totalCazare.splice(id, 1);
+      console.log("rezervari ramase dupa stergere " + this.rezervariCazari);
     }
     else if (id >= this.rezervariCazari.length && id <= (this.rezervariCazari.length + this.rezervariAtractii.length)) {
       this.rezervariAtractii.splice(id - this.rezervariCazari.length - 1, 1);
       this.dateViziteAtractii.splice(id - this.rezervariCazari.length - 1, 1);
       this.numarBilete.splice(id - this.rezervariCazari.length - 1, 1);
+      this.totalAtractie.splice(id - this.rezervariCazari.length - 1, 1);
     }
     else {
       this.rezervariRestaurante.splice(id - this.rezervariCazari.length - this.rezervariAtractii.length - 1, 1);
       this.dateRezervariRestaurante.splice(id - this.rezervariCazari.length - this.rezervariAtractii.length - 1, 1);
       this.numarPersoane.splice(id - this.rezervariCazari.length - this.rezervariAtractii.length - 1, 1);
     }
+    console.log("pret inainte de stergere " + this.totalFinal);
     this.totalFinal = this.totalFinal - pret;
+    console.log("pret dupa stergere " + this.totalFinal);
+
   }
 
   makeid(length: number) {

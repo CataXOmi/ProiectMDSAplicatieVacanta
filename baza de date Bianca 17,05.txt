@@ -1,0 +1,751 @@
+UTILIZATOR
+{
+        "id": 1,
+        "username": "user1",
+        "nume": "Micu",
+        "prenume": "Bianca",
+        "email": "mba@gmail.com",
+        "telefon": "0724532532",
+        "parola": "123456",
+        "dataNasterii": "0001-01-01T00:00:00",
+        "rezervare": null,
+        "fotografie": null
+    },
+    {
+        "id": 3,
+        "username": "user2",
+        "nume": "Marin",
+        "prenume": "Catalin",
+        "email": "catam@gmail.com",
+        "telefon": "07245322332",
+        "parola": "asdfghjkl",
+        "dataNasterii": "0001-01-01T00:00:00",
+        "rezervare": null,
+        "fotografie": null
+    },
+    {
+        "id": 6,
+        "username": "AlexaDiaconu",
+        "nume": "Diaconu",
+        "prenume": "Alexandra",
+        "email": "diaconu.a@gmail.com",
+        "telefon": "0755324789",
+        "parola": "proiectMDS",
+        "dataNasterii": "0001-01-01T00:00:00",
+        "rezervare": null,
+        "fotografie": null
+    }
+
+FOTOGRAFIE
+{
+        "id": 9,
+        "titlu": "VacantaNoua",
+        "data": "2020-02-19T00:00:00",
+        "utilizatorID": 1,
+        "utilizator": null
+    },
+    {
+        "id": 13,
+        "titlu": "Cipru",
+        "data": "2020-06-01T00:00:00",
+        "utilizatorID": 3,
+        "utilizator": null
+    },
+    {
+        "id": 14,
+        "titlu": "Cipru1",
+        "data": "2020-06-02T00:00:00",
+        "utilizatorID": 3,
+        "utilizator": null
+    }
+
+REZERVARE
+{
+        "id": 4,
+        "utilizatorID": 3,
+        "vacantaID": 1,
+        "dataRezervare": "2019-12-01T00:00:00",
+        "review": "Foarte ok",
+        "rating": 5,
+        "utilizator": null,
+        "vacanta": null
+    },
+    {
+        "id": 5,
+        "utilizatorID": 1,
+        "vacantaID": 2,
+        "dataRezervare": "2020-08-01T00:00:00",
+        "review": "The best. Cea mai frumoasa luna de miere.",
+        "rating": 5,
+        "utilizator": null,
+        "vacanta": null
+    }
+
+VACANTA
+{
+        "id": 1,
+        "denumire": "Vacanta",
+        "dataInceput": "2019-12-20T00:00:00",
+        "dataSfarsit": "2019-12-23T00:00:00",
+        "oras": "Sibiu",
+        "tara": "Romania",
+        "rezervare": null,
+        "tichetMasa": null,
+        "bilet": null,
+        "rezervareCazare": null
+    },
+    {
+        "id": 2,
+        "denumire": "Vacanta Luna Miere",
+        "dataInceput": "2020-08-22T00:00:00",
+        "dataSfarsit": "2020-08-31T00:00:00",
+        "oras": "Dubai",
+        "tara": "Emiratele Arabe",
+        "rezervare": null,
+        "tichetMasa": null,
+        "bilet": null,
+        "rezervareCazare": null
+    },
+    {
+        "id": 7,
+        "denumire": "Test",
+        "dataInceput": "2021-03-15T00:00:00",
+        "dataSfarsit": "2021-03-18T00:00:00",
+        "oras": "Suceava",
+        "tara": null,
+        "rezervare": null,
+        "tichetMasa": null,
+        "bilet": null,
+        "rezervareCazare": null
+    },
+    {
+        "id": 8,
+        "denumire": "Londra",
+        "dataInceput": "2021-05-10T00:00:00",
+        "dataSfarsit": "2021-06-10T00:00:00",
+        "oras": "Londra",
+        "tara": null,
+        "rezervare": null,
+        "tichetMasa": null,
+        "bilet": null,
+        "rezervareCazare": null
+    }
+
+FACILITATE
+{
+        "id": 1,
+        "denumire": "Wi-Fi",
+        "pachet": null
+    },
+    {
+        "id": 2,
+        "denumire": "Baie proprie",
+        "pachet": null
+    },
+    {
+        "id": 3,
+        "denumire": "Mic dejun inclus",
+        "pachet": null
+    },
+    {
+        "id": 4,
+        "denumire": "Parcare gratuita",
+        "pachet": null
+    },
+    {
+        "id": 6,
+        "denumire": "Sala fitness",
+        "pachet": null
+    },
+    {
+        "id": 7,
+        "denumire": "Sala conferinte",
+        "pachet": null
+    },
+    {
+        "id": 8,
+        "denumire": "Articole de toaleta",
+        "pachet": null
+    },
+    {
+        "id": 9,
+        "denumire": "Camera pentru nefumatori",
+        "pachet": null
+    },
+    {
+        "id": 10,
+        "denumire": "Televizor",
+        "pachet": null
+    },
+    {
+        "id": 11,
+        "denumire": "Serviciu de streaming (Netflix)",
+        "pachet": null
+    },
+    {
+        "id": 12,
+        "denumire": "Masina de spalat",
+        "pachet": null
+    },
+    {
+        "id": 13,
+        "denumire": "Uscator de par",
+        "pachet": null
+    },
+    {
+        "id": 14,
+        "denumire": "Cada",
+        "pachet": null
+    },
+    {
+        "id": 15,
+        "denumire": "Dus",
+        "pachet": null
+    },
+    {
+        "id": 16,
+        "denumire": "Prosoape",
+        "pachet": null
+    },
+    {
+        "id": 17,
+        "denumire": "Priza langa pat",
+        "pachet": null
+    },
+    {
+        "id": 18,
+        "denumire": "Plasa tantari",
+        "pachet": null
+    },
+    {
+        "id": 19,
+        "denumire": "Balcon",
+        "pachet": null
+    },
+    {
+        "id": 20,
+        "denumire": "Priveliste la mare",
+        "pachet": null
+    },
+    {
+        "id": 21,
+        "denumire": "Aparat pentru preparare cafea/ceai",
+        "pachet": null
+    },
+    {
+        "id": 22,
+        "denumire": "Birou",
+        "pachet": null
+    },
+    {
+        "id": 23,
+        "denumire": "Cuptor cu microunde",
+        "pachet": null
+    },
+    {
+        "id": 24,
+        "denumire": "Prajitor de paine",
+        "pachet": null
+    },
+    {
+        "id": 25,
+        "denumire": "Zona de luat masa",
+        "pachet": null
+    }
+
+CAZARE
+{
+        "id": 2,
+        "nume": "Casa Mandl",
+        "tipCazare": "Apartament",
+        "pret": 250.0,
+        "oras": "Brasov",
+        "adresa": "Piata Sfatului nr.7",
+        "rezervareCazare": null,
+        "pachet": null
+    },
+    {
+        "id": 3,
+        "nume": "Hotel Aro Palace",
+        "tipCazare": "Hotel",
+        "pret": 300.0,
+        "oras": "Brasov",
+        "adresa": "Bld. Eroilor nr.27",
+        "rezervareCazare": null,
+        "pachet": null
+    },
+    {
+        "id": 4,
+        "nume": "Bella Vita",
+        "tipCazare": "Pensiune",
+        "pret": 220.0,
+        "oras": "Harghita",
+        "adresa": "Str. Principala 530002",
+        "rezervareCazare": null,
+        "pachet": null
+    },
+    {
+        "id": 5,
+        "nume": "Residence Il Lago",
+        "tipCazare": "Aparthotel",
+        "pret": 275.0,
+        "oras": "Cluj Napoca",
+        "adresa": "Str. Dunarii nr.20B",
+        "rezervareCazare": null,
+        "pachet": null
+    }
+
+PACHET
+{
+        "id": 1,
+        "cazareID": 5,
+        "facilitateID": 1,
+        "cazare": null,
+        "facilitate": null
+    },
+    {
+        "id": 2,
+        "cazareID": 5,
+        "facilitateID": 2,
+        "cazare": null,
+        "facilitate": null
+    },
+    {
+        "id": 3,
+        "cazareID": 5,
+        "facilitateID": 3,
+        "cazare": null,
+        "facilitate": null
+    },
+    {
+        "id": 4,
+        "cazareID": 5,
+        "facilitateID": 4,
+        "cazare": null,
+        "facilitate": null
+    },
+    {
+        "id": 5,
+        "cazareID": 4,
+        "facilitateID": 4,
+        "cazare": null,
+        "facilitate": null
+    },
+    {
+        "id": 6,
+        "cazareID": 4,
+        "facilitateID": 10,
+        "cazare": null,
+        "facilitate": null
+    },
+    {
+        "id": 7,
+        "cazareID": 4,
+        "facilitateID": 15,
+        "cazare": null,
+        "facilitate": null
+    },
+    {
+        "id": 8,
+        "cazareID": 4,
+        "facilitateID": 16,
+        "cazare": null,
+        "facilitate": null
+    },
+    {
+        "id": 14,
+        "cazareID": 3,
+        "facilitateID": 1,
+        "cazare": null,
+        "facilitate": null
+    },
+    {
+        "id": 15,
+        "cazareID": 3,
+        "facilitateID": 3,
+        "cazare": null,
+        "facilitate": null
+    },
+    {
+        "id": 19,
+        "cazareID": 2,
+        "facilitateID": 1,
+        "cazare": null,
+        "facilitate": null
+    },
+    {
+        "id": 20,
+        "cazareID": 2,
+        "facilitateID": 3,
+        "cazare": null,
+        "facilitate": null
+    },
+    {
+        "id": 21,
+        "cazareID": 2,
+        "facilitateID": 7,
+        "cazare": null,
+        "facilitate": null
+    },
+    {
+        "id": 22,
+        "cazareID": 2,
+        "facilitateID": 8,
+        "cazare": null,
+        "facilitate": null
+    },
+    {
+        "id": 23,
+        "cazareID": 2,
+        "facilitateID": 9,
+        "cazare": null,
+        "facilitate": null
+    }
+
+REZERVARE CAZARE
+{
+        "id": 1,
+        "vacantaID": 1,
+        "cazareID": 2,
+        "dataSosire": "0001-01-01T00:00:00",
+        "dataPlecare": "2019-12-24T00:00:00",
+        "codRezervare": "asdby",
+        "vacanta": null,
+        "cazare": null
+    },
+    {
+        "id": 3,
+        "vacantaID": 1,
+        "cazareID": 3,
+        "dataSosire": "2021-03-18T00:00:00",
+        "dataPlecare": "2021-03-15T00:00:00",
+        "codRezervare": "\"DjFihX$o\"",
+        "vacanta": null,
+        "cazare": null
+    },
+    {
+        "id": 5,
+        "vacantaID": 2,
+        "cazareID": 3,
+        "dataSosire": "2021-03-18T00:00:00",
+        "dataPlecare": "2021-03-14T00:00:00",
+        "codRezervare": "XK1RVTWQ",
+        "vacanta": null,
+        "cazare": null
+    },
+    {
+        "id": 6,
+        "vacantaID": 1,
+        "cazareID": 2,
+        "dataSosire": "2021-05-03T00:00:00",
+        "dataPlecare": "2021-04-30T00:00:00",
+        "codRezervare": "xj46RfMU",
+        "vacanta": null,
+        "cazare": null
+    },
+    {
+        "id": 7,
+        "vacantaID": 7,
+        "cazareID": 4,
+        "dataSosire": "2021-03-15T00:00:00",
+        "dataPlecare": "2021-03-16T00:00:00",
+        "codRezervare": "x3PCI4",
+        "vacanta": null,
+        "cazare": null
+    },
+    {
+        "id": 8,
+        "vacantaID": 7,
+        "cazareID": 2,
+        "dataSosire": "2021-03-15T00:00:00",
+        "dataPlecare": "2021-03-17T00:00:00",
+        "codRezervare": "VperJ1",
+        "vacanta": null,
+        "cazare": null
+    },
+    {
+        "id": 9,
+        "vacantaID": 8,
+        "cazareID": 3,
+        "dataSosire": "2021-05-10T00:00:00",
+        "dataPlecare": "2021-06-10T00:00:00",
+        "codRezervare": "UAxeRB",
+        "vacanta": null,
+        "cazare": null
+    }
+
+ATRACTIE
+{
+        "id": 1,
+        "denumire": "Biserica Neagra",
+        "oraDeschidere": "10:00:00",
+        "oraInchidere": "19:00:00",
+        "pret": 5.0,
+        "oras": "Brasov",
+        "adresa": "Centrul Vechi",
+        "bilet": null
+    },
+    {
+        "id": 2,
+        "denumire": "Turnul Negru",
+        "oraDeschidere": "10:00:00",
+        "oraInchidere": "18:00:00",
+        "pret": 2.0,
+        "oras": "Brasov",
+        "adresa": "Strada Dupa Ziduri",
+        "bilet": null
+    }
+
+BILET
+{
+        "id": 1,
+        "vacantaID": 1,
+        "atractieID": 1,
+        "codBilet": "54dvsv",
+        "dataVizita": "2020-06-22T15:00:00",
+        "vacanta": null,
+        "atractie": null
+    },
+    {
+        "id": 7,
+        "vacantaID": 2,
+        "atractieID": 1,
+        "codBilet": "wh4c7/-G&Z",
+        "dataVizita": "2021-03-15T00:00:00",
+        "vacanta": null,
+        "atractie": null
+    },
+    {
+        "id": 8,
+        "vacantaID": 1,
+        "atractieID": 2,
+        "codBilet": "1ZG4QslEa~",
+        "dataVizita": "2021-05-01T00:00:00",
+        "vacanta": null,
+        "atractie": null
+    },
+    {
+        "id": 9,
+        "vacantaID": 7,
+        "atractieID": 1,
+        "codBilet": "J7zdvYHnV$",
+        "dataVizita": "2021-03-19T00:00:00",
+        "vacanta": null,
+        "atractie": null
+    },
+    {
+        "id": 10,
+        "vacantaID": 7,
+        "atractieID": 1,
+        "codBilet": "VJVNa33R`b",
+        "dataVizita": "2021-05-19T00:00:00",
+        "vacanta": null,
+        "atractie": null
+    },
+    {
+        "id": 11,
+        "vacantaID": 7,
+        "atractieID": 1,
+        "codBilet": "-X$tN8G$Xk",
+        "dataVizita": "2021-05-01T00:00:00",
+        "vacanta": null,
+        "atractie": null
+    },
+    {
+        "id": 12,
+        "vacantaID": 7,
+        "atractieID": 1,
+        "codBilet": "SuaTle0X*K",
+        "dataVizita": "2021-05-02T00:00:00",
+        "vacanta": null,
+        "atractie": null
+    },
+    {
+        "id": 13,
+        "vacantaID": 7,
+        "atractieID": 2,
+        "codBilet": "YBYKXQrmOR",
+        "dataVizita": "2021-05-02T00:00:00",
+        "vacanta": null,
+        "atractie": null
+    },
+    {
+        "id": 14,
+        "vacantaID": 7,
+        "atractieID": 1,
+        "codBilet": "vSCR-8fOdJ",
+        "dataVizita": "2021-05-03T00:00:00",
+        "vacanta": null,
+        "atractie": null
+    },
+    {
+        "id": 15,
+        "vacantaID": 8,
+        "atractieID": 2,
+        "codBilet": "Eo6LEAU9tY",
+        "dataVizita": "2021-05-11T00:00:00",
+        "vacanta": null,
+        "atractie": null
+    }
+
+MANCARE
+{
+        "id": 1,
+        "denumire": "Omleta cu sunca si cascaval",
+        "meniu": null
+    },
+    {
+        "id": 2,
+        "denumire": "Supa de pui",
+        "meniu": null
+    },
+    {
+        "id": 3,
+        "denumire": "Piure",
+        "meniu": null
+    },
+    {
+        "id": 4,
+        "denumire": "Salata de muraturi asortate",
+        "meniu": null
+    },
+    {
+        "id": 5,
+        "denumire": "Tiramisu",
+        "meniu": null
+    },
+    {
+        "id": 6,
+        "denumire": "Clatite cu finetti",
+        "meniu": null
+    },
+    {
+        "id": 7,
+        "denumire": "Apa plata",
+        "meniu": null
+    },
+    {
+        "id": 8,
+        "denumire": "Coca Cola",
+        "meniu": null
+    }
+
+RESTAURANT
+{
+        "id": 1,
+        "nume": "La Ceaun",
+        "oraDeschidere": "12:00:00",
+        "oraInchidere": "22:00:00",
+        "oras": "Brasov",
+        "adresa": "Str. Michael Weiss nr.27",
+        "tichetMasa": null,
+        "meniu": null
+    },
+    {
+        "id": 2,
+        "nume": "Dei Frati",
+        "oraDeschidere": "10:00:00",
+        "oraInchidere": "22:30:00",
+        "oras": "Brasov",
+        "adresa": "Piata George Enescu",
+        "tichetMasa": null,
+        "meniu": null
+    }
+
+MENIU
+{
+        "id": 6,
+        "restaurantID": 2,
+        "mancareID": 1,
+        "pret": 0.0,
+        "restaurant": null,
+        "mancare": null
+    },
+    {
+        "id": 7,
+        "restaurantID": 2,
+        "mancareID": 2,
+        "pret": 0.0,
+        "restaurant": null,
+        "mancare": null
+    },
+    {
+        "id": 8,
+        "restaurantID": 1,
+        "mancareID": 1,
+        "pret": 0.0,
+        "restaurant": null,
+        "mancare": null
+    },
+    {
+        "id": 9,
+        "restaurantID": 1,
+        "mancareID": 3,
+        "pret": 0.0,
+        "restaurant": null,
+        "mancare": null
+    },
+    {
+        "id": 10,
+        "restaurantID": 1,
+        "mancareID": 5,
+        "pret": 0.0,
+        "restaurant": null,
+        "mancare": null
+    }
+
+TICHET MASA
+{
+        "id": 1,
+        "vacantaID": 1,
+        "restaurantID": 2,
+        "dataVizita": "2020-05-21T19:00:00",
+        "codTichet": "awcsvesv345r",
+        "vacanta": null,
+        "restaurant": null
+    },
+    {
+        "id": 2,
+        "vacantaID": 1,
+        "restaurantID": 1,
+        "dataVizita": "2020-05-22T18:00:00",
+        "codTichet": "878412kgf",
+        "vacanta": null,
+        "restaurant": null
+    },
+    {
+        "id": 5,
+        "vacantaID": 2,
+        "restaurantID": 1,
+        "dataVizita": "2021-03-17T00:00:00",
+        "codTichet": "sscxP",
+        "vacanta": null,
+        "restaurant": null
+    },
+    {
+        "id": 6,
+        "vacantaID": 1,
+        "restaurantID": 2,
+        "dataVizita": "2021-05-02T00:00:00",
+        "codTichet": "dBULq",
+        "vacanta": null,
+        "restaurant": null
+    },
+    {
+        "id": 7,
+        "vacantaID": 7,
+        "restaurantID": 2,
+        "dataVizita": "2021-03-16T00:00:00",
+        "codTichet": "ysTgcU/N",
+        "vacanta": null,
+        "restaurant": null
+    },
+    {
+        "id": 8,
+        "vacantaID": 8,
+        "restaurantID": 1,
+        "dataVizita": "2021-05-11T00:00:00",
+        "codTichet": "&QQAhi7j",
+        "vacanta": null,
+        "restaurant": null
+    }

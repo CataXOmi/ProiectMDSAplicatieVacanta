@@ -18,8 +18,8 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {}
   
   openCart() {
-   this.detailModal.totalFinal = 0;
-   this.detailModal.show();
+    this.detailModal.totalFinal = 0;
+    this.detailModal.show();
   }
 
   openFavourites() {

@@ -61,6 +61,7 @@ td, th {
 h2 {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   padding-top: 4%;
+  /*color: white;*/
 }
 
 .container {
@@ -81,4 +82,28 @@ img {
 
 .view .mask {
   height: 88%;
+}
+
+.bg {
+  background-image: url("https://media.discordapp.net/attachments/697442510531854397/844690616687394846/download.jpg?width=1202&height=676");
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+h1 {
+  letter-spacing: 8px;
+  padding-top: 0%;
+}
+h5 {
+  letter-spacing: 3px;
+  /*font-weight: bold;
+  color: black;*/
+}
+.hr-light {
+  border-top: 3px solid white;
+  width: 80px;
 }
