@@ -1,14 +1,117 @@
-<h1>Add page</h1>
+<h1>Adauga serviciile care ti-au marcat calatoria</h1>
 <div class="container">
 
-<div id="text">
+<!--div id="text">
   <p style="display: inline; margin-right: 10px; ">Add new</p>
   <div *ngFor="let option of options" style="display: inline; margin-left:10px; ">
        <input type="radio" name="option" [value]="option" (change)="radioChange($event)" checked="checked"><i>{{option}}</i>
   </div>
-</div>
+</div-->
+<a class="btn btn-primary" data-toggle="collapse" href="#createAtractie" role="button" aria-expanded="false"
+      aria-controls="create">
+      Adauga atractie
+    </a>
+    <a class="btn btn-primary" data-toggle="collapse" href="#createCazare" role="button" aria-expanded="false"
+      aria-controls="create">
+      Adauga cazare
+    </a>
+    <a class="btn btn-primary" data-toggle="collapse" href="#createFacilitate" role="button" aria-expanded="false"
+      aria-controls="create">
+      Adauga facilitate
+    </a>
+    <a class="btn btn-primary" data-toggle="collapse" href="#createMancare" role="button" aria-expanded="false"
+      aria-controls="create">
+      Adauga fel de mancare
+    </a>
+    <a class="btn btn-primary" data-toggle="collapse" href="#createRestaurant" role="button" aria-expanded="false"
+      aria-controls="create">
+      Adauga restaurant
+    </a>
+<div class="collapse col-md-6" id="createAtractie" >
+      <div class="card card-body">
+        <form [formGroup]="addAtractieForm">
+          <div class="form-group">
+            <label for="denumire">Denumire</label>
+            <input type="text" class="form-control" placeholder="ex: Muzeul Luvru" formControlName="denumire">
+          </div>
+          <div class="form-group">
+            <label for="oraDeschidere">Ora deschidere</label>
+            <input type="text" class="form-control" placeholder="ex: 12:00 " formControlName="oraDeschidere">
+          </div>
+          <div class="form-group">
+            <label for="oraInchidere">Ora inchidere</label>
+            <input type="text" class="form-control" placeholder="ex: 18:00" formControlName="oraInchidere">
+          </div>
+          <div class="form-group">
+            <label for="pret">Pret</label>
+            <input type="text" class="form-control" placeholder="ex: 12" formControlName="pret">
+          </div>
+          <div class="form-group">
+            <label for="oras">Oras</label>
+            <input type="text" class="form-control" placeholder="ex: Paris" formControlName="oras">
+          </div>
+          <div class="form-group">
+            <label for="adresa">Adresa</label>
+            <input type="text" class="form-control" placeholder="ex: Str. Mihai Bravu" formControlName="adresa">
+          </div>
+          <div class="form-group">
+            <label for="listaImagini">Imagine</label>
+            <input type="text" class="form-control" placeholder="ex: Link catre imagine" formControlName="listaImagini">
+          </div>
+          <button type="submit" class="btn btn-primary mb-2" id="adaugaAtractie" (click)="addNewAtractie();">Adauga</button>
+          <div *ngIf="success" class="alert alert-success" role="alert">
+            Felicitari! Ai adaugat o atractie noua!
+          </div>
+          <div *ngIf="success === false" class="alert alert-danger" role="alert">
+            S-a produs o eroare! Te rugam sa incerci din nou!
+          </div>
+      </form>
+      </div>
+    </div>
 
-<div class="form-container border ">
+    <div class="collapse col-md-6" id="createCazare" >
+      <div class="card card-body">
+        <form [formGroup]="addCazareForm">
+          <div class="form-group">
+            <label for="nume">Nume</label>
+            <input type="text" class="form-control" placeholder="ex: Casa Morar" formControlName="nume">
+          </div>
+          <div class="form-group">
+            <label for="tipCazare">Tip cazare</label>
+            <input type="text" class="form-control" placeholder="ex: Apartament" formControlName="tipCazare">
+          </div>
+          <div class="form-group">
+            <label for="pret">Pret</label>
+            <input type="text" class="form-control" placeholder="ex: 12" formControlName="pret">
+          </div>
+          <div class="form-group">
+            <label for="oras">Oras</label>
+            <input type="text" class="form-control" placeholder="ex: Paris" formControlName="oras">
+          </div>
+          <div class="form-group">
+            <label for="adresa">Adresa</label>
+            <input type="text" class="form-control" placeholder="ex: Str. Mihai Bravu" formControlName="adresa">
+          </div>
+          <div class="form-group">
+            <label for="listaImagini">Imagine</label>
+            <input type="text" class="form-control" placeholder="ex: Link catre imagine" formControlName="listaImagini">
+          </div>
+          <div class="form-group">
+            <label for="listaImagini">Lista facilitati</label>
+            <input type="text" class="form-control" placeholder="ex: 1, 3, 5, 7, 9" formControlName="listaFacilitatiID">
+          </div>
+          <button type="submit" class="btn btn-primary mb-2" id="adaugaCazare" (click)="addNewCazare();">Adauga</button>
+          <div *ngIf="success" class="alert alert-success" role="alert">
+            Felicitari! Ai adaugat o cazare noua!
+          </div>
+          <div *ngIf="success === false" class="alert alert-danger" role="alert">
+            S-a produs o eroare! Te rugam sa incerci din nou!
+          </div>
+      </form>
+      </div>
+    </div>
+
+<!--div class="form-container border ">
   <form class="text-center " [formGroup]="addSongForm"  *ngIf="selectedOption === 'Song'">
 
     <input type="text"  class="form-control mb-4" placeholder="Name" formControlName="name"
@@ -53,5 +156,5 @@
     <p *ngIf="success" style="color: green; font-size: 22px;">{{selectedOption.toUpperCase()}} added successfully</p>
     <p *ngIf="success === false" style="color: red; font-size: 22px;">Something went wrong</p>
 </div>
-</div>
+</div-->
 
