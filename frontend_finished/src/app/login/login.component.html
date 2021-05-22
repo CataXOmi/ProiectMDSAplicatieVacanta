@@ -88,14 +88,14 @@
     </mdb-card>
   
   </section-->
-  
-  
+ 
+
   <!-- Default form login -->
   <div align="center">
-  <div class="body-form">
-      <form *ngIf="inLogin" class="text-center border border-light p-5 " [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
+    <div class="body-form bg-img">
+      <form *ngIf="inLogin" class="text-center border-light p-5 " [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
   
-          <p class="h4 mb-4">Login</p>
+          <p class="h4 mb-4" style="color:white; font-weight:bold;">Login</p>
   
           <!-- Email -->
           <div class="form-group">
@@ -120,7 +120,7 @@
           </button>
   
           <!-- Register -->
-          <p>Nu esti inca membru?
+          <p style="color:white; font-weight:bold; font-size:25px;">Nu esti inca membru?
               <button type="button" mdbBtn color="info" class="my-4"
                   (click)="inRegister=true; inLogin=false;">Register</button>
           </p>
@@ -130,9 +130,9 @@
 
 
     <!-- Default form register -->
-    <form *ngIf="inRegister" class="text-center border border-light p-5" [formGroup]="registerForm" (ngSubmit)="onRegisterSubmit()">
+    <form *ngIf="inRegister" class="text-center border-light p-5" [formGroup]="registerForm" (ngSubmit)="onRegisterSubmit()">
 
-        <p class="h4 mb-4">Inregistrare cont</p>
+        <p class="h4 mb-4" style="color:white; font-weight:bold;">Inregistrare cont</p>
 
         <div class="form-row mb-4">
             <div class="col">
@@ -174,7 +174,7 @@
                 <div *ngIf="f1.telefon.errors.required">Camp obligatoriu</div>
             </div>
         </div>
-        <small id="defaultRegisterFormPhoneHelpBlock" class="form-text text-muted mb-4">
+        <small id="defaultRegisterFormPhoneHelpBlock" class="form-text mb-4" style="color:white; font-weight:bold; font-size:20px;">
             Optional
         </small>
 
@@ -204,7 +204,7 @@
         <button mdbBtn color="deep-purple" block="true" class="my-4" type="submit" (click)="inRegister=false; inLogin=true;">Revino la login</button>
 
         <!-- Terms of service -->
-        <p>Apasand
+        <p style="color:white; font-weight:bold; font-size:25px;">Apasand
             <em>Inregistrare</em> sunteti de acord cu
             <a href="" target="_blank">termenii si conditiile</a>
         </p>

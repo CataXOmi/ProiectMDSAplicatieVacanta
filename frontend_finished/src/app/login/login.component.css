@@ -8,6 +8,20 @@ body-form {
     text-align: center;
 }
 
+.bg-img {
+  /* The image used */
+  background: url("https://cdn.discordapp.com/attachments/697442510531854397/845743026433163314/1318125.jpg") no-repeat center center fixed;
+  /* Control the height of the image */
+  min-width: 100%;
+  min-height: 100%;
+  position: fixed;
+  background-attachment: fixed;
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 /*.form-dark .font-small {
     font-size: 0.8rem;
   }

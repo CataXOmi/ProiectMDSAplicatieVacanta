@@ -7,6 +7,9 @@ import { CazareComponent } from './cazare/cazare.component';
 import { AtractieComponent } from './atractie/atractie.component';
 import { RestaurantComponent } from './restaurant/restaurant.component';
 import { LoginComponent } from './login/login.component';
+import { ContactComponent } from './contact/contact.component';
+//import { TermsComponent } from './terms/terms.component';
+
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -16,6 +19,8 @@ const routes: Routes = [
   { path: 'atractii', component: AtractieComponent},
   { path: 'login', component: LoginComponent },
   { path: 'restaurante', component: RestaurantComponent},
+  { path: 'contact', component: ContactComponent },
+  //{ path: 'terms', component: TermsComponent },
   { path: '**', component: HomeComponent },
 
 ];

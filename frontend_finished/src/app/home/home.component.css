@@ -3,6 +3,11 @@
   font-weight: 400;
 }
 
+html
+{
+  overflow-x: hidden;
+}
+
 #p1 {
   padding-left: 20px;
   text-align: center;
@@ -45,7 +50,6 @@ table {
   box-shadow: 0 0 0 3px #666; /* this draws the table border  */ 
   box-shadow: 0px 0px 36px 15px rgba(0, 0, 0, 0.28);
   background-color:lavender;
-
 }
 
 td, th {
@@ -85,8 +89,8 @@ img {
 }
 
 .bg {
-  background-image: url("https://media.discordapp.net/attachments/697442510531854397/844690616687394846/download.jpg?width=1202&height=676");
-  height: 100%;
+  background-image: url("https://cdn.discordapp.com/attachments/697442510531854397/844997013882929152/wallpaperflare.com_wallpaper.jpg");
+  height: 100% !important;
 
   /* Center and scale the image nicely */
   background-position: center;
@@ -106,4 +110,33 @@ h5 {
 .hr-light {
   border-top: 3px solid white;
   width: 80px;
+}
+
+* {
+	-webkit-transition-property: all;
+	-webkit-transition-duration: .2s;
+  -moz-transition-timing-function: cubic-bezier(100,50,21,6);
+	-moz-transition-property: all;
+  -moz-transition-timing-function: cubic-bezier(100,50,21,6);
+}
+
+.style-1 {
+	text-align: center;
+}
+
+.btn{
+  color:#fff;
+  background:rgba(0, 0, 0);
+  padding:10px 20px;
+  text-decoration:none;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+
+.btn:hover{
+  border:none;
+  background:rgba(0, 0, 0, 0.4);
+  background:#fff;
+  padding:20px 20px; 
+  color:#1b1b1b;
 }

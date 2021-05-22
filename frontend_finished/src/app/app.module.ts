@@ -37,6 +37,7 @@ import { FavouritesModalComponent } from './header/favourites-modal/favourites-m
 import { EditCazareModalComponent } from './edit/edit-cazare-modal/edit-cazare-modal.component';
 import { EditAtractieModalComponent } from './edit/edit-atractie-modal/edit-atractie-modal.component';
 import { EditRestaurantModalComponent } from './edit/edit-restaurant-modal/edit-restaurant-modal.component';
+import { ContactComponent } from './contact/contact.component';
 
 
 @NgModule({
@@ -64,6 +65,7 @@ import { EditRestaurantModalComponent } from './edit/edit-restaurant-modal/edit-
     EditCazareModalComponent,
     EditAtractieModalComponent,
     EditRestaurantModalComponent,
+    ContactComponent,
   ],
   imports: [
     CommonModule,
