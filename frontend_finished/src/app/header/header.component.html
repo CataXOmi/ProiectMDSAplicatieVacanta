@@ -40,11 +40,18 @@
         </a>
       </li>
 
-      <li class="nav-item" routerLinkActive="active-page">
+      <li *ngIf="logged==false" class="nav-item" routerLinkActive="active-page">
         <a class="nav-link" routerLink="/login">
           <i class="fa fa-sign-in"></i>
         </a>
       </li>
+      <li *ngIf="logged==true" class="nav-item" routerLinkActive="active-page">
+        <a class="nav-link" routerLink="/login">
+          <i class="fa fa-user-circle"></i>
+        </a>
+        
+      </li>
+      <h5 *ngIf="logged==true">Bine ai venit, {{username}}!</h5>
     </ul>
   </div>
 

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../shared/api.service';
 import { LoginService } from '../login.service';
 import { Subscription } from 'rxjs';
 import { Cazare } from '../shared/cazare.model';
+import { Restaurant } from '../shared/restaurant.model';
 
 @Component({
   selector: 'app-add',
@@ -11,9 +12,6 @@ import { Cazare } from '../shared/cazare.model';
   styleUrls: ['./add.component.css']
 })
 export class AddComponent implements OnInit {
-  options = ['Song', 'Artist', 'Album'];
-  selectedOption = 'Album';
-  currentFormRef: any;
   addCazareForm: FormGroup;
   addAtractieForm: FormGroup;
   addRestaurantForm: FormGroup;
@@ -23,7 +21,7 @@ export class AddComponent implements OnInit {
   logged: boolean;
   subscription: Subscription;
 
-  constructor(public fb: FormBuilder, private api: ApiService) { }
+  constructor(public fb: FormBuilder, private api: ApiService, private data: LoginService) { }
 
 
   ngOnInit() {
@@ -62,13 +60,12 @@ export class AddComponent implements OnInit {
       listaImagini: [null]
     });
 
-    this.currentFormRef = this.addCazareForm;
+    this.subscription = this.data.currentValue.subscribe(loginVal => this.logged = loginVal);
 
   }
 
-  radioChange(event: any) {
-    this.selectedOption = event.target.value;
-    this.currentFormRef = this['add' + this.selectedOption + 'Form'];
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   addNewAtractie() {
@@ -103,6 +100,75 @@ export class AddComponent implements OnInit {
     });
   
     this.api.addCazare(addedCazare).subscribe(() => {
+
+      this.success = true;
+      setTimeout(() => {
+        this.success = null;
+      }, 3000);
+    },
+      (error: Error) => {
+        console.log(error);
+        this.success = false;
+        setTimeout(() => {
+          this.success = null;
+        }, 3000);
+      });
+
+  }
+
+
+  addNewFacilitate() {
+  
+    this.api.addFacilitate(this.addFacilitateForm.value).subscribe(() => {
+
+      this.success = true;
+      setTimeout(() => {
+        this.success = null;
+      }, 3000);
+    },
+      (error: Error) => {
+        console.log(error);
+        this.success = false;
+        setTimeout(() => {
+          this.success = null;
+        }, 3000);
+      });
+
+  }
+
+  addNewMancare() {
+  
+    this.api.addMancare(this.addMancareForm.value).subscribe(() => {
+
+      this.success = true;
+      setTimeout(() => {
+        this.success = null;
+      }, 3000);
+    },
+      (error: Error) => {
+        console.log(error);
+        this.success = false;
+        setTimeout(() => {
+          this.success = null;
+        }, 3000);
+      });
+
+  }
+
+
+  addNewRestaurant() {
+
+    const addedRestaurant = new Restaurant({
+      nume: this.addRestaurantForm.value.nume,
+      oraDeschidere: this.addRestaurantForm.value.oraDeschidere,
+      oraInchidere: this.addRestaurantForm.value.OraInchidere,
+      adresa: this.addRestaurantForm.value.adresa,
+      oras: this.addRestaurantForm.value.oras,
+      meniuID: this.transformInNumberArray(this.addRestaurantForm.value.meniuID),
+      listaImagini: this.addRestaurantForm.value.listaImagini
+    });
+  
+    this.api.addRestaurant(addedRestaurant).subscribe(() => {
 
       this.success = true;
       setTimeout(() => {

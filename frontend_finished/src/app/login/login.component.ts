@@ -78,7 +78,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     {
       if (this.loginForm.get('email').value === this.utilizatori[i].email && this.loginForm.get('parola').value === this.utilizatori[i].parola)
       {
-        this.data.changeLoginValue(true);
+        this.data.changeLoginValue(true, this.utilizatori[i].username);
         console.log(this.isLoggedIn);
          this.router.navigate(['']);
         break;
@@ -98,7 +98,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.api.addUtilizator(this.registerForm.value).subscribe(() => {
 
         this.registerForm.reset();
-        this.data.changeLoginValue(true);
+        this.data.changeLoginValue(true, this.registerForm.value.username);
         this.success = true;
         setTimeout(() => {
           this.success = null;
