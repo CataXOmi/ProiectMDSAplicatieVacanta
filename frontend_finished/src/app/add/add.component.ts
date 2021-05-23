@@ -32,7 +32,6 @@ export class AddComponent implements OnInit {
       pret: [null, Validators.required],
       oras: [null, Validators.required],
       adresa: [null, Validators.required],
-      setImagini: [null],
       listaFacilitatiID: ['', Validators.required]
     });
     this.addAtractieForm = this.fb.group({
@@ -42,7 +41,6 @@ export class AddComponent implements OnInit {
       pret: [null, Validators.required],
       oras: [null, Validators.required],
       adresa: [null, Validators.required],
-      listaImagini: [null]
     });
     this.addMancareForm = this.fb.group({
       denumire: [null, Validators.required],
@@ -57,7 +55,6 @@ export class AddComponent implements OnInit {
       oras: [null, Validators.required],
       adresa: [null, Validators.required],
       meniuID: ['', Validators.required],
-      listaImagini: [null]
     });
 
     this.subscription = this.data.currentValue.subscribe(loginVal => this.logged = loginVal);
@@ -96,7 +93,6 @@ export class AddComponent implements OnInit {
       adresa: this.addCazareForm.value.adresa,
       oras: this.addCazareForm.value.oras,
       listaFacilitatiID: this.transformInNumberArray(this.addCazareForm.value.listaFacilitatiID),
-      setImagini: this.addCazareForm.value.setImagini
     });
   
     this.api.addCazare(addedCazare).subscribe(() => {
@@ -165,7 +161,6 @@ export class AddComponent implements OnInit {
       adresa: this.addRestaurantForm.value.adresa,
       oras: this.addRestaurantForm.value.oras,
       meniuID: this.transformInNumberArray(this.addRestaurantForm.value.meniuID),
-      listaImagini: this.addRestaurantForm.value.listaImagini
     });
   
     this.api.addRestaurant(addedRestaurant).subscribe(() => {

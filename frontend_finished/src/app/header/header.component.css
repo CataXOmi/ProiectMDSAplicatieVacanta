@@ -87,3 +87,14 @@ img {
 .fa, .fas {
   color: white;
 }
+
+h5 {
+  font-weight: bold;
+  color: powderblue;
+  font-family: monospace;
+}
+
+.dropdown-menu, .show { 
+  right: 0 !important; 
+  left: auto;
+}

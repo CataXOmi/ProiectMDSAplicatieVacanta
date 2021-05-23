@@ -81,7 +81,6 @@ export class EditCazareModalComponent implements OnInit{
       adresa: [cazareCurenta.adresa, Validators.required],
       oras: [cazareCurenta.oras, Validators.required],
       listaFacilitati: ['', Validators.required],
-      img: [cazareCurenta.setImagini],
     });
   }
 
@@ -95,7 +94,6 @@ export class EditCazareModalComponent implements OnInit{
       adresa: this.editCazareForm.value.adresa,
       oras: this.editCazareForm.value.oras,
       listaFacilitatiID: this.transformInNumberArray(this.editCazareForm.value.listaFacilitati),
-      setImagini: this.editCazareForm.value.img
     });
 
     //console.log(this.editCazareForm.value.listaFacilitati);

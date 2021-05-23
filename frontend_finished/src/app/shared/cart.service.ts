@@ -35,9 +35,10 @@ export class CartService {
     this.numarBilete.push(nrbilete);
   }
 
-  add_restaurant(restaurant: Restaurant, datarezervare: string, nrpers: number) {
+  add_restaurant(restaurant: Restaurant, datarezervare: string, orarezervare: string, nrpers: number) {
+    let datarezervareCompleta = datarezervare + "T" + orarezervare;
     this.restaurante.push(restaurant);
-    this.dataRezervareRestaurant.push(datarezervare);
+    this.dataRezervareRestaurant.push(datarezervareCompleta);
     this.numarPersoane.push(nrpers);
   }
 

@@ -79,7 +79,6 @@ export class EditRestaurantModalComponent implements OnInit {
       adresa: [restaurantCurent.adresa, Validators.required],
       oras: [restaurantCurent.oras, Validators.required],
       meniuID: ['', Validators.required],
-      listaImagini: [restaurantCurent.listaImagini],
     });
   }
 
@@ -93,7 +92,6 @@ export class EditRestaurantModalComponent implements OnInit {
       adresa: this.editRestaurantForm.value.adresa,
       oras: this.editRestaurantForm.value.oras,
       meniuID: this.transformInNumberArray(this.editRestaurantForm.value.meniuID),
-      setImagini: this.editRestaurantForm.value.listaImagini
     });
 
     //console.log(this.editCazareForm.value.listaFacilitati);

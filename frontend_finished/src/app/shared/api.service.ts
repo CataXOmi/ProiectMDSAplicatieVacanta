@@ -113,7 +113,7 @@ export class ApiService {
       'oras': cazare.oras,
       'adresa': cazare.adresa,
       'listaFacilitatiID': JSON.parse('[' + cazare.listaFacilitatiID + ']'),
-      'imagini': JSON.parse('[' + cazare.setImagini + ']'),
+      'setImagini': cazare.setImagini,
       //'listaFacilitati': JSON.parse('[' + cazare.listaFacilitati + ']')
     }, {headers: this.header });
   }
@@ -133,7 +133,7 @@ export class ApiService {
       'oras': res.oras,
       'adresa': res.adresa,
       'meniuID': JSON.parse('[' + res.meniuID + ']'),
-      'imagini': JSON.parse('[' + res.listaImagini + ']')
+      'listaImagini': res.listaImagini,
     }, {headers: this.header})
   }
 
@@ -168,7 +168,7 @@ export class ApiService {
       'pret': atr.pret,
       'oras': atr.oras,
       'adresa': atr.adresa,
-      'imagini': JSON.parse('[' + atr.listaImagini + ']')
+      'listaImagini': atr.listaImagini,
     }, {headers: this.header})
   }
 

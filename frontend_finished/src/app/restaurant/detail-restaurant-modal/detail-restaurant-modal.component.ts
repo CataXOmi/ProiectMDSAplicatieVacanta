@@ -16,6 +16,7 @@ export class DetailRestaurantModalComponent implements OnInit {
   restaurant = new Restaurant();
   //studio: string;
   dataRezervare: string = "";
+  oraRezervare: string;
   numarPersoane: number;
   isLoggedIn: string;
 
@@ -56,7 +57,7 @@ export class DetailRestaurantModalComponent implements OnInit {
   }
 
   addCart(restaurant: Restaurant) {
-    this.cart.add_restaurant(restaurant, this.dataRezervare, this.numarPersoane);
+    this.cart.add_restaurant(restaurant, this.dataRezervare, this.oraRezervare, this.numarPersoane);
     //console.log(this.dataStart, "+", this.dataSfarsit);
     this.modal.hide();
   }

@@ -41,6 +41,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.favdetailModal.show();
   }
 
+  logoutUser() {
+    console.log(this.logged);
+    this.data.changeLoginValue(false, "");
+    console.log(this.logged);
+  }
+
+  reloadCurrentPage() {
+    window.location.reload();
+   }
 }
-
-

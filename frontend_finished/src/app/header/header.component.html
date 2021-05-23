@@ -52,6 +52,13 @@
         
       </li>
       <h5 *ngIf="logged==true">Bine ai venit, {{username}}!</h5>
+      <div class="dropdown" mdbDropdown>
+      <button *ngIf="logged==true" type="button" mdbDropdownToggle mdbBtn color="indigo" class="dropdown-toggle dropdown-toggle-split px-3 waves-light"
+    mdbWavesEffect></button>
+  <div class="dropdown-menu dropdown-menu-left" *ngIf="logged==true">
+    <a class="dropdown-item" (click)="logoutUser(); reloadCurrentPage();">Logout</a>
+    </div>
+  </div>
     </ul>
   </div>
 
