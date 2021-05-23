@@ -8,7 +8,7 @@ import { AtractieComponent } from './atractie/atractie.component';
 import { RestaurantComponent } from './restaurant/restaurant.component';
 import { LoginComponent } from './login/login.component';
 import { ContactComponent } from './contact/contact.component';
-//import { TermsComponent } from './terms/terms.component';
+import { TermsComponent } from './terms/terms.component';
 
 
 const routes: Routes = [
@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'restaurante', component: RestaurantComponent},
   { path: 'contact', component: ContactComponent },
-  //{ path: 'terms', component: TermsComponent },
+  { path: 'terms', component: TermsComponent },
   { path: '**', component: HomeComponent },
 
 ];

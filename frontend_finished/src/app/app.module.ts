@@ -38,6 +38,7 @@ import { EditCazareModalComponent } from './edit/edit-cazare-modal/edit-cazare-m
 import { EditAtractieModalComponent } from './edit/edit-atractie-modal/edit-atractie-modal.component';
 import { EditRestaurantModalComponent } from './edit/edit-restaurant-modal/edit-restaurant-modal.component';
 import { ContactComponent } from './contact/contact.component';
+import { TermsComponent } from './terms/terms.component';
 
 
 @NgModule({
@@ -66,6 +67,7 @@ import { ContactComponent } from './contact/contact.component';
     EditAtractieModalComponent,
     EditRestaurantModalComponent,
     ContactComponent,
+    TermsComponent,
   ],
   imports: [
     CommonModule,

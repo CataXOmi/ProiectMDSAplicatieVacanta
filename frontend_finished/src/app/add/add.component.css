@@ -49,3 +49,16 @@ button {
 }
 
 
+.bg-img {
+  /* The image used */
+  background: url("https://cdn.discordapp.com/attachments/697442510531854397/846128158478303252/rakotzbr-cke-devil-039-s-bridge-3840x2160-rakotzbr-cke-devils-bridge-germany-europe-5k-19710.jpg") no-repeat center center fixed;
+  /* Control the height of the image */
+  min-width: 100%;
+  min-height: 100%;
+  position: fixed;
+  background-attachment: fixed;
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
