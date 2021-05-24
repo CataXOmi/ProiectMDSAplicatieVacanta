@@ -37,10 +37,10 @@ namespace ProiectMDS.Controllers
 
         // GET api/<RestaurantController>/5
         [HttpGet("{id}")]
-        public RestaurantDTO Get(int id)
+        public RestaurantDetailsDTO Get(int id)
         {
             Restaurant restaurant = IRestaurantRepository.Get(id);
-            RestaurantDTO myRestaurant = new RestaurantDTO();
+            RestaurantDetailsDTO myRestaurant = new RestaurantDetailsDTO();
 
             if (myRestaurant != null)
             {
@@ -52,27 +52,19 @@ namespace ProiectMDS.Controllers
             }
 
             IEnumerable<Meniu> myMeniu = IMeniuRepository.GetAll().Where(x => x.RestaurantID == restaurant.ID);
-            List<int> ListaMancare = new List<int>();
+            List<string> ListaMancare = new List<string>();
+            List<float> ListaPreturi = new List<float>();
             if (myMeniu != null)
             {
                 foreach (Meniu mymenu in myMeniu)
                 {
-                    ListaMancare.Add(mymenu.MancareID);
+                    Mancare mancare = IMancareRepository.GetAll().SingleOrDefault(x => x.ID == mymenu.MancareID);
+                    ListaMancare.Add(mancare.Denumire);
+                    ListaPreturi.Add(mymenu.Pret);
                 }
                 //myUtilizator.FotografieID = ListaFotografii;
             }
-
-            IEnumerable<Meniu> myMenus = IMeniuRepository.GetAll().Where(x => x.RestaurantID == restaurant.ID);
-            List<string> ListaMancaruri = new List<string>();
-            if (myMenus != null)
-            {
-                foreach (int mancareID in ListaMancare)
-                {
-                    Mancare mancare = IMancareRepository.Get(mancareID);
-                    ListaMancaruri.Add(mancare.Denumire);
-                }
-            }
-            myRestaurant.Meniu = ListaMancaruri.ToList();
+            myRestaurant.Meniu = ListaMancare;
 
             return myRestaurant;
 
@@ -80,7 +72,7 @@ namespace ProiectMDS.Controllers
 
         // POST api/<RestaurantController>
         [HttpPost]
-        public Restaurant Post(RestaurantDTO value)
+        public void Post(RestaurantDTO value)
         {
             Restaurant model = new Restaurant()
             {
@@ -90,12 +82,26 @@ namespace ProiectMDS.Controllers
                 Oras = value.Oras,
                 Adresa = value.Adresa
             };
-            return IRestaurantRepository.Create(model);
+            IRestaurantRepository.Create(model);
+
+            if (value.MeniuID != null)
+            {
+                for (int i = 0; i < value.MeniuID.Count; i++)
+                {
+                    Meniu meniu = new Meniu()
+                    {
+                        RestaurantID = model.ID,
+                        MancareID = value.MeniuID[i]
+                    };
+                    IMeniuRepository.Create(meniu);
+                }
+            }
+
         }
 
         // PUT api/<RestaurantController>/5
         [HttpPut("{id}")]
-        public Restaurant Put(int id, RestaurantDTO value)
+        public void Put(int id, RestaurantDTO value)
         {
             Restaurant model = IRestaurantRepository.Get(id);
 
@@ -124,7 +130,23 @@ namespace ProiectMDS.Controllers
                 model.Adresa = value.Adresa;
             }
 
-            return IRestaurantRepository.Update(model);
+            IRestaurantRepository.Update(model);
+
+            if (value.MeniuID != null)
+            {
+                IEnumerable<Meniu> myMeniuri = IMeniuRepository.GetAll().Where(x => x.RestaurantID == id);
+                foreach (Meniu myMeniu in myMeniuri)
+                    IMeniuRepository.Delete(myMeniu);
+                for (int i = 0; i < value.MeniuID.Count; i++)
+                {
+                    Meniu meniu = new Meniu()
+                    {
+                        RestaurantID = model.ID,
+                        MancareID = value.MeniuID[i]
+                    };
+                    IMeniuRepository.Create(meniu);
+                }
+            }
         }
 
         // DELETE api/<RestaurantController>/5

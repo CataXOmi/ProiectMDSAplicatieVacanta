@@ -1,47 +1,62 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from '../shared/api.service';
-import { Album } from '../shared/album.model';
-import { Artist } from '../shared/artist.model';
-import { Song } from '../shared/song.model';
-import { EditAlbumModalComponent } from './edit-album-modal/edit-album-modal.component';
+import { EditCazareModalComponent } from './edit-cazare-modal/edit-cazare-modal.component';
 import { EditArtistModalComponent } from './edit-artist-modal/edit-artist-modal.component';
 import { EditSongModalComponent } from './edit-song-modal/edit-song-modal.component';
+import { Cazare } from '../shared/cazare.model';
+import { Restaurant } from '../shared/restaurant.model';
+import { Atractie } from '../shared/atractie.model';
+import { EditRestaurantModalComponent } from './edit-restaurant-modal/edit-restaurant-modal.component';
+import { EditAtractieModalComponent } from './edit-atractie-modal/edit-atractie-modal.component';
+import { LoginService } from '../login.service';
+import { Subscription } from 'rxjs';
+import { LoginComponent } from '../login/login.component';
+
 
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.css']
 })
-export class EditComponent implements OnInit {
-  albums: Album[] = [];
-  artists: Artist[] = [];
-  songs: Song[] = [];
+export class EditComponent implements OnInit, OnDestroy {
+  atractii: Atractie[] = [];
+  cazari: Cazare[] = [];
+  restaurante: Restaurant[] = [];
+  logged: boolean;
+  subscription: Subscription;
 
 
 
-  @ViewChild('editAlbumModal') editAlbumModal: EditAlbumModalComponent;
+  @ViewChild('editCazareModal') editCazareModal: EditCazareModalComponent;
+  @ViewChild('editRestaurantModal') editRestaurantModal: EditRestaurantModalComponent;
   @ViewChild('editArtistModal') editArtistModal: EditArtistModalComponent;
-  @ViewChild('editSongModal') editSongModal: EditSongModalComponent;
+  @ViewChild('editAtractieModal') editAtractieModal: EditAtractieModalComponent;
+  @ViewChild('LoginComponent') loginPage: LoginComponent;
 
 
-  constructor(private api: ApiService) { }
+  constructor(private api: ApiService, private data: LoginService) { }
 
   ngOnInit() {
-    this.getAlbums();
-    this.getArtists();
-    this.getSongs();
+    this.getCazari();
+    this.getAtractii();
+    this.getRestaurante();
+    this.subscription = this.data.currentValue.subscribe(loginVal => this.logged = loginVal);
   }
 
-  getAlbums() {
-    this.api.getAlbums()
-      .subscribe((data: Album[]) => {
-        this.albums = [];
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  getCazari() {
+    this.api.getCazari()
+      .subscribe((data: Cazare[]) => {
+        this.cazari = [];
 
         for (let i = 0; i < data.length; i++) {
-          this.api.getAlbum(data[i].id)
-            .subscribe((info: Album) => {
+          this.api.getCazare(data[i].id)
+            .subscribe((info: Cazare) => {
               info.id = data[i].id;
-              this.albums.push(info);
+              this.cazari.push(info);
             },
               (e: Error) => {
                 console.log('err', e);
@@ -55,18 +70,53 @@ export class EditComponent implements OnInit {
         });
   }
 
-  getArtists() {
+  getAtractii() {
+    this.api.getAtractii()
+      .subscribe((data: Atractie[]) => {
+        this.atractii = [];
 
-    this.api.getArtists()
-      .subscribe((data: Artist[]) => {
-        this.artists = data;
+        for (let i = 0; i < data.length; i++) {
+          this.api.getAtractie(data[i].id)
+            .subscribe((info: Atractie) => {
+              info.id = data[i].id;
+              this.atractii.push(info);
+            },
+              (e: Error) => {
+                console.log('err', e);
+              });
+        }
+
       },
         (error: Error) => {
           console.log('err', error);
+
         });
   }
 
-  getSongs() {
+  getRestaurante() {
+    this.api.getRestaurante()
+      .subscribe((data: Restaurant[]) => {
+        this.restaurante = [];
+
+        for (let i = 0; i < data.length; i++) {
+          this.api.getRestaurant(data[i].id)
+            .subscribe((info: Restaurant) => {
+              info.id = data[i].id;
+              this.restaurante.push(info);
+            },
+              (e: Error) => {
+                console.log('err', e);
+              });
+        }
+
+      },
+        (error: Error) => {
+          console.log('err', error);
+
+        });
+  }
+
+  /*getSongs() {
     this.api.getSongs()
       .subscribe((data: Song[]) => {
         this.songs = data;
@@ -75,33 +125,33 @@ export class EditComponent implements OnInit {
           console.log('err', error);
 
         });
-  }
+  }*/
 
-  deleteAlbum(id: number) {
-    this.api.deleteAlbum(id)
+  deleteCazare(id: number) {
+    this.api.deleteCazare(id)
       .subscribe(() => {
-        this.albums = [];
-        this.getAlbums();
+        this.cazari = [];
+        this.getCazari();
       },
         (error: Error) => {
           console.log(error);
         });
   }
 
-  deleteArtist(id: number) {
-    this.api.deleteArtist(id)
+  deleteAtractie(id: number) {
+    this.api.deleteAtractie(id)
       .subscribe(() => {
-        this.getArtists();
+        this.getAtractii();
       },
         (error: Error) => {
           console.log(error);
         });
   }
 
-  deleteSong(id: number) {
-    this.api.deleteSong(id)
+  deleteRestaurant(id: number) {
+    this.api.deleteRestaurant(id)
       .subscribe(() => {
-        this.getSongs();
+        this.getRestaurante();
       },
         (error: Error) => {
           console.log(error);
@@ -110,26 +160,26 @@ export class EditComponent implements OnInit {
   }
 
   showM1(id: number): void {
-    this.editAlbumModal.show(id);
+    this.editCazareModal.show(id);
   }
 
   showM2(id: number): void {
-    this.editArtistModal.show(id);
+    this.editAtractieModal.show(id);
   }
 
   showM3(id: number): void {
-    this.editSongModal.show(id);
+    this.editRestaurantModal.show(id);
   }
 
   changeE(event: string) {
-    if (event === 'album') {
-      this.getAlbums();
+    if (event === 'cazare') {
+      this.getCazari();
     }
-    if (event === 'artist') {
-      this.getArtists();
+    if (event === 'atractie') {
+      this.getAtractii();
     }
-    if (event === 'song') {
-      this.getSongs();
+    if (event === 'restaurant') {
+      this.getRestaurante();
     }
 
 

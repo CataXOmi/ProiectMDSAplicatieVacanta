@@ -1,37 +1,45 @@
+<div class="bg">
+
+<nav class="style-1">
+  <a routerLink="" routerLinkActive="active" class="btn">Servicii</a>
+  <a routerLink="/atractii" routerLinkActive="active" class="btn">Atractii</a>
+  <a routerLink="/cazari" routerLinkActive="active" class="btn">Cazari</a>
+  <a routerLink="/restaurante" routerLinkActive="active" class="btn">Restaurante</a>
+</nav>
+
 <div class="container">
-  <div>
-    <div id="container-content">
-      <form class="form-inline active-cyan-2 col-4 col-sm-4 px-0 mt-2">
-        <input
-          class="form-control form-control-sm mr-3 w-75"
-          type="text"
-          placeholder="Search"
-          aria-label="Search"
-          name="search"
-          [(ngModel)]="searchText"
-          autocomplete="off"
-        />
-        <i class="fa fa-search" aria-hidden="true"></i>
-      </form>
-
-      <div class="container">
-      
-        <div class="row pl-5">
-          <ng-container *ngFor=" let album of albums | searchFilter: { artistName: searchText, name: searchText, songName: searchText }; let ind = index">
-            <div class="view col mb-3 mr-3 p-0 hoverable"  (click)="showDM(album.id)">
-              <img [src]="album.img" class="img-fluid z-depth-1 rounded" alt="hoverable"/>
-
-              <div class="detail">
-                <p id="p1">{{ album.artistName.toString() }} - {{ album.name }}</p>
-               
-                <p id="p2">{{ album.price }} lei</p>
-              </div>
-            </div>
-            <div class="w-100" *ngIf="ind != 0 && (ind + 1) % 4 == 0"></div>
-          </ng-container>
-        </div>
+  <div class="row pt-5 mt-3 w-80">
+    <div class="col-md-12">
+      <div class="text-center">
+        <h2 class="h1 h1-reponsive white-text font-up font-bold mb-3 wow fadeInDown" data-wow-delay="0.3s"><strong>LifeIsGood</strong></h2>
+        <hr class="hr-light mt-4 wow fadeInDown" data-wow-delay="0.4s">
+        <h5 class="font-up mb-5 white-text wow fadeInDown" data-wow-delay="0.4s"><strong>Travel & relax</strong></h5>
+        <a mdbBtn color="white" outline="true" class="wow fadeInDown waves-light" data-wow-delay="0.4s"
+        data-toggle="modal" data-target="#frameModalTop" mdbWavesEffect>Start the journey</a>
+        <a mdbBtn color="white" outline="true" class="wow fadeInDown waves-light" data-wow-delay="0.4s"
+          mdbWavesEffect routerLinkActive="active-page" routerLink="/contact">Contact us</a>          
       </div>
     </div>
   </div>
 </div>
-<app-detail-modal #detailModal></app-detail-modal>
+
+<!--div class="container">
+  <h2>Bun venit acolo unde vacanta ta va fi mai frumoasa!</h2> <br><br><br>
+  <h2>Creeaza-ti acum cea mai frumoasa vacanta!</h2>
+  <button type="button" mdbBtn color="default" rounded="true" data-toggle="modal" data-target="#frameModalTop"
+    mdbWavesEffect> Adauga vacanta
+  </button>
+
+</div-->
+
+<p style="color:white; font-weight:bold; font-family: 'Brush Script MT', cursive; font-size:45px; text-align: center; padding-top: 300px;">
+  “Remember that happiness is a way of travel, not a destination.”
+</p>
+
+<p style="color:white; font-weight:bold; font-family: 'Brush Script MT', cursive; font-size:45px; text-align: center;">
+  “The world is a book and those who do not travel read only one page.”
+</p>
+
+
+</div>
+<app-add-vacanta-modal #vacantaModal></app-add-vacanta-modal>

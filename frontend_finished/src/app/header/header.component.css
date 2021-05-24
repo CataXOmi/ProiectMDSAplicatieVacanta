@@ -1,7 +1,7 @@
 .navbar {
   border-bottom: 4px solid #606060;
-  border-radius: 10px;
-  background-color: white !important;
+  /*border-radius: 10px;
+  background-color: white !important;*/
 }
 
 .navbar {
@@ -75,4 +75,26 @@ form ol {
 
 .modal-header {
   border-bottom: none;
+}
+
+img {
+  width: 18%;
+  height: 10%;
+  padding-top: 0%;
+  padding-bottom: 0%;
+}
+
+.fa, .fas {
+  color: white;
+}
+
+h5 {
+  font-weight: bold;
+  color: powderblue;
+  font-family: monospace;
+}
+
+.dropdown-menu, .show { 
+  right: 0 !important; 
+  left: auto;
 }

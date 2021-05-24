@@ -1,81 +1,44 @@
-<h1>Edit page</h1>
-<div class="container">
-  <div class="albums">
-  <p>Albums</p>
-  <table class="table table-striped ">
-    <thead>
-    <tr>
-      <th scope="col" style="width:10%">ID</th>
-      <th scope="col" style="width:20%">Name</th>
-      <th scope="col" style="width:10%">Release year</th>
-      <th scope="col" style="width:10%">Price</th>
-      <th scope="col" style="width:10%">StudioId</th>
-      <th scope="col" style="width:20%">ArtistName</th>
-      <th scope="col" style="width:20%">SongName</th>
-      <th scope="col" style="width:10%">Actions</th>
-
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let album of albums;let i=index">
-      <th scope="row">{{album.id}}</th>
-      <td>{{album.name}}</td>
-      <td>{{album.releaseYear}}</td>
-      <td>{{album.price}}</td>
-      <td>{{album.studioId}}</td>
-      <td>{{album.artistName}}</td>
-      <td>{{album.songName}}</td>
-      <td><a class=" dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
-             aria-haspopup="true" aria-expanded="false"></a>
-
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" (click)="showM1(album.id)"><i class="fas fa-pen"></i> Edit</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" (click)="deleteAlbum(album.id)"><i class="fas fa-eraser"></i> Delete</a>
-        </div>
-      </td>
-
-
-    </tr>
-
-
-    </tbody>
-  </table>
-
-  </div>
-
-
-
-  <div class="artist">
-    <p>Artists</p>
-    <table class="table table-striped ">
+<h1>Editeaza servicii</h1>
+<div class="container" *ngIf="logged ===  true">
+  <div class="cazare">
+    <p>Cazari</p>
+    <table class="table table-striped " style="text-align: center;">
       <thead>
-      <tr>
-        <th scope="col" style="width:10%">ID</th>
-        <th scope="col" style="width:30%">Name</th>
-        <th scope="col" style="width:20%">Nationality</th>
-        <th scope="col" style="width:10%">Actions</th>
+        <tr>
+          <th scope="col" style="width:5%">ID</th>
+          <th scope="col" style="width:20%">Nume</th>
+          <th scope="col" style="width:10%">Tip cazare</th>
+          <th scope="col" style="width:8%">Pret</th>
+          <th scope="col" style="width:20%">Adresa</th>
+          <th scope="col" style="width:10%">Oras</th>
+          <th scope="col" style="width:30%">Facilitati</th>
+          <!--th scope="col" style="width:30%">Imagini</th-->
+          <th scope="col" style="width:10%">Actions</th>
 
-      </tr>
+        </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let artist of artists;let i=index">
-        <th scope="row">{{artist.id}}</th>
-        <td>{{artist.name}}</td>
-        <td>{{artist.nationality}}</td>
+        <tr *ngFor="let cazare of cazari;let i=index">
+          <th scope="row">{{cazare.id}}</th>
+          <td>{{cazare.nume}}</td>
+          <td>{{cazare.tipCazare}}</td>
+          <td>{{cazare.pret}}</td>
+          <td>{{cazare.adresa}}</td>
+          <td>{{cazare.oras}}</td>
+          <td>{{cazare.listaFacilitati}}</td>
+          <td><a class=" dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false"></a>
 
-        <td><a class=" dropdown-toggle"  id="navbarDropdown2" role="button" data-toggle="dropdown"
-               aria-haspopup="true" aria-expanded="false"></a>
-
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown2">
-            <a class="dropdown-item" (click)="showM2(artist.id)"><i class="fas fa-pen"></i> Edit</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" (click)="deleteArtist(artist.id)" ><i class="fas fa-eraser"></i> Delete</a>
-          </div>
-        </td>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" (click)="showM1(cazare.id)"><i class="fas fa-pen"></i> Modifica</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" (click)="deleteCazare(cazare.id)"><i class="fas fa-eraser"></i> Sterge aceasta
+                cazare</a>
+            </div>
+          </td>
 
 
-      </tr>
+        </tr>
 
 
       </tbody>
@@ -84,37 +47,45 @@
   </div>
 
 
-  <div class="song">
-    <p>Songs</p>
-    <table class="table table-striped " >
-      <thead>
-      <tr>
-        <th scope="col" style="width:10%">ID</th>
-        <th scope="col" style="width:30%">Name</th>
-        <th scope="col" style="width:30%">Style</th>
-        <th scope="col" style="width:10%">Actions</th>
 
-      </tr>
+  <div class="atractie">
+    <p>Atractii</p>
+    <table class="table table-striped " style="text-align: center;">
+      <thead>
+        <tr>
+          <th scope="col" style="width:5%">ID</th>
+          <th scope="col" style="width:20%">Denumire</th>
+          <th scope="col" style="width:15%">Program</th>
+          <th scope="col" style="width:8%">Pret</th>
+          <th scope="col" style="width:20%">Adresa</th>
+          <th scope="col" style="width:10%">Oras</th>
+          <th scope="col" style="width:10%">Actions</th>
+
+        </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let song of songs;let i=index">
-        <th scope="row">{{song.id}}</th>
-        <td>{{song.name}}</td>
-        <td>{{song.style}}</td>
+        <tr *ngFor="let atractie of atractii;let i=index">
+          <th scope="row">{{atractie.id}}</th>
+          <td>{{atractie.denumire}}</td>
+          <td>{{atractie.oraDeschidere}} - {{atractie.oraInchidere}}</td>
+          <td>{{atractie.pret}}</td>
+          <td>{{atractie.adresa}}</td>
+          <td>{{atractie.oras}}</td>
 
 
-        <td><a class=" dropdown-toggle" id="navbarDropdown3" role="button" data-toggle="dropdown"
-               aria-haspopup="true" aria-expanded="false"></a>
+          <td><a class=" dropdown-toggle" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false"></a>
 
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown3">
-            <a class="dropdown-item" (click)="showM3(song.id)"><i class="fas fa-pen"></i> Edit</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" (click)="deleteSong(song.id)"><i class="fas fa-eraser"></i> Delete</a>
-          </div>
-        </td>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown2">
+              <a class="dropdown-item" (click)="showM2(atractie.id)"><i class="fas fa-pen"></i> Modifica</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" (click)="deleteAtractie(atractie.id)"><i class="fas fa-eraser"></i> Sterge
+                aceasta atractie</a>
+            </div>
+          </td>
 
 
-      </tr>
+        </tr>
 
 
       </tbody>
@@ -123,7 +94,57 @@
   </div>
 
 
+  <div class="restaurant">
+    <p>Restaurante</p>
+    <table class="table table-striped " style="text-align: center;">
+      <thead>
+        <tr>
+          <th scope="col" style="width:5%">ID</th>
+          <th scope="col" style="width:20%">Nume</th>
+          <th scope="col" style="width:15%">Program</th>
+          <th scope="col" style="width:20%">Adresa</th>
+          <th scope="col" style="width:10%">Oras</th>
+          <th scope="col" style="width:30%">Meniu</th>
+          <th scope="col" style="width:10%">Actions</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let restaurant of restaurante;let i=index">
+          <th scope="row">{{restaurant.id}}</th>
+          <td>{{restaurant.nume}}</td>
+          <td>{{restaurant.oraDeschidere}} - {{restaurant.oraInchidere}}</td>
+          <td>{{restaurant.adresa}}</td>
+          <td>{{restaurant.oras}}</td>
+          <td>{{restaurant.meniu}}</td>
+
+
+          <td><a class=" dropdown-toggle" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false"></a>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown3">
+              <a class="dropdown-item" (click)="showM3(restaurant.id)"><i class="fas fa-pen"></i> Modifica</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" (click)="deleteRestaurant(restaurant.id)"><i class="fas fa-eraser"></i> Sterge
+                acest restaurant</a>
+            </div>
+          </td>
+
+
+        </tr>
+
+
+      </tbody>
+    </table>
+
+  </div>
 </div>
-<app-edit-album-modal #editAlbumModal (change)="changeE($event)" ></app-edit-album-modal>
-<app-edit-song-modal #editSongModal (change)="changeE($event)" ></app-edit-song-modal>
-<app-edit-artist-modal #editArtistModal (change)="changeE($event)" ></app-edit-artist-modal>
+<div *ngIf="logged === false" class="modal-body">
+  <div class="alert alert-warning" role="alert">
+    Trebuie sa fii logat ca sa poti modifica servicii deja existente!
+  </div>
+</div>
+
+<app-edit-cazare-modal #editCazareModal (change)="changeE($event)"></app-edit-cazare-modal>
+<app-edit-restaurant-modal #editRestaurantModal (change)="changeE($event)"></app-edit-restaurant-modal>
+<app-edit-atractie-modal #editAtractieModal (change)="changeE($event)"></app-edit-atractie-modal>

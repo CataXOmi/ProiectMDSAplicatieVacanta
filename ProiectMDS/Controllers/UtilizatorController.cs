@@ -46,7 +46,8 @@ namespace ProiectMDS.Controllers
                 Prenume = utilizator.Prenume,
                 Email = utilizator.Email,
                 Telefon = utilizator.Telefon,
-                DataNasterii = utilizator.DataNasterii
+                DataNasterii = utilizator.DataNasterii,
+                Parola = utilizator.Parola
             };
 
             IEnumerable<Fotografie> myFotografii = IFotografieRepository.GetAll().Where(x => x.UtilizatorID == utilizator.ID);
@@ -87,7 +88,8 @@ namespace ProiectMDS.Controllers
                 Prenume = value.Prenume,
                 Email = value.Email,
                 Telefon = value.Telefon,
-                DataNasterii = value.DataNasterii
+                DataNasterii = value.DataNasterii,
+                Parola = value.Parola
             };
             return IUtilizatorRepository.Create(model);
         }
@@ -127,6 +129,11 @@ namespace ProiectMDS.Controllers
             if (value.DataNasterii != dt)
             {
                 model.DataNasterii = value.DataNasterii;
+            }
+
+            if (value.Parola != null)
+            {
+                model.Parola = value.Parola;
             }
 
             return IUtilizatorRepository.Update(model);

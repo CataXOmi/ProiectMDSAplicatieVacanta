@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProiectMDS.DTOs
 {
@@ -13,7 +12,7 @@ namespace ProiectMDS.DTOs
         public float Pret { get; set; }
         public string Oras { get; set; }
         public string Adresa { get; set; }
-        public List<string> ListaFacilitati { get; set; }
+        public List<int> ListaFacilitatiID { get; set; }
         public List<int> RezervareCazareID { get; set; }
     }
 }

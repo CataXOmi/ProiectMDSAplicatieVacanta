@@ -7,26 +7,22 @@ h1 {
 
 .container {
   padding-bottom: 20px;
+  text-align: center;
 }
 
 #text {
     font-size: 25px;
     border: 1px solid #dee2e6;
-    text-align: center;
     width: 30%;
     margin: auto;
     border-bottom: none;
+    text-align: center;
     padding-top: 5px;
 }
 
-input[type='radio'] {
-  transform: scale(1.5);
-  margin-right: 5px;
-}
 
 .form-container {
   max-width: 30%;
-  text-align: center;
   margin: auto;
   border-top-color: white !important;
   padding-bottom: 3rem;
@@ -40,4 +36,29 @@ button.btn.btn-block {
 form {
       padding: 3rem;
     padding-bottom: 0;
+}
+
+a {
+  margin-left: 2%;
+  margin-right: 2%;
+}
+
+button {
+  font-weight: bold;
+  color: white;
+}
+
+
+.bg-img {
+  /* The image used */
+  background: url("https://cdn.discordapp.com/attachments/697442510531854397/846128158478303252/rakotzbr-cke-devil-039-s-bridge-3840x2160-rakotzbr-cke-devils-bridge-germany-europe-5k-19710.jpg") no-repeat center center fixed;
+  /* Control the height of the image */
+  min-width: 100%;
+  min-height: 100%;
+  position: fixed;
+  background-attachment: fixed;
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
